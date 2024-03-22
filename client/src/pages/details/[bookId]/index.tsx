@@ -52,6 +52,7 @@ export default function DetailsIndex() {
       parentCategory: data?.parentCategory,
       category: data?.category,
     });
+    setReObserve(true);
   }, [isSuccess]);
 
   useEffect(() => {
@@ -63,9 +64,7 @@ export default function DetailsIndex() {
   const prodInfoRef = useRef(null);
   const reviewRef = useRef(null);
 
-  const [isInView, setIsInView] = useState<DetailsIndexIds | null>(null);
-
-  useObserver({ prodInfoRef, reviewRef, setIsInView });
+  const { setReObserve, isInView } = useObserver({ prodInfoRef, reviewRef });
 
   if (isLoading) return <DetailsIndexLoadingComponent />;
 
@@ -85,6 +84,7 @@ export default function DetailsIndex() {
           bookId={bookId}
           category={data?.category}
           lang={data?.parentCategory}
+          setReObserve={setReObserve}
         />
         <AuthorInfo authorName={data!.author} />
         <BookReviews ref={reviewRef} />

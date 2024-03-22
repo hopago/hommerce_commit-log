@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 
 import BookDetailsContents from "./book/BookDetailsContents";
 import RecommendBooks from "./RecommendBooks";
@@ -15,11 +15,12 @@ type DetailsContentsProps = {
   bookId: string | undefined;
   category: BookSubCategory | undefined;
   lang: BookParentCategory[] | undefined;
+  setReObserve: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const DetailsContents = forwardRef<HTMLDivElement, DetailsContentsProps>(
-  ({ bookId, category, lang }, ref) => {
-    const { data, isError, error } = useQuery({
+  ({ bookId, category, lang, setReObserve }, ref) => {
+    const { data, isError, isSuccess, error } = useQuery({
       queryKey: [QueryKeys.BOOK_DETAILS, bookId],
       queryFn: () => QueryFns.GET_BOOK_DETAILS(bookId!),
       staleTime: daysToMs(14),
@@ -34,6 +35,10 @@ const DetailsContents = forwardRef<HTMLDivElement, DetailsContentsProps>(
     });
 
     if (!data) return null;
+
+    useEffect(() => {
+      setReObserve(true);
+    }, [isSuccess]);
 
     return (
       <div id="prod-info" ref={ref} className="details-prod-contents">

@@ -1,32 +1,29 @@
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import { DetailsIndexIds } from "..";
 
 type UseObserverProps = {
   prodInfoRef: React.MutableRefObject<null>;
   reviewRef: React.MutableRefObject<null>;
-  setIsInView: React.Dispatch<React.SetStateAction<DetailsIndexIds | null>>;
 };
 
-export const useObserver = ({
-  prodInfoRef,
-  reviewRef,
-  setIsInView,
-}: UseObserverProps) => {
+export const useObserver = ({ prodInfoRef, reviewRef }: UseObserverProps) => {
+  const [reObserve, setReObserve] = useState(false);
+  const [isInView, setIsInView] = useState<DetailsIndexIds>("prod-info");
+
   useEffect(() => {
+    setReObserve(false);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.intersectionRatio > 0) {
-            const newInView = entry.target.id as DetailsIndexIds;
-            setIsInView((currentInView) =>
-              currentInView !== newInView ? newInView : currentInView
-            );
+            console.log(entry.target.id);
+            setIsInView(entry.target.id as DetailsIndexIds);
           }
         });
       },
       {
-        threshold: [0, 0.5, 1.0],
+        threshold: 0,
       }
     );
 
@@ -47,5 +44,10 @@ export const useObserver = ({
         observer.unobserve(reviewRef.current);
       }
     };
-  }, []);
+  }, [reObserve]);
+
+  return {
+    isInView,
+    setReObserve,
+  };
 };
