@@ -1,6 +1,6 @@
 import GNB from "./GNB";
 import Logo from "./Logo";
-import UserSection from "./UserSection";
+import UserSection from "./user/UserSection";
 import FixedUserSection from "./FixedUserSection";
 
 import { useMediaQuery } from "usehooks-ts";

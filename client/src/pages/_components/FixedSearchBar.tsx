@@ -1,7 +1,7 @@
-import SearchButton from "./SearchButton";
-import SearchInput from "./SearchInput";
-import SearchSelect from "./SearchSelect";
-import UserButton from "./UserButton";
+import SearchButton from "./search/SearchButton";
+import SearchInput from "./search/SearchInput";
+import SearchSelect from "./search/SearchSelect";
+import UserButton from "./user/UserButton";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { GNBModalState } from "../../recoil/nav-gnb";

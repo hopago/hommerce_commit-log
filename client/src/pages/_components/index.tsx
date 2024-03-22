@@ -1,14 +1,14 @@
 import Navbar from "./Navbar";
 import NewsLetter from "./NewsLetter";
-import SearchSection from "./SearchSection";
-import RecommendGNB from "./RecommendGNB";
+import SearchSection from "./search/SearchSection";
+import RecommendGNB from "./recommend/RecommendGNB";
 import TodayPick from "./TodayPick";
-import Banner from "./Banner";
+import Banner from "./banner/Banner";
 import BestAwards from "./BestAwards";
 import NavLinks from "./NavLinks";
 import Picks from "./Picks";
-import AuthorSection from "./AuthorSection";
-import Footer from "./Footer";
+import AuthorSection from "./author/AuthorSection";
+import Footer from "./footer/Footer";
 
 export {
   Navbar,

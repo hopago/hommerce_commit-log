@@ -1,4 +1,4 @@
-import RecommendBookInformation from "./RecommendBookInformation";
+import RecommendBookInformation from "./recommend/RecommendBookInformation";
 
 export default function Picks() {
   return (
