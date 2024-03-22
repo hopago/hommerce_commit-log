@@ -1,0 +1,445 @@
+// home
+@import 'home';
+@import 'search';
+@import 'recommend-gnb';
+@import 'recommend-books';
+@import 'banner.scss';
+@import 'author.scss';
+@import 'footer.scss';
+
+// :lang page
+@import 'lang-page';
+
+// details page
+@import 'details';
+
+// search page
+@import 'search-page';
+
+// login page
+@import 'login';
+
+// join page
+@import 'join';
+
+// components & modal
+@import './select-form.scss';
+@import './fixed-seen-books.scss';
+@import './seen-book-list.scss';
+
+.shortcut-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgba(0, 0, 0, .18);
+
+    p {
+        font-size: 13px;
+        line-height: 19px;
+        letter-spacing: -0.01em;
+        color: $font-gray;
+    }
+}
+
+// font
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+// variables
+@import './variables';
+
+// default
+body,
+#root {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+ul,
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+p,
+h1 {
+    margin: 0;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+// component
+.global-loading {
+    background-color: #efeff8;
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner-container {
+    width: 100%;
+    min-height: 33dvh;
+    border-radius: 0.5rem;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    span {
+        z-index: 1;
+        display: block;
+        color: $font-light-gray;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        letter-spacing: -0.01em;
+        font-weight: 400;
+        font-family: "Noto Sans KR", sans-serif;
+        box-sizing: border-box;
+    }
+}
+
+// ico
+.spinner-icon {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+// badge
+.best-flag-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background-color: #767676;
+    margin-bottom: 0.5rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
+    span {
+        padding: 0;
+        font-size: 12px;
+        line-height: 22px;
+        color: #ffffff;
+        font-weight: 900;
+    }
+}
+
+// btn
+.btn {
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, .18);
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &.sm {
+        width: 38px;
+        height: 38px;
+
+        .img-wrap {
+
+            img {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    &.cart {
+
+        .img-wrap {
+
+            img {
+                width: 14px;
+                height: 19px;
+            }
+        }
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+}
+
+.prod-purchase-button {
+    border-radius: 0.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease;
+
+    &.purple {
+        border: 1px solid transparent;
+        background-color: #5055b1;
+        color: #ffffff;
+
+        &:hover {
+            color: #fff;
+            background: #2c307c;
+            border-color: #2c307c;
+        }
+    }
+
+    &.default {
+        border: 1px solid #5055b1;
+        background-color: #ffffff;
+        color: #5055b1;
+
+        &:hover {
+            background: #efeff8;
+            border-color: #474c98;
+            color: #474c98;
+        }
+    }
+
+    .img-wrap {
+        width: 17px;
+        height: 15px;
+        margin-right: 0.5rem;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &.lg {
+        padding: 0.75rem 2rem;
+        font-size: 15px;
+        line-height: 24px;
+        letter-spacing: -0.01em;
+    }
+
+    &.md {
+        padding: 0.5rem 1.5rem;
+    }
+}
+
+.amount-btn {
+    border: 1px solid rgba(0, 0, 0, .18);
+    background-color: transparent;
+    border-radius: 4px;
+
+    .flex-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+
+        .img-wrap {
+            cursor: pointer;
+
+            img {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        span {
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.01em;
+            margin: 0 4px;
+        }
+    }
+
+    &.sm {
+        padding: 0.5rem;
+    }
+
+    &.md {
+        padding: 0.75rem;
+    }
+}
+
+.wish-btn {
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, .18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .img-wrap {
+
+        img {
+            width: 21px;
+            height: 21px;
+        }
+    }
+}
+
+.show-toggle-btn {
+    border: none;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+
+    .text {
+        color: $font-gray;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        text-align: left;
+    }
+
+    .icon-wrap {
+        margin-left: 0.25rem;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, .18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &:hover {
+
+        .text {
+            text-decoration: underline;
+        }
+    }
+}
+
+.tag-btn {
+    background-color: #fff;
+    border: 1px solid #fff;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    color: #595959;
+    padding: 7px 16px 8px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all .15s ease;
+
+    &:hover {
+        background-color: #f7f7f7;
+        border: 1px solid #f7f7f7;
+    }
+}
+
+.prod-badge-md {
+    color: #474c98;
+    border: 1px solid #474c98;
+    background: #fff;
+    min-height: 22px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// tool-tip
+.common-tooltip {
+    position: absolute;
+    top: 125%;
+    left: 75%;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    color: #000;
+    z-index: 999;
+    width: 374px;
+    padding: 1rem;
+    cursor: default;
+    opacity: 0;
+    z-index: 99999;
+
+    &__wrap {
+        position: relative;
+
+        .heading {
+            text-align: center;
+            margin-bottom: 1rem;
+
+            h1 {
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: -0.01em;
+                font-weight: bold;
+                color: #000;
+            }
+        }
+
+        .close-btn {
+            padding: 0;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: none;
+            background-color: transparent;
+
+            .close-btn-icon {
+                font-size: 21px;
+                cursor: pointer;
+            }
+        }
+
+        &__body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .title {
+                font-size: 13px;
+                line-height: 19px;
+                letter-spacing: -0.01em;
+                color: #000;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .desc {
+                color: $font-gray;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: -0.01em;
+            }
+        }
+    }
+}
