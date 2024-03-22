@@ -1,9 +1,9 @@
-import BookContentList from "./BookContentList";
-import BookIntro from "./BookIntro";
-import BookInside from "./BookInside";
-import BookPublisherReview from "./BookPublisherReview";
+import BookContentList from "./book/BookContentList";
+import BookIntro from "./book/BookIntro";
+import BookInside from "./book/BookInside";
+import BookPublisherReview from "./book/BookPublisherReview";
 
-import { DetailsContentType } from "./BookDetailsContents";
+import { DetailsContentType } from "./book/BookDetailsContents";
 
 type DetailsInfoProps = {
   content: DetailsContentType;

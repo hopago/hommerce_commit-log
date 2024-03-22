@@ -4,7 +4,7 @@ import GPT4 from "../../assets/openAi.svg";
 
 import { useNavigate } from "react-router-dom";
 
-import AllCategories from "../@modal/AllCategories";
+import { AllCategories } from "../@modal";
 
 import { useRecoilState } from "recoil";
 import { GNBModalState } from "../../recoil/nav-gnb";

@@ -3,6 +3,7 @@ import { seenModalState } from "../../../recoil/seen-modal";
 
 import { useEffect } from "react";
 
+// 최근 본 도서 목록 모달 (전역)
 export const useModalDisplayState = () => {
   const show = useRecoilValue(seenModalState);
 

@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { GNBModalState } from "../../recoil/nav-gnb";
 
 import { MdClose, MdOutlineFormatListBulleted } from "react-icons/md";
-import AllCategories from "../@modal/AllCategories";
+import { AllCategories } from "../@modal";
 import Logo from "./Logo";
 
 type FixedSearchBarProps = {

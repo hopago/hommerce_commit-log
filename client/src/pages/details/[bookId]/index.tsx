@@ -1,13 +1,13 @@
 import { GNB } from "../../[lang]/_components";
 import { SearchSection } from "../../_components";
 
-import SingleBook from "./_components/SingleBook";
+import SingleBook from "./_components/singleBook/SingleBook";
 import FixedPurchaseShortcut from "./_components/FixedPurchaseShortcut";
 import FixedDetailsTabList from "./_components/FixedDetailsTabList";
 import DetailsContents from "./_components/DetailsContents";
-import BookReviews from "./_components/BookReviews";
-import AuthorInfo from "./_components/AuthorInfo";
-import FAQ from "./_components/FAQ";
+import BookReviews from "./_components/book/BookReviews";
+import AuthorInfo from "./_components/author/AuthorInfo";
+import FAQ from "./_components/faq/FAQ";
 
 import { useEffect, useRef, useState } from "react";
 

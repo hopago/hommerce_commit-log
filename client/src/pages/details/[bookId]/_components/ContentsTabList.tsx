@@ -2,7 +2,7 @@ import React from "react";
 
 import { cn } from "../../../../lib/utils";
 
-import { DetailsContentType } from "./BookDetailsContents";
+import { DetailsContentType } from "./book/BookDetailsContents";
 
 type ContentsTabListProps = {
   contents: DetailsContentType[];
