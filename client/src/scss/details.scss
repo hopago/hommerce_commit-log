@@ -38,7 +38,7 @@
             font-weight: 400;
         }
     }
-    
+
     &__sell-type {
         padding-top: 1.5rem;
         width: 100%;
@@ -105,6 +105,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            padding-right: 3rem;
 
             .title {
                 display: inline;
@@ -154,8 +155,158 @@
             }
         }
 
+        &__img-slide {
+            width: 380px;
+            overflow-x: hidden;
+            position: relative;
+
+            img {
+                width: 380px;
+                height: 570px;
+            }
+
+            .img-slide-container {
+                display: flex;
+            }
+
+            .img-slider-indicator {
+                width: 400px;
+                margin-top: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .items-center {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    span {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: $font-gray;
+
+                        &.active {
+                            color: #000;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .indicator {
+                        border: none;
+                        outline: none;
+                        background-color: transparent;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+
+                        :disabled {
+                            cursor: default;
+                        }
+
+                        .arrow-icon {
+                            padding-top: 0.25rem;
+                            color: #161616;
+
+                            &.disabled {
+                                color: $font-gray;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .img-hover-menu {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 380px;
+                height: 570px;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(0, 0, 0, .24);
+
+                &.show {
+                    display: flex;
+                }
+
+                &.none {
+                    display: none;
+                }
+
+                &__horizontal {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .left,
+                    .right {
+                        width: 34px;
+                        height: 34px;
+                        border-radius: 50%;
+                        border: .5px solid rgba(0, 0, 0, .12);
+                        background-color: rgba(255, 255, 255, 0.24);
+                        transition: all .15s ease;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        span {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 21px;
+                        }
+                    }
+
+                    .left:hover,
+                    .right:hover {
+                        background-color: rgba(255, 255, 255, 0.48);
+                    }
+
+                    .left:disabled,
+                    .right:disabled {
+                        cursor: default;
+                        background-color: rgba(255, 255, 255, 0.12);
+                    }
+
+                    .left {
+                        margin-left: 0.5rem;
+                    }
+
+                    .right {
+                        margin-right: 0.5rem;
+                    }
+
+                    button {
+                        padding: 0.5rem 0.75rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.25rem;
+                        color: #fff;
+                        border-radius: 1rem;
+                        background-color: rgba(0, 0, 0, .48);
+                        border: none;
+                        cursor: pointer;
+
+                        span {
+                            font-size: 14px;
+                            font-weight: bold;
+                            letter-spacing: -0.01em;
+                            line-height: 16px;
+                        }
+                    }
+                }
+            }
+        }
+
         &__price {
             flex: 1;
+            padding-left: 3rem;
 
             ul {
                 width: 100%;
