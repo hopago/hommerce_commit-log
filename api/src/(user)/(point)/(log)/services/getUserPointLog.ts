@@ -3,6 +3,7 @@ import User from "../../../model/user";
 import { HttpException } from "../../../../middleware/error/utils";
 import PointLog, { IPointLog } from "../models/point-log";
 import { FilterQuery } from "mongoose";
+import { PAGE_SIZE } from "../../../../constants/page";
 
 type FilterType = "pointId" | "amount" | "desc";
 
@@ -13,8 +14,6 @@ type QueryField = {
   pageNum?: number;
   sort: "최신순" | "오래된순";
 };
-
-const PAGE_SIZE = 8;
 
 export const handleGetUserPointLog = async (
   { filter, keyword, userId, pageNum = 1, sort = "최신순" }: QueryField,
@@ -28,6 +27,9 @@ export const handleGetUserPointLog = async (
 
     const totalPoints = await PointLog.countDocuments(query);
     const totalPages = Math.ceil(totalPoints / PAGE_SIZE);
+
+    if (!totalPoints && totalPoints !== 0)
+      throw new HttpException(404, "User not found.");
 
     let pointsLogs = await PointLog.find(query)
       .skip(PAGE_SIZE * (pageNum - 1))

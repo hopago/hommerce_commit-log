@@ -3,6 +3,7 @@ import Review, { IReview } from "../models/review";
 import User from "../../(user)/model/user";
 import { HttpException } from "../../middleware/error/utils";
 import { FilterQuery } from "mongoose";
+import { PAGE_SIZE } from "../../constants/page";
 
 type FilterType = "_id" | "bookTitle" | "desc";
 
@@ -13,8 +14,6 @@ type HandleGetReviewByUserIdParams = {
   pageNum: number | undefined;
   sort: "최신순" | "오래된순";
 };
-
-const PAGE_SIZE = 8;
 
 export const handleGetReviewByUserId = async (
   {
@@ -42,6 +41,9 @@ export const handleGetReviewByUserId = async (
   try {
     const totalReviews = await Review.countDocuments(query);
     const totalPages = Math.ceil(totalReviews / PAGE_SIZE);
+
+    if (!totalReviews && totalReviews !== 0)
+      throw new HttpException(404, "Review not found.");
 
     let reviews;
 

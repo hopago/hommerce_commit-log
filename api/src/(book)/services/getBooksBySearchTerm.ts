@@ -2,10 +2,9 @@ import { NextFunction } from "express";
 import Book, { IBook } from "../models/book";
 import { FilterQuery } from "mongoose";
 import { HttpException } from "../../middleware/error/utils";
+import { PAGE_SIZE } from "../../constants/page";
 
 type FilterType = "통합검색" | "제목" | "저자";
-
-type SearchField = FilterType | "title" | "author";
 
 type QueryField = {
   filter?: FilterType;
@@ -13,8 +12,6 @@ type QueryField = {
   pageNum?: number;
   sort: "최신순" | "오래된순";
 };
-
-const PAGE_SIZE = 8;
 
 const getSortCondition: any = (sort: "최신순" | "오래된순") => {
   return sort === "최신순" ? { createdAt: -1 } : { createdAt: 1 };
@@ -46,6 +43,9 @@ export const handleGetBooksBySearchTerm = async (
     const totalBooks = await Book.countDocuments(query);
     const totalPages = Math.ceil(totalBooks / PAGE_SIZE);
 
+    if (!totalBooks && totalBooks !== 0)
+      throw new HttpException(404, "Book not found.");
+
     let books;
 
     if (pageNum) {
@@ -69,10 +69,6 @@ export const handleGetBooksBySearchTerm = async (
         },
       }),
     };
-
-    if (!response.books.length) {
-      next(new HttpException(400, "Book not found."));
-    }
 
     return response;
   } catch (err) {

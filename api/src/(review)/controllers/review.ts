@@ -10,6 +10,8 @@ import { handleGetDocsLength } from "../services/getDocsLength";
 
 type FilterType = "_id" | "bookTitle" | "desc";
 
+type QuerySortType = "최신순" | "좋아요 순" | "undefined" | undefined;
+
 export const deleteReviewById = async (
   req: Request,
   res: Response,
@@ -52,13 +54,15 @@ export const getReviews = async (
   try {
     const { bookId } = req.params;
     const pageNum = req.query.pageNum as number | undefined;
+    const sort = req.query.sort as QuerySortType;
 
     if (!bookId) throw new HttpException(400, "Book Id required.");
     if (!pageNum) throw new HttpException(400, "Page number required.");
 
     const { reviews, hasNextPage, totalReviews } = await handleGetReviews(
       bookId,
-      pageNum
+      pageNum,
+      sort
     );
 
     return res.status(200).json({ reviews, hasNextPage, totalReviews });
@@ -72,28 +76,32 @@ export const getReviewByUserId = async (
   res: Response,
   next: NextFunction
 ) => {
-  const userId = req.params.userId;
-  const sort = decodeURIComponent(req.query.sort as string) as
-    | "최신순"
-    | "오래된순";
-  const filter = req.query.filter as FilterType | undefined;
-  const keyword = req.query.keyword as string | undefined;
-  const pageNum = req.body.pageNum as number | undefined;
-
-  if (!userId) {
-    return next(new HttpException(400, "User Id required."));
-  }
-
-  if (filter && (!keyword?.trim() || keyword === "undefined")) {
-    return next(new HttpException(400, "Search term required."));
-  }
-
   try {
-    const reviews = await handleGetReviewByUserId(
-      { userId, filter, keyword, pageNum, sort },
-      next
-    );
-    res.status(200).json(reviews);
+    const userId = req.params.userId;
+    const sort = decodeURIComponent(req.query.sort as string) as
+      | "최신순"
+      | "오래된순";
+    const filter = req.query.filter as FilterType | undefined;
+    const keyword = req.query.keyword as string | undefined;
+    const pageNum = req.body.pageNum as number | undefined;
+
+    if (!userId) {
+      throw new HttpException(400, "User Id required.");
+    }
+
+    if (filter && (!keyword?.trim() || keyword === "undefined")) {
+      throw new HttpException(400, "Search term required.");
+    }
+
+    try {
+      const reviews = await handleGetReviewByUserId(
+        { userId, filter, keyword, pageNum, sort },
+        next
+      );
+      res.status(200).json(reviews);
+    } catch (err) {
+      next(err);
+    }
   } catch (err) {
     next(err);
   }
