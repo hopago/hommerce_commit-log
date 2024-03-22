@@ -6,7 +6,11 @@ import { calculateDiscount } from "../../../../utils/calculate-price";
 
 import { useRecoilValue } from "recoil";
 import { amountState } from "../../../../recoil/product-amount";
+import { enhancedImageModal } from "../../../../recoil/modal/enhanced-image";
+
 import { useEffect, useState } from "react";
+
+import { cn } from "../../../../lib/utils";
 
 type FixedPurchaseShortcutProps = {
   price: number | undefined;
@@ -19,6 +23,8 @@ export default function FixedPurchaseShortcut({
   unit,
   discount,
 }: FixedPurchaseShortcutProps) {
+  const isImageModalShow = useRecoilValue(enhancedImageModal);
+
   const discountedPrice = discount
     ? calculateDiscount(price!, discount)
     : price;
@@ -35,7 +41,7 @@ export default function FixedPurchaseShortcut({
   }, [amount]);
 
   return (
-    <div className="fixed-purchase-shortcut">
+    <div className={cn("fixed-purchase-shortcut", isImageModalShow && "none")}>
       <div className="fixed-purchase-shortcut__wrap">
         <div className="left-area">
           <span className="info-title">총 상품 금액</span>

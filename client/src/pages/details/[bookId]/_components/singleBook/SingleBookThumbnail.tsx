@@ -2,9 +2,12 @@ import { useHoverMenu } from "../../../../hooks/use-hover-menu";
 import { useImageSlide } from "../../../../hooks/use-image-slide";
 import { useModal } from "../../../../hooks/use-modal";
 
-import EnhancedImageViewer from "../../../../@modal/enhancedImageViewer/ShowImage";
+import EnhancedImageViewer from "../../../../@modal/enhancedImageViewer/EnhancedImageViewer";
 import ImageHoverMenu from "../ImageHoverMenu";
 import ImageSliderIndicator from "../ImageSliderIndicator";
+
+import { useRecoilState } from "recoil";
+import { enhancedImageModal } from "../../../../../recoil/modal/enhanced-image";
 
 type SingleBookThumbnailProps = {
   representImage: string;
@@ -40,7 +43,11 @@ export default function SingleBookThumbnail({
       position,
     } = useImageSlide({ total: slideImages.length, pixelPerSlide: 380 });
 
-    const { show: showImageModal, setShow: setShowImageModal } = useModal();
+    const [show, setShow] = useRecoilState(enhancedImageModal);
+    const { show: showImageModal, setShow: setShowImageModal } = useModal({
+      show,
+      setShow,
+    });
 
     return (
       <div className="details-single-book__horizontal__img-slide" ref={menuRef}>
@@ -71,6 +78,8 @@ export default function SingleBookThumbnail({
           <EnhancedImageViewer
             setShow={setShowImageModal}
             setIndex={setIndex}
+            images={slideImages}
+            index={index}
           />
         )}
         <ImageSliderIndicator

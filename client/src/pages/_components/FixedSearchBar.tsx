@@ -3,12 +3,15 @@ import SearchInput from "./SearchInput";
 import SearchSelect from "./SearchSelect";
 import UserButton from "./UserButton";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { GNBModalState } from "../../recoil/nav-gnb";
+import { enhancedImageModal } from "../../recoil/modal/enhanced-image";
 
 import { MdClose, MdOutlineFormatListBulleted } from "react-icons/md";
 import { AllCategories } from "../@modal";
 import Logo from "./Logo";
+
+import { cn } from "../../lib/utils";
 
 type FixedSearchBarProps = {
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -22,13 +25,14 @@ export default function FixedSearchBar({
   onSubmit,
 }: FixedSearchBarProps) {
   const [show, setShow] = useRecoilState(GNBModalState);
+  const isImageModalShow = useRecoilValue(enhancedImageModal);
 
   const toggleModal = () => {
     setShow((prev) => !prev);
   };
 
   return (
-    <div className="fixed-search-section">
+    <div className={cn("fixed-search-section", isImageModalShow && "none")}>
       <div className="fixed-search-section__wrapper">
         <div
           className="icon-wrap"

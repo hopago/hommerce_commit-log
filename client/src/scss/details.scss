@@ -1814,6 +1814,10 @@
     border-top: 1px solid rgba(0, 0, 0, .24);
     background-color: #ffffff;
 
+    &.none {
+        display: none;
+    }
+
     &__wrap {
         width: 100%;
         max-width: 1200px;
