@@ -1,4 +1,5 @@
 export const QueryKeys = {
+  AUTHOR: "author",
   BOOK: "book",
   BOOK_DETAILS: "bookDetails",
   BOOKS_DOCS_LENGTH: "bookDocsLength",

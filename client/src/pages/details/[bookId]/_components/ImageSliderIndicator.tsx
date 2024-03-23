@@ -18,8 +18,6 @@ export default function ImageSliderIndicator({
   prevDisabled,
   nextDisabled,
 }: ImageSliderIndicatorProps) {
-  console.log(prevDisabled);
-
   return (
     <div className="img-slider-indicator">
       <div className="items-center">

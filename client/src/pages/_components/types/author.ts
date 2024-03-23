@@ -1,5 +1,7 @@
+import { IAuthor } from "../../../types/api/author";
+
 /* author-referrer / name, job, intro, books: TBookShortcut[] */
-type AuthorType =
+export type AuthorType =
   | "문학가"
   | "그림책작가"
   | "교육가/인문학자"
@@ -11,22 +13,4 @@ type AuthorType =
   | "철학자"
   | "그외직업군";
 
-type AuthorInfo = {
-  name: string;
-  job: AuthorType;
-  intro: string;
-  books: TBookOptional[];
-  representBook: string;
-  img: string;
-};
-
-type AuthorsInfo = {
-  name: string;
-  job: AuthorType;
-  intro: string;
-  books: TBookOptional[];
-  representBook: string;
-  img: string;
-}[];
-
-type AuthorInfoShortcut = Pick<AuthorInfo, "name" | "img" | "representBook">;
+export type AuthorShortcut = Pick<IAuthor, "name" | "img" | "representBook">;

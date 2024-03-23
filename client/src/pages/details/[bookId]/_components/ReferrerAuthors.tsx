@@ -5,6 +5,8 @@ import RefAuthor from "./RefAuthor";
 
 import { useNavigate } from "react-router-dom";
 
+import { AuthorType } from "../../../_components/types/author";
+
 type ReferrerAuthorsProps = {
   authorJob: AuthorType;
 };

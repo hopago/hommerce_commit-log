@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { DetailsIndexIds } from "..";
 
 type UseObserverProps = {
-  prodInfoRef: React.MutableRefObject<null>;
-  reviewRef: React.MutableRefObject<null>;
+  ref1: React.MutableRefObject<null>;
+  ref2: React.MutableRefObject<null>;
 };
 
-export const useObserver = ({ prodInfoRef, reviewRef }: UseObserverProps) => {
+export const useObserver = ({ ref1, ref2 }: UseObserverProps) => {
   const [reObserve, setReObserve] = useState(false);
   const [isInView, setIsInView] = useState<DetailsIndexIds>("prod-info");
 
@@ -17,7 +17,6 @@ export const useObserver = ({ prodInfoRef, reviewRef }: UseObserverProps) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.intersectionRatio > 0) {
-            console.log(entry.target.id);
             setIsInView(entry.target.id as DetailsIndexIds);
           }
         });
@@ -27,21 +26,21 @@ export const useObserver = ({ prodInfoRef, reviewRef }: UseObserverProps) => {
       }
     );
 
-    if (prodInfoRef.current) {
-      observer.observe(prodInfoRef.current);
+    if (ref1.current) {
+      observer.observe(ref1.current);
     }
 
-    if (reviewRef.current) {
-      observer.observe(reviewRef.current);
+    if (ref2.current) {
+      observer.observe(ref2.current);
     }
 
     return () => {
-      if (prodInfoRef.current) {
-        observer.unobserve(prodInfoRef.current);
+      if (ref1.current) {
+        observer.unobserve(ref1.current);
       }
 
-      if (reviewRef.current) {
-        observer.unobserve(reviewRef.current);
+      if (ref2.current) {
+        observer.unobserve(ref2.current);
       }
     };
   }, [reObserve]);

@@ -9,6 +9,16 @@ export const ERROR_DETAILS = {
       message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
     },
   ],
+  GET_AUTHOR: [
+    {
+      code: 400,
+      message: "필수 필드를 확인해주세요.",
+    },
+    {
+      code: 500,
+      message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
   GET_BOOK: [
     {
       code: 400,

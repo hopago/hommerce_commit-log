@@ -64,7 +64,10 @@ export default function DetailsIndex() {
   const prodInfoRef = useRef(null);
   const reviewRef = useRef(null);
 
-  const { setReObserve, isInView } = useObserver({ prodInfoRef, reviewRef });
+  const { setReObserve, isInView } = useObserver({
+    ref1: prodInfoRef,
+    ref2: reviewRef,
+  });
 
   if (isLoading) return <DetailsIndexLoadingComponent />;
 
