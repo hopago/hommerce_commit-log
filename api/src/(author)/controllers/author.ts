@@ -11,9 +11,11 @@ export const getAuthors = async (
   next: NextFunction
 ) => {
   try {
-    const authors = await handleGetAuthors(next);
+    const authors = await handleGetAuthors(req, next);
 
-    return res.status(200).json(authors);
+    if (authors) {
+      return res.status(200).json(authors);
+    }
   } catch (err) {
     next(err);
   }
@@ -41,7 +43,9 @@ export const getAuthor = async (
   try {
     const author = await handleGetAuthor(req, next);
 
-    return res.status(200).json(author);
+    if (author) {
+      return res.status(200).json(author);
+    }
   } catch (err) {
     next(err);
   }

@@ -7,7 +7,7 @@ export interface IAuthor extends Document {
   intro: string;
   books: TBookOptional[];
   representBook: string;
-  img: string;
+  img?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -36,7 +36,6 @@ const authorSchema = new Schema(
     },
     img: {
       type: String,
-      require: true,
     },
   },
   {

@@ -4,7 +4,7 @@ import Author from "../models/author";
 import Book from "../../(book)/models/book";
 
 export const handlePostAuthor = async (req: Request, next: NextFunction) => {
-  const requireFields = ["name", "job", "intro", "representBook", "img"];
+  const requireFields = ["name", "job", "intro", "representBook"];
 
   isFieldsFullFilled(requireFields, req);
 
