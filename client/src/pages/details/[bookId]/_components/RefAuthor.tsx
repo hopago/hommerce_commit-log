@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 
+import { IAuthor } from "../../../../types/api/author";
+
+import defaultImg from "../../../../assets/img_default_pp.png";
+
 type RefAuthorProps = {
-  author: AuthorInfoShortcut;
+  author: IAuthor;
 };
 
 export default function RefAuthor({ author }: RefAuthorProps) {
-  // TODO: author.name -> author.id
-
   return (
     <li>
-      <Link to={`/author/profile/${author.name}`} className="link">
+      <Link to={`/author/profile/${author._id}`} className="link">
         <div className="img-wrap">
-          <img src={author.img} alt={`${author.name}`} />
+          <img src={author.img ?? defaultImg} alt={`${author.name}`} />
         </div>
         <div className="info-col">
           <span>{author.name}</span>

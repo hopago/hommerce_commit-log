@@ -1,5 +1,6 @@
 import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBookBySearchTerm";
 import { findRecommendBookByCategory } from "../../pages/details/[bookId]/services/findRecommendBookByCategory";
+import { findReferrerCategoryBestAuthors } from "../../pages/details/[bookId]/services/findReferrerCategoryBestAuthors";
 import { getAuthor } from "../../pages/details/[bookId]/services/getAuthor";
 import { getBook } from "../../pages/details/[bookId]/services/getBook";
 import { getBookDetails } from "../../pages/details/[bookId]/services/getBookDetails";
@@ -7,6 +8,11 @@ import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
 import { getSubscriptionLength } from "../../pages/search/services/getSubscriptionLength";
+
+type FindReferrerCategoryBestAuthorsProps = {
+  bookId?: string;
+  category?: BookSubCategory;
+};
 
 type BookSearchResultsProps = {
   filter?: SearchType;
@@ -32,6 +38,11 @@ type GetFavorSubscriptionIsSubscribedProps = {
 };
 
 export const QueryFns = {
+  FIND_REFERRER_CATEGORY_BEST_AUTHORS: ({
+    bookId,
+    category,
+  }: FindReferrerCategoryBestAuthorsProps) =>
+    findReferrerCategoryBestAuthors({ bookId, category }),
   FIND_RECOMMEND_BOOK_BY_CATEGORY: (category: BookSubCategory) =>
     findRecommendBookByCategory(category),
   GET_AUTHOR: (name: string) => getAuthor(name),

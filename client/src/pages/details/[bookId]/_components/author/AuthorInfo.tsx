@@ -1,11 +1,12 @@
 import { MdArrowRight } from "react-icons/md";
 
 import AuthorDetails from "./AuthorDetails";
-import ReferrerAuthors from "../ReferrerAuthors";
+import ReferrerAuthors, {
+  ReferrerAuthorsLoadingComponent,
+} from "../ReferrerAuthors";
 import Spinner from "../../../../../_components/Spinner";
 import NoContent from "../../../../../_components/NoContent";
 
-import { author } from "../../../../_components/constants/author";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../../lib/react-query/query-key";
 import { QueryFns } from "../../../../../lib/react-query/queryFn";
@@ -16,8 +17,6 @@ import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
 type AuthorInfoProps = {
   authorName: string;
 };
-
-// TODO: 저자 생성 + 저자 fetching ( + 연관책 쿼리 ) + 카테고리별 저자 찾고 저자의 책을 찾은 뒤 total views가 가장 높게
 
 export default function AuthorInfo({ authorName }: AuthorInfoProps) {
   const { data, isSuccess, isLoading, isError, error } = useQuery({
@@ -40,7 +39,7 @@ export default function AuthorInfo({ authorName }: AuthorInfoProps) {
       <div className="details-author-info">
         <div className="details-author-info__horizontal">
           <AuthorDetails author={data[0]} />
-          <ReferrerAuthors authorJob={author.job} />
+          <ReferrerAuthors authorJob={data[0].job} />
         </div>
       </div>
     );
@@ -60,22 +59,7 @@ function LoadingComponent() {
             <Spinner text="작가 정보가 아직 등록되지 않았습니다" />
           </div>
         </div>
-        <div className="details-author-info__horizontal__ref-authors">
-          <div className="details-author-info__horizontal__ref-authors__col">
-            <div className="details-author-info__horizontal__ref-authors__col__heading">
-              <h1>이 분야의 베스트</h1>
-              <button>
-                <span>더보기</span>
-                <div className="icon-wrap">
-                  <MdArrowRight />
-                </div>
-              </button>
-            </div>
-            <ul>
-              <Spinner text="작가 정보가 아직 등록되지 않았습니다" />
-            </ul>
-          </div>
-        </div>
+        <ReferrerAuthorsLoadingComponent />
       </div>
     </div>
   );

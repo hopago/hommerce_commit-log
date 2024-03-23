@@ -1,4 +1,18 @@
 export const ERROR_DETAILS = {
+  FIND_REFERRER_CATEGORY_BEST_AUTHORS: [
+    {
+      code: 400,
+      message: "연관 카테고리 혹은 책 아이디가 필요합니다.",
+    },
+    {
+      code: 404,
+      message: "관련 작가 정보가 아직 준비되지 않았습니다.",
+    },
+    {
+      code: 500,
+      message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
   FIND_RECOMMEND_BOOK_BY_CATEGORY: [
     {
       code: 400,
