@@ -10,6 +10,10 @@ type GetResultsTotalProps = {
   searchTerm: string;
 };
 
+type GetResultsTotalResponse = {
+  docsLength: number;
+};
+
 export const getResultsTotal = async ({
   filter,
   searchTerm,
@@ -29,7 +33,7 @@ export const getResultsTotal = async ({
   }
 
   try {
-    const docsLength = await restFetcher<number>({
+    const docsLength = await restFetcher<GetResultsTotalResponse>({
       method: "GET",
       path,
     });

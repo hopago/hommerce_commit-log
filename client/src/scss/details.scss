@@ -1389,6 +1389,26 @@
                         }
                     }
                 }
+
+                .no-content {
+                    padding: 1.5rem 0;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    p {
+                        color: $font-gray;
+                        font-weight: 700;
+                        display: block;
+                        font-size: 14px;
+                        line-height: 22px;
+                        letter-spacing: -0.01em;
+                        text-align: center;
+                    }
+                }
             }
         }
 

@@ -9,7 +9,7 @@ type CustomizeError = {
   error: Error | null;
   isError: boolean;
   isRefetchError?: boolean;
-  errorDetails: {
+  errorDetails?: {
     code: number;
     message: string;
   }[];
@@ -19,7 +19,12 @@ export const useHandleError = ({
   error,
   isError,
   isRefetchError,
-  errorDetails,
+  errorDetails = [
+    {
+      code: 500,
+      message: "서버 에러입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
 }: CustomizeError) => {
   useEffect(() => {
     if (!isError || !error) return;

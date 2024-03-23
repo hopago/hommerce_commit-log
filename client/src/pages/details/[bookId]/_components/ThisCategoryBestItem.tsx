@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import BestFlagBadge from "../../../_components/utils/BestFlagBadge";
 
 type ThisCategoryBestItemProps = {
@@ -9,8 +11,14 @@ export default function ThisCategoryBestItem({
   book,
   i,
 }: ThisCategoryBestItemProps) {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate(`/details/${book._id}`);
+  };
+
   return (
-    <li>
+    <li onClick={onClick}>
       <div className="img-wrap">
         <img src={book.representImg} alt={book.title} />
       </div>

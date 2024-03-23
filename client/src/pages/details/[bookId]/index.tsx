@@ -90,7 +90,7 @@ export default function DetailsIndex() {
           setReObserve={setReObserve}
         />
         <AuthorInfo authorName={data!.author} />
-        <BookReviews ref={reviewRef} />
+        <BookReviews ref={reviewRef} bookId={bookId} />
         <FAQ />
         <FixedPurchaseShortcut
           price={currSellType === "종이책" ? data!.price : data!.eBookPrice}

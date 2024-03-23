@@ -26,7 +26,7 @@ export default function BookItemButtons({
 }: BookItemButtonsProps) {
   const { user } = useUser();
 
-  const { data: favorLength } = useQuery({
+  const { data } = useQuery({
     queryKey: [QueryKeys.FAVOR_LENGTH, bookId],
     queryFn: () => QueryFns.GET_FAVOR_SUBSCRIPTION_LENGTH({ bookId }),
     staleTime: daysToMs(7),
@@ -50,7 +50,7 @@ export default function BookItemButtons({
   return (
     <div className="book-item-buttons">
       <FavorButton
-        favorLength={favorLength}
+        favorLength={data?.docsLength}
         bookId={bookId}
         title={title}
         author={author}

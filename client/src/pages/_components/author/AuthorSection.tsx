@@ -3,9 +3,9 @@ import { useImageSlide } from "../../hooks/use-image-slide";
 import AuthorHeading from "./AuthorHeading";
 import Authors from "./Authors";
 
-import { authorsInfo } from "../constants/author";
-
 export default function AuthorSection() {
+  return null;
+
   const { handleNext, handlePrev, prevDisabled, nextDisabled, index } =
     useImageSlide({ total: authorsInfo.length, itemsPerSlide: 3 });
 

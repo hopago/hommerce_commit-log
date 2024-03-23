@@ -4,6 +4,7 @@ import { findReferrerCategoryBestAuthors } from "../../pages/details/[bookId]/se
 import { getAuthor } from "../../pages/details/[bookId]/services/getAuthor";
 import { getBook } from "../../pages/details/[bookId]/services/getBook";
 import { getBookDetails } from "../../pages/details/[bookId]/services/getBookDetails";
+import { getReviewDocsLength } from "../../pages/details/[bookId]/services/getReviewDocsLength";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
@@ -62,6 +63,7 @@ export const QueryFns = {
     getResultsTotal({ filter, searchTerm: keyword }),
   GET_REVIEW_TOTAL_BY_BOOK_ID: ({ bookId }: ReviewTotalProps) =>
     getReviewTotalByBookId({ bookId }),
+  GET_REVIEW_LENGTH: (bookId: string) => getReviewDocsLength(bookId),
   GET_FAVOR_SUBSCRIPTION_LENGTH: ({
     bookId,
   }: GetFavorSubscriptionLengthProps) => getSubscriptionLength({ bookId }),

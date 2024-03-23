@@ -8,8 +8,6 @@ import ReviewList from "./ReviewList";
 import ReviewsSortTabList from "./ReviewsSortTabList";
 
 import { useEffect, useRef, useState } from "react";
-
-import { reviews, reviews2 } from "../../../../_components/constants/review";
 import { TReviews } from "../../../../_components/types/review";
 
 export default function ReviewsDetails() {
@@ -18,7 +16,7 @@ export default function ReviewsDetails() {
   const currPage = useRecoilValue(currentPageState);
 
   /* temporary data */
-  const temporaryReviews: TReviews = [...reviews, ...reviews2];
+  // const temporaryReviews: TReviews = [...reviews, ...reviews2];
   const pageTotal = 23;
 
   /* paginate-scroll-behavior */
@@ -49,7 +47,7 @@ export default function ReviewsDetails() {
   return (
     <div className="details-prod-reviews__wrap__reviews-details">
       <ReviewsSortTabList />
-      <ReviewList ref={scrollRef} reviews={temporaryReviews} />
+      {/* <ReviewList ref={scrollRef} reviews={} /> */}
       {pageTotal > 1 && <PaginateControl pageTotal={pageTotal} />}
     </div>
   );

@@ -9,5 +9,7 @@ export const QueryKeys = {
   FAVOR_LENGTH: "favorLength",
   FAVOR_SUBSCRIPTION: "favorSubscription",
   REVIEW_TOTAL: "reviewTotal",
+  REVIEW_LENGTH: "reviewDocsLength",
+  REVIEWS: "reviews",
   RECOMMEND_BOOK: "recommendBooks",
 };

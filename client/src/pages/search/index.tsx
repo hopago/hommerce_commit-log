@@ -77,7 +77,7 @@ export default function SearchIndex() {
 
   if (isLoading) return <GlobalLoadingLayout />;
 
-  if (isError || (isSuccess && data === 0))
+  if (isError || (isSuccess && data.docsLength === 0))
     return <NoContents initialSearchTerm={initialSearchTerm} />;
 
   if (isSuccess) {
@@ -89,7 +89,10 @@ export default function SearchIndex() {
           searchTerm={searchTerm}
         />
         <header>
-          <SearchHeading searchTerm={initialSearchTerm} docsLength={data} />
+          <SearchHeading
+            searchTerm={initialSearchTerm}
+            docsLength={data.docsLength}
+          />
         </header>
         <main>
           <section className="search-ad">
@@ -98,7 +101,7 @@ export default function SearchIndex() {
           <section className="search-contents">
             <SearchFilter />
             <aside>
-              <SearchContents docsLength={data} />
+              <SearchContents docsLength={data.docsLength} />
             </aside>
           </section>
         </main>

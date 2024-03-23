@@ -1,10 +1,8 @@
-import { ServerError } from "../../../../fetcher/error";
-
 import { restFetcher } from "../../../../fetcher/restFetcher";
+import { postError } from "../../../services/postError";
 
 export const increaseView = async (bookId: string) => {
   const path = `/book/d/${bookId}`;
-  const sendErrorPath = `/client/error`;
 
   try {
     await restFetcher({
@@ -12,12 +10,8 @@ export const increaseView = async (bookId: string) => {
       path,
     });
   } catch (err) {
-    if (err instanceof ServerError) {
-      await restFetcher({
-        method: "POST",
-        path: sendErrorPath,
-        body: err,
-      });
+    if (err) {
+      postError(err);
     }
   }
 };
