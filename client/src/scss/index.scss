@@ -27,6 +27,7 @@
 @import './fixed-seen-books.scss';
 @import './seen-book-list.scss';
 @import './enhanced-image-viewer.scss';
+@import './post-review.scss';
 
 .shortcut-footer {
     position: fixed;
@@ -71,8 +72,24 @@ ol {
 }
 
 p,
-h1 {
+h1,
+h3 {
     margin: 0;
+}
+
+textarea {
+    resize: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+textarea::placeholder {
+    font-style: inherit;
+    font-family: inherit;
 }
 
 .link {

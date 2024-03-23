@@ -34,11 +34,11 @@ const DetailsContents = forwardRef<HTMLDivElement, DetailsContentsProps>(
       errorDetails: ERROR_DETAILS.GET_BOOK_DETAILS,
     });
 
-    if (!data) return null;
-
     useEffect(() => {
       setReObserve(true);
     }, [isSuccess]);
+
+    if (!data) return null;
 
     return (
       <div id="prod-info" ref={ref} className="details-prod-contents">

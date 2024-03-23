@@ -30,12 +30,20 @@ import { useObserver } from "./hooks/use-observer";
 export type DetailsIndexIds = "prod-info" | "prod-review";
 
 export default function DetailsIndex() {
-  const [currSellType, setCurrSellType] = useState<SellWay>("종이책");
+  const params = useParams();
+  const { bookId } = params;
 
   const setCategory = useSetRecoilState(setGNBCategory);
 
-  const params = useParams();
-  const { bookId } = params;
+  const prodInfoRef = useRef(null);
+  const reviewRef = useRef(null);
+
+  const [currSellType, setCurrSellType] = useState<SellWay>("종이책");
+
+  const { setReObserve, isInView } = useObserver({
+    ref1: prodInfoRef,
+    ref2: reviewRef,
+  });
 
   const { data, isSuccess, isLoading, isError, error } = useQuery({
     queryKey: [QueryKeys.BOOK, bookId],
@@ -61,13 +69,6 @@ export default function DetailsIndex() {
     }
   }, [bookId]);
 
-  const prodInfoRef = useRef(null);
-  const reviewRef = useRef(null);
-
-  const { setReObserve, isInView } = useObserver({
-    ref1: prodInfoRef,
-    ref2: reviewRef,
-  });
 
   if (isLoading) return <DetailsIndexLoadingComponent />;
 

@@ -13,16 +13,19 @@ export default function SelectKeyword({
 }: SelectKeywordProps) {
   return (
     <div className="select-keyword-container">
-      <h3>리뷰 키워드</h3>
-      <p>가장 와 닿는 하나의 키워드를 선택해주세요.</p>
+      <div className="select-keyword-container__header">
+        <h3>리뷰 키워드</h3>
+        <p>가장 와 닿는 하나의 키워드를 선택해주세요.</p>
+      </div>
       <ul>
         {selectList.map((list) => (
           <li key={list}>
             <button
+              type="button"
               className={cn("", keyword === list && "active")}
               onClick={() => handleChangeKeyword(list)}
             >
-              <span>{list}</span>
+              <p>{list}</p>
             </button>
           </li>
         ))}

@@ -6,6 +6,7 @@ import UserButton from "./user/UserButton";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { GNBModalState } from "../../recoil/nav-gnb";
 import { enhancedImageModal } from "../../recoil/modal/enhanced-image";
+import { postReviewModal } from "../../recoil/modal/post-review";
 
 import { MdClose, MdOutlineFormatListBulleted } from "react-icons/md";
 import { AllCategories } from "../@modal";
@@ -26,13 +27,19 @@ export default function FixedSearchBar({
 }: FixedSearchBarProps) {
   const [show, setShow] = useRecoilState(GNBModalState);
   const isImageModalShow = useRecoilValue(enhancedImageModal);
+  const isPostModalShow = useRecoilValue(postReviewModal);
 
   const toggleModal = () => {
     setShow((prev) => !prev);
   };
 
   return (
-    <div className={cn("fixed-search-section", isImageModalShow && "none")}>
+    <div
+      className={cn(
+        "fixed-search-section",
+        (isImageModalShow || isPostModalShow) && "none"
+      )}
+    >
       <div className="fixed-search-section__wrapper">
         <div
           className="icon-wrap"

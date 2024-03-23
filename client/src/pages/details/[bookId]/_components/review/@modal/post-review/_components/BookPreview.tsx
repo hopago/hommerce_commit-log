@@ -1,6 +1,8 @@
 import fillScore from "../../../../../../../../assets/ico_fill-score.png";
 import emptyScore from "../../../../../../../../assets/ico_empty-score.png";
 
+import { TOTAL_SCORE } from "../../../constants/review-total";
+
 type BookPreviewProps = {
   img: string;
   title: string;
@@ -21,17 +23,22 @@ export default function BookPreview({
   return (
     <div className="book-preview">
       <div className="book-preview__wrap">
-        <img src={img} alt={title} />
+        <img className="book-img" src={img} alt={title} />
         <div className="select-total">
           <p>{title}</p>
-          {[...Array.from({ length: 5 })].map((_, i) => (
-            <img
-              key={i}
-              src={isFill(i) ? fillScore : emptyScore}
-              alt="score"
-              onClick={() => handleScoreChange((i + 1) as ReviewRatingValue)}
-            />
-          ))}
+          <div className="select-total__score">
+            {[...Array.from({ length: 5 })].map((_, i) => (
+              <img
+                key={i}
+                src={isFill(i) ? fillScore : emptyScore}
+                alt="score"
+                onClick={() => handleScoreChange((i + 1) as ReviewRatingValue)}
+              />
+            ))}
+            <span className="score">{score}</span>
+            <span className="divider">/</span>
+            <span className="total">{TOTAL_SCORE}</span>
+          </div>
         </div>
       </div>
     </div>
