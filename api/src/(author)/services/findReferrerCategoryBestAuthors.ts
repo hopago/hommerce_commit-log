@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { HttpException } from "../../middleware/error/utils";
 import { FilterQuery } from "mongoose";
-import Author, { IAuthor } from "../models/author";
+import Author from "../models/author";
 import Book, { IBook } from "../../(book)/models/book";
 
 type QueryType = string | undefined | "undefined";
 
-export const getReferrerCategoryBestAuthors = async (
+export const findReferrerCategoryBestAuthors = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -18,13 +18,18 @@ export const getReferrerCategoryBestAuthors = async (
     if (!category && !bookId)
       throw new HttpException(400, "At least one query required.");
 
-    const findBookQuery: FilterQuery<IBook> = category
-      ? { category }
-      : bookId
-      ? { _id: bookId }
-      : {};
+    let foundBooks: IBook[] = [];
 
-    const foundBooks = await Book.find(findBookQuery).sort({ views: -1 });
+    if (bookId) {
+      const book = await Book.findById(bookId);
+      if (!book) throw new HttpException(404, "Book not found.");
+
+      foundBooks = await Book.find({ category: book.category }).sort({
+        views: -1,
+      });
+    } else if (category) {
+      foundBooks = await Book.find({ category }).sort({ views: -1 });
+    }
 
     if (foundBooks.length === 0)
       throw new HttpException(404, "Book not found.");

@@ -41,7 +41,7 @@ export const getDocsLength = async (
     const docsLength = await handleGetDocsLength({ bookId }, next);
 
     if (typeof docsLength === "number") {
-      return res.status(200).json(docsLength);
+      return res.status(200).json({ docsLength: docsLength ?? 0 });
     }
   } catch (err) {}
 };
@@ -59,13 +59,16 @@ export const getReviews = async (
     if (!bookId) throw new HttpException(400, "Book Id required.");
     if (!pageNum) throw new HttpException(400, "Page number required.");
 
-    const { reviews, hasNextPage, totalReviews } = await handleGetReviews(
-      bookId,
-      pageNum,
-      sort
+    const reviews = await handleGetReviews(
+      {
+        bookId,
+        pageNum,
+        sort,
+      },
+      next
     );
 
-    return res.status(200).json({ reviews, hasNextPage, totalReviews });
+    return res.status(200).json(reviews);
   } catch (err) {
     next(err);
   }

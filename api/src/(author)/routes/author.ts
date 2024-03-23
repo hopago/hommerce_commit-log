@@ -7,13 +7,13 @@ import {
   updateAuthor,
 } from "../controllers/author";
 
-import { getReferrerCategoryBestAuthors } from "../services/getReferrerCategoryBestAuthors";
+import { findReferrerCategoryBestAuthors } from "../services/findReferrerCategoryBestAuthors";
 
 const router = express.Router();
 
 router.route("/").get(getAuthors).post(postAuthor);
 
-router.route("/s").get(getReferrerCategoryBestAuthors);
+router.route("/s").get(findReferrerCategoryBestAuthors);
 
 router
   .route("/:authorId")

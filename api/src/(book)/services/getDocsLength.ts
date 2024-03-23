@@ -41,7 +41,7 @@ export const getDocsLength = async (
     const docsLength = await Book.countDocuments(query);
 
     if (docsLength === 0 || typeof docsLength === "number") {
-      return res.status(200).json(docsLength);
+      return res.status(200).json({ docsLength });
     } else if (docsLength === undefined) {
       throw new HttpException(404, "Document not found.");
     }

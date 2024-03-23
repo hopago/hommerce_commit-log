@@ -88,10 +88,10 @@ export const getFavorLengthByBookId = async (
   const { bookId } = req.params;
 
   try {
-    const favorLength = await handleGetFavorLength({ bookId }, next);
+    const docsLength = await handleGetFavorLength({ bookId }, next);
 
-    if (typeof favorLength === "number") {
-      return res.status(200).json(favorLength);
+    if (typeof docsLength === "number") {
+      return res.status(200).json({ docsLength });
     }
   } catch (err) {
     next(err);
