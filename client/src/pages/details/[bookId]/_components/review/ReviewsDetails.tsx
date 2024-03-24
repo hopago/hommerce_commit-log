@@ -72,32 +72,28 @@ export default function ReviewsDetails() {
     data?.reviews ?? []
   );
 
-  console.log("삭제 후 유저 리뷰", userReview);
-  console.log("삭제 후 리뷰 배열", data?.reviews);
-
   useEffect(() => {
-    if (userReview && data) {
-      if (data.reviews.some((review) => review._id === userReview._id)) {
-        const filteredReviews = data.reviews.filter(
-          (review) => review._id !== userReview._id
-        );
-        setReviewsWithUserReview([userReview, ...filteredReviews]);
-      }
+    if (userReview && data?.reviews?.length) {
+      const filteredReviews = data.reviews.filter(
+        (review) => review._id !== userReview._id
+      );
+
+      setReviewsWithUserReview([userReview, ...filteredReviews]);
     }
   }, [isUserPostedSuccess, isSuccess, userReview, data]);
-
-  console.log("필터 된 리뷰 배열", reviewsWithUserReview);
 
   if (isLoading) return <LoadingComponent />;
 
   if (isSuccess) {
+    const reviewsToDisplay =
+      isUserPostedSuccess && userReview
+        ? reviewsWithUserReview
+        : data?.reviews ?? [];
+
     return (
       <div className="details-prod-reviews__wrap__reviews-details">
         <ReviewsSortTabList />
-        <ReviewList
-          ref={scrollRef}
-          reviews={userReview?._id ? reviewsWithUserReview : data!.reviews}
-        />
+        <ReviewList ref={scrollRef} reviews={reviewsToDisplay} />
         {data?.pagination && data.pagination.totalPages > 1 && (
           <PaginateControl pageTotal={data!.pagination.totalPages} />
         )}

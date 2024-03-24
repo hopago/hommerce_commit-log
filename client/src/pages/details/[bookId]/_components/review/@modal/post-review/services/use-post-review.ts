@@ -1,3 +1,7 @@
+import { PAGE_SIZE } from "../../../../../../../constants/page";
+
+import { SetterOrUpdater } from "recoil";
+
 import { useMutation } from "@tanstack/react-query";
 import { getQueryClient } from "../../../../../../../../lib/react-query/getQueryClient";
 import { ServerError } from "../../../../../../../../fetcher/error";
@@ -8,9 +12,8 @@ import { toast } from "sonner";
 import { useHandleError } from "../../../../../../../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../../../../../../../api/constants/errorDetails";
 
-import { SetterOrUpdater } from "recoil";
-
 type UsePostReviewProps = {
+  userId: string | undefined;
   bookId: string;
   setShow: SetterOrUpdater<boolean>;
 };
@@ -23,7 +26,11 @@ export type MutationProps = {
   review: TPostReviewInput;
 };
 
-export const usePostReview = ({ bookId, setShow }: UsePostReviewProps) => {
+export const usePostReview = ({
+  bookId,
+  setShow,
+  userId,
+}: UsePostReviewProps) => {
   const queryClient = getQueryClient();
   const { mutate, isPending, isError, error } = useMutation<
     IReview,
@@ -46,13 +53,65 @@ export const usePostReview = ({ bookId, setShow }: UsePostReviewProps) => {
         review,
       }),
     onSuccess: (newReview: IReview) => {
-      queryClient.refetchQueries({
-        queryKey: [QueryKeys.REVIEW_LENGTH, bookId],
-      });
+      const prevData = queryClient.getQueryData<{ docsLength: number }>([
+        QueryKeys.REVIEW_LENGTH,
+        bookId,
+      ]);
+
+      if (prevData) {
+        queryClient.setQueryData(
+          [QueryKeys.REVIEW_LENGTH, bookId],
+          prevData.docsLength + 1
+        );
+      }
+
+      queryClient.setQueryData([QueryKeys.REVIEW, userId], newReview);
+
       queryClient.setQueryData(
         [QueryKeys.REVIEWS, bookId],
-        (prevData: IReview[]) => [newReview, ...prevData]
+        (
+          prevData: PaginatedReviewResponse | undefined
+        ): PaginatedReviewResponse => {
+          const totalReviewsBeforeAdd = prevData
+            ? prevData.pagination.totalReviews
+            : 0;
+
+          const totalReviewsAfterAdd = totalReviewsBeforeAdd + 1;
+
+          const maxReviewsPerPage = PAGE_SIZE;
+
+          const totalPagesAfterAdd = Math.ceil(
+            totalReviewsAfterAdd / maxReviewsPerPage
+          );
+
+          const hasNextPage =
+            totalPagesAfterAdd >
+            (prevData ? prevData.pagination.currentPage : 1);
+
+          if (!prevData) {
+            return {
+              reviews: [newReview],
+              pagination: {
+                currentPage: 1,
+                totalReviews: 1,
+                totalPages: 1,
+                hasNextPage: false,
+              },
+            };
+          }
+
+          return {
+            reviews: [newReview, ...prevData.reviews],
+            pagination: {
+              ...prevData.pagination,
+              totalReviews: totalReviewsAfterAdd,
+              totalPages: totalPagesAfterAdd,
+              hasNextPage: hasNextPage,
+            },
+          };
+        }
       );
+
       toast.success("리뷰 작성을 완료했어요.");
     },
   });

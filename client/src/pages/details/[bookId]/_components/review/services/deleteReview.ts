@@ -18,6 +18,8 @@ type UseDeleteReviewProps = {
   userId: string | undefined;
 };
 
+type DeleteReviewResponse = { deletedReviewId: string };
+
 export const deleteReview = async ({ userId, reviewId }: DeleteReviewProps) => {
   if (!userId) return;
 
@@ -25,14 +27,12 @@ export const deleteReview = async ({ userId, reviewId }: DeleteReviewProps) => {
   const path = `/review?${queryString}`;
 
   try {
-    const response = await restFetcher<{ deletedReviewId: string }>({
+    const response = await restFetcher<DeleteReviewResponse>({
       path,
       method: "DELETE",
     });
 
-    if (response) {
-      return response.deletedReviewId;
-    }
+    return response;
   } catch (err) {
     throw err;
   }
@@ -42,25 +42,40 @@ export const useDeleteReview = ({ bookId, userId }: UseDeleteReviewProps) => {
   const queryClient = getQueryClient();
 
   const { mutate, isError, error } = useMutation<
-    string | undefined,
+    DeleteReviewResponse | undefined,
     ServerError | Error,
     { userId: string; reviewId: string }
   >({
     mutationFn: ({ userId, reviewId }) =>
       MutateFns.DELETE_REVIEW({ userId, reviewId }),
-    onSuccess: (deletedReviewId) => {
-      queryClient.setQueryData(
-        [QueryKeys.REVIEWS, bookId],
-        (prevData: IReview[]) => {
-          const filteredData = prevData.filter(
-            (prev) => prev._id !== deletedReviewId
+    onSuccess: async (response) => {
+      if (response) {
+        const prevData = queryClient.getQueryData<{ docsLength: number }>([
+          QueryKeys.REVIEW_LENGTH,
+          bookId,
+        ]);
+
+        if (prevData) {
+          queryClient.setQueryData(
+            [QueryKeys.REVIEW_LENGTH, bookId],
+            prevData.docsLength - 1
           );
-          return filteredData;
         }
-      );
-      queryClient.removeQueries({
-        queryKey: [QueryKeys.REVIEW, userId],
-      });
+
+        queryClient.removeQueries({
+          queryKey: [QueryKeys.REVIEW, userId],
+        });
+
+        queryClient.setQueryData(
+          [QueryKeys.REVIEWS, bookId],
+          (prevData: PaginatedReviewResponse) => {
+            const filteredData = prevData.reviews.filter(
+              (prev) => prev._id !== response.deletedReviewId
+            );
+            return filteredData;
+          }
+        );
+      }
     },
   });
 
