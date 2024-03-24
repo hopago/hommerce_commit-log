@@ -4,6 +4,7 @@ import { ServerError } from "../../fetcher/error";
 
 import { toast } from "sonner";
 import { handleError } from "../../fetcher/handle-error";
+import { postError } from "../services/postError";
 
 type CustomizeError = {
   error: Error | null;
@@ -27,12 +28,14 @@ export const useHandleError = ({
   ],
 }: CustomizeError) => {
   useEffect(() => {
-    if (!isError || !error) return;
+    if (!isError || !error || Object.keys(error).length === 0) return;
 
     if ((isError && error) || (isRefetchError && error)) {
       if (error instanceof ServerError) {
         console.log(error);
         toast.error(handleError({ error, errorDetails }));
+      } else {
+        postError(error);
       }
     }
   }, [isError, isRefetchError]);

@@ -20,7 +20,7 @@ import { QueryFns } from "../../../../../lib/react-query/queryFn";
 
 import PostReviewButton from "../PostReviewButton";
 import { useHandleError } from "../../../../hooks/use-handle-error";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { postReviewModal } from "../../../../../recoil/modal/post-review";
 import { useModal } from "../../../../hooks/use-modal";
 import PostReview from "../review/@modal/post-review";
@@ -45,7 +45,8 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
     const { isSignedIn } = useSession();
 
     const [show, setShow] = useState(false);
-    const postReviewModalShow = useRecoilValue(postReviewModal);
+    const [postReviewModalShow, setPostReviewModalShow] =
+      useRecoilState(postReviewModal);
 
     const handleTooltip = () => {
       setShow((prev) => !prev);
@@ -97,7 +98,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
             </div>
           </div>
           {postReviewModalShow && (
-            <PostReview setShow={setShow} hasNoReview={true} />
+            <PostReview setShow={setPostReviewModalShow} hasNoReview={true} />
           )}
         </div>
       );
@@ -134,7 +135,9 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
             </div>
             <ReviewsDetails />
           </div>
-          {postReviewModalShow && <PostReview setShow={setShow} />}
+          {postReviewModalShow && (
+            <PostReview setShow={setPostReviewModalShow} />
+          )}
         </div>
       );
     }

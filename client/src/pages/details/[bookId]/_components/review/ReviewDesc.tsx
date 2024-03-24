@@ -7,7 +7,7 @@ type ReviewDescProps = {
 };
 
 export default function ReviewDesc({ desc }: ReviewDescProps) {
-  const hasPreview = desc.length > 100;
+  const hasPreview = desc?.length > 100;
 
   const [show, setShow] = useState(false);
 

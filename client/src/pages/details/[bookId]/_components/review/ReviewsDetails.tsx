@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -68,15 +68,25 @@ export default function ReviewsDetails() {
     errorDetails: ERROR_DETAILS.GET_REVIEWS_BY_BOOK_ID,
   });
 
-  const reviewsWithUserReview = useMemo(() => {
-    if (
-      userReview &&
-      !data?.reviews.some((review) => review._id === userReview._id)
-    ) {
-      return [userReview, ...data!.reviews];
+  const [reviewsWithUserReview, setReviewsWithUserReview] = useState<IReview[]>(
+    data?.reviews ?? []
+  );
+
+  console.log("삭제 후 유저 리뷰", userReview);
+  console.log("삭제 후 리뷰 배열", data?.reviews);
+
+  useEffect(() => {
+    if (userReview && data) {
+      if (data.reviews.some((review) => review._id === userReview._id)) {
+        const filteredReviews = data.reviews.filter(
+          (review) => review._id !== userReview._id
+        );
+        setReviewsWithUserReview([userReview, ...filteredReviews]);
+      }
     }
-    return data?.reviews || [];
-  }, [userReview, data]);
+  }, [isUserPostedSuccess, isSuccess, userReview, data]);
+
+  console.log("필터 된 리뷰 배열", reviewsWithUserReview);
 
   if (isLoading) return <LoadingComponent />;
 
@@ -86,9 +96,9 @@ export default function ReviewsDetails() {
         <ReviewsSortTabList />
         <ReviewList
           ref={scrollRef}
-          reviews={user ? reviewsWithUserReview : data!.reviews}
+          reviews={userReview?._id ? reviewsWithUserReview : data!.reviews}
         />
-        {data!.pagination.totalPages > 1 && (
+        {data?.pagination && data.pagination.totalPages > 1 && (
           <PaginateControl pageTotal={data!.pagination.totalPages} />
         )}
       </div>

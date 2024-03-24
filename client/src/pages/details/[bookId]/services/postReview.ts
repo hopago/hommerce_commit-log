@@ -21,7 +21,7 @@ export const postReview = async ({
   bookId,
   bookTitle,
 }: PostReviewProps) => {
-  const path = `/review/user/${userId}`;
+  const path = `/review/user/${userId}/book/${bookId}`;
 
   const body = {
     ...review,

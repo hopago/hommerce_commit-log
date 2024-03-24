@@ -6,7 +6,6 @@ import { QueryKeys } from "../../../../../../../../lib/react-query/query-key";
 
 import { toast } from "sonner";
 import { useHandleError } from "../../../../../../../hooks/use-handle-error";
-import { postError } from "../../../../../../../services/postError";
 import { ERROR_DETAILS } from "../../../../../../../../api/constants/errorDetails";
 
 import { SetterOrUpdater } from "recoil";
@@ -26,9 +25,9 @@ export type MutationProps = {
 
 export const usePostReview = ({ bookId, setShow }: UsePostReviewProps) => {
   const queryClient = getQueryClient();
-  const { mutate, isPending } = useMutation<
+  const { mutate, isPending, isError, error } = useMutation<
     IReview,
-    ServerError | Error | unknown,
+    ServerError | Error,
     MutationProps
   >({
     mutationFn: ({
@@ -47,26 +46,14 @@ export const usePostReview = ({ bookId, setShow }: UsePostReviewProps) => {
         review,
       }),
     onSuccess: (newReview: IReview) => {
+      queryClient.refetchQueries({
+        queryKey: [QueryKeys.REVIEW_LENGTH, bookId],
+      });
       queryClient.setQueryData(
         [QueryKeys.REVIEWS, bookId],
         (prevData: IReview[]) => [newReview, ...prevData]
       );
       toast.success("리뷰 작성을 완료했어요.");
-    },
-    onError: (error) => {
-      if (error instanceof ServerError) {
-        useHandleError({
-          error,
-          isError: true,
-          errorDetails: ERROR_DETAILS.POST_REVIEW,
-        });
-      } else if (error instanceof Error) {
-        toast.error("일시적 오류입니다. 잠시 후 다시 시도해주세요.");
-        postError(error);
-      } else {
-        toast.error("예기치 못한 오류입니다.");
-        postError(error);
-      }
     },
   });
 
@@ -80,6 +67,12 @@ export const usePostReview = ({ bookId, setShow }: UsePostReviewProps) => {
 
     setShow(false);
   };
+
+  useHandleError({
+    error,
+    isError,
+    errorDetails: ERROR_DETAILS.POST_REVIEW,
+  });
 
   return {
     handlePost,

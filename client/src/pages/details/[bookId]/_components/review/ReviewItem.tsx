@@ -31,6 +31,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
   return (
     <li className="review-list__item">
       <ReviewInfo
+        reviewId={review._id}
         username={review.username!}
         buyWay={review.buyWay}
         createdAt={review.createdAt}

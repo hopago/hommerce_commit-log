@@ -12,7 +12,7 @@ const ReviewList = forwardRef<HTMLDivElement, ReviewsListProps>(
     return (
       <div className="reviews-list" ref={ref}>
         <ul>
-          {reviews.map((review) => (
+          {reviews?.map((review) => (
             <ReviewItem key={review._id} review={review} />
           ))}
         </ul>
