@@ -58,7 +58,7 @@ export const useDeleteReview = ({ bookId, userId }: UseDeleteReviewProps) => {
         if (prevData) {
           queryClient.setQueryData(
             [QueryKeys.REVIEW_LENGTH, bookId],
-            prevData.docsLength - 1
+            { docsLength: prevData.docsLength - 1 }
           );
         }
 
