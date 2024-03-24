@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router
-  .route("/reply/:reviewId")
+  .route("/:reviewId")
   .get(getReplies)
   .post(postReply)
   .patch(updateReply)

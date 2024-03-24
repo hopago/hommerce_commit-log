@@ -17,7 +17,9 @@ export const getReplies = async (
 
     const replies = await handleGetReplies({ reviewId }, next);
 
-    return res.status(200).json(replies);
+    if (replies) {
+      return res.status(200).json(replies);
+    }
   } catch (err) {
     next(err);
   }

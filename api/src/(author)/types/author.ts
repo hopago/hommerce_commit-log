@@ -1,5 +1,7 @@
+import { IBook } from "../../(book)/models/book";
+
 /* author-referrer / name, job, intro, books: TBookShortcut[] */
-type AuthorType =
+export type AuthorType =
   | "문학가"
   | "그림책작가"
   | "교육가/인문학자"
@@ -15,7 +17,7 @@ type AuthorInfo = {
   name: string;
   job: AuthorType;
   intro: string;
-  books: TBookOptional[];
+  books: IBook[];
   representBook: string;
   img: string;
 };
@@ -24,7 +26,7 @@ type AuthorsInfo = {
   name: string;
   job: AuthorType;
   intro: string;
-  books: TBookOptional[];
+  books: IBook[];
   representBook: string;
   img: string;
 }[];

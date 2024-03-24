@@ -1,11 +1,14 @@
 import { Schema, model, Document, Types } from "mongoose";
 
+import { IBook } from "../../(book)/models/book";
+import { AuthorType } from "../types/author";
+
 export interface IAuthor extends Document {
   _id: Types.ObjectId;
   name: string;
   job: AuthorType;
   intro: string;
-  books: TBookOptional[];
+  books: IBook[];
   representBook: string;
   img?: string;
   createdAt: Date;

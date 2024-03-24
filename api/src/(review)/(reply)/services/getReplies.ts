@@ -7,7 +7,7 @@ export const handleGetReplies = async (
   next: NextFunction
 ) => {
   try {
-    const replies = await ReviewReply.findOne({ reviewId });
+    const replies = await ReviewReply.find({ reviewId });
     if (!replies) throw new HttpException(404, "Replies not found.");
 
     return replies;

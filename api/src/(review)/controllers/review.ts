@@ -7,6 +7,7 @@ import { handleDeleteReview } from "../services/deleteReview";
 import { handleDeleteReviewById } from "../services/deleteReviewById";
 import { handleGetReviewByUserId } from "../services/getReviewByUserId";
 import { handleGetDocsLength } from "../services/getDocsLength";
+import { handleGetUserReviewByBookId } from "../services/getUserReviewByBookId";
 
 type FilterType = "_id" | "bookTitle" | "desc";
 
@@ -17,13 +18,32 @@ export const deleteReviewById = async (
   res: Response,
   next: NextFunction
 ) => {
-  const reviewId = req.query.reviewId as string | undefined;
-  if (!reviewId) throw new HttpException(400, "Review Id required.");
-
   try {
+    const reviewId = req.query.reviewId as string | undefined;
+    if (!reviewId) throw new HttpException(400, "Review Id required.");
+
     await handleDeleteReviewById(reviewId, next);
 
     return res.status(201).json(reviewId);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getUserReviewByBookId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId, bookId } = req.params;
+    if (!userId || !bookId) throw new HttpException(400, "Params required.");
+
+    const userReview = handleGetUserReviewByBookId({ userId, bookId }, next);
+
+    if (userReview) {
+      return res.status(200).json(userReview);
+    }
   } catch (err) {
     next(err);
   }

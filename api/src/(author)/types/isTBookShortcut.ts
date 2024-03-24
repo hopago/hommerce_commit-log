@@ -1,3 +1,5 @@
+import { IBook } from "../../(book)/models/book";
+
 type TBookShortcutKeys =
   | "author"
   | "category"
@@ -7,7 +9,7 @@ type TBookShortcutKeys =
   | "price"
   | "discount";
 
-export const isTBookShortcut = (obj: any): obj is TBookShortcut => {
+export const isTBookShortcut = (obj: any): obj is IBook => {
   const keys: TBookShortcutKeys[] = [
     "author",
     "category",
@@ -20,7 +22,7 @@ export const isTBookShortcut = (obj: any): obj is TBookShortcut => {
   return keys.every((key) => obj.hasOwnProperty(key));
 };
 
-export const validateBooks = (books: any): books is TBookShortcut[] => {
+export const validateBooks = (books: any): books is IBook[] => {
   if (!Array.isArray(books)) {
     return false;
   }
