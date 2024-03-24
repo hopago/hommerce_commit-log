@@ -7,6 +7,7 @@ import { QueryKeys } from "../../../../../../../../lib/react-query/query-key";
 import { toast } from "sonner";
 import { useHandleError } from "../../../../../../../hooks/use-handle-error";
 import { postError } from "../../../../../../../services/postError";
+import { ERROR_DETAILS } from "../../../../../../../../api/constants/errorDetails";
 
 export type MutationProps = {
   userId: string;
@@ -47,7 +48,11 @@ export const usePostReview = ({ bookId }: { bookId: string }) => {
     },
     onError: (error) => {
       if (error instanceof ServerError) {
-        useHandleError({ error, isError: true });
+        useHandleError({
+          error,
+          isError: true,
+          errorDetails: ERROR_DETAILS.POST_REVIEW,
+        });
       } else if (error instanceof Error) {
         toast.error("일시적 오류입니다. 잠시 후 다시 시도해주세요.");
         postError(error);

@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { TReview } from "../../../../_components/types/review";
 import { ReviewReplies } from "../../../../_components/types/review-reply";
 
 import ReviewDesc from "./ReviewDesc";
@@ -9,7 +8,7 @@ import ReviewInteract from "./ReviewInteract";
 import ReviewRepliesContainer from "./ReviewReplies";
 
 type ReviewItemProps = {
-  review: TReview;
+  review: IReview;
 };
 
 export default function ReviewItem({ review }: ReviewItemProps) {

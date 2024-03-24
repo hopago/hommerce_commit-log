@@ -1,10 +1,9 @@
 import { forwardRef } from "react";
-import { TReviews } from "../../../../_components/types/review";
 
 import ReviewItem from "./ReviewItem";
 
 type ReviewsListProps = {
-  reviews: TReviews;
+  reviews: IReview[];
 };
 
 const ReviewList = forwardRef<HTMLDivElement, ReviewsListProps>(
@@ -12,8 +11,8 @@ const ReviewList = forwardRef<HTMLDivElement, ReviewsListProps>(
     return (
       <div className="reviews-list" ref={ref}>
         <ul>
-          {reviews.map((review, i) => (
-            <ReviewItem key={`${review.id}-${i}`} review={review} />
+          {reviews.map((review) => (
+            <ReviewItem key={review._id} review={review} />
           ))}
         </ul>
       </div>

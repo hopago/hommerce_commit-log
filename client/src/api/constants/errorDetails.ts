@@ -57,6 +57,20 @@ export const ERROR_DETAILS = {
       message: "서버 에러입니다. 잠시 후 다시 시도해주세요.",
     },
   ],
+  GET_REVIEWS_BY_BOOK_ID: [
+    {
+      code: 400,
+      message: "필수 필드를 확인해주세요.",
+    },
+    {
+      code: 404,
+      message: "리뷰 데이터를 찾지 못했어요.",
+    },
+    {
+      code: 500,
+      message: "서버 에러입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
   BOOKS_DOCS_LENGTH: [
     {
       code: 400,
@@ -85,6 +99,16 @@ export const ERROR_DETAILS = {
     {
       code: 400,
       message: "필드 오류입니다. 로그인 상태 혹은 새로고침을 해주세요.",
+    },
+    {
+      code: 500,
+      message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
+  POST_REVIEW: [
+    {
+      code: 400,
+      message: "모든 필수 정보가 입력됐는지 확인해주세요.",
     },
     {
       code: 500,

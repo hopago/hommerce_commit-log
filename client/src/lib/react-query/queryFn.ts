@@ -5,10 +5,12 @@ import { getAuthor } from "../../pages/details/[bookId]/services/getAuthor";
 import { getBook } from "../../pages/details/[bookId]/services/getBook";
 import { getBookDetails } from "../../pages/details/[bookId]/services/getBookDetails";
 import { getReviewDocsLength } from "../../pages/details/[bookId]/services/getReviewDocsLength";
+import { getReviewsByBookId } from "../../pages/details/[bookId]/services/getReviewsByBookId";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
 import { getSubscriptionLength } from "../../pages/search/services/getSubscriptionLength";
+import { ReviewSortOptions } from "../../recoil/review-select";
 
 type FindReferrerCategoryBestAuthorsProps = {
   bookId?: string;
@@ -25,6 +27,12 @@ type BookSearchResultsProps = {
 type BookSearchResultsLengthProps = {
   filter: SearchType;
   keyword: string;
+};
+
+type GetReviewsByBookIdProps = {
+  bookId: string;
+  pageNum: number;
+  sort: ReviewSortOptions;
 };
 
 type ReviewTotalProps = { bookId: string };
@@ -61,6 +69,11 @@ export const QueryFns = {
     keyword,
   }: BookSearchResultsLengthProps) =>
     getResultsTotal({ filter, searchTerm: keyword }),
+  GET_REVIEWS_BY_BOOK_ID: ({
+    bookId,
+    pageNum,
+    sort,
+  }: GetReviewsByBookIdProps) => getReviewsByBookId({ bookId, pageNum, sort }),
   GET_REVIEW_TOTAL_BY_BOOK_ID: ({ bookId }: ReviewTotalProps) =>
     getReviewTotalByBookId({ bookId }),
   GET_REVIEW_LENGTH: (bookId: string) => getReviewDocsLength(bookId),

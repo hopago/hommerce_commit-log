@@ -21,8 +21,6 @@ export type TReview = {
   liked: number;
 };
 
-export type TReviews = TReview[];
-
 export type TReviewReply = {
   id: string;
   userId: string;

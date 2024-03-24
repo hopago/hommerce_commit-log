@@ -1,3 +1,4 @@
+import { ServerError } from "../../../../fetcher/error";
 import { restFetcher } from "../../../../fetcher/restFetcher";
 import { postError } from "../../../services/postError";
 
@@ -44,10 +45,12 @@ export const postReview = async ({
         await restFetcher({
           path,
           method: "PATCH",
-          body: REVIEW_EVENT.FIRST_REVIEW_POINT_EVENT,
+          body: {
+            point: REVIEW_EVENT.FIRST_REVIEW_POINT_EVENT,
+          },
         });
       } catch (err) {
-        if (err) {
+        if (err instanceof Error || err instanceof ServerError) {
           postError(err);
         }
       }

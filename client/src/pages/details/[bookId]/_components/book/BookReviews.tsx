@@ -92,7 +92,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
       );
     }
 
-    // reviews
+    // data-exist
     if (isSuccess && data && data.docsLength > 0) {
       return (
         <div id="prod-review" ref={ref} className="details-prod-reviews">

@@ -28,3 +28,13 @@ interface TPostReviewInput {
   keyword: ReviewKeywords;
   desc: string;
 }
+
+interface PaginatedReviewResponse {
+  reviews: IReview[];
+  pagination: {
+    currentPage: number;
+    totalReviews: number;
+    totalPages: number;
+    hasNextPage: boolean;
+  };
+}

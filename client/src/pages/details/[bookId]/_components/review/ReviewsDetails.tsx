@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 import { useRecoilValue } from "recoil";
 import { reviewTabState } from "../../../../../recoil/review-tab";
 import { reviewSortOptionsState } from "../../../../../recoil/review-select";
@@ -7,48 +9,59 @@ import PaginateControl from "../PaginateControl";
 import ReviewList from "./ReviewList";
 import ReviewsSortTabList from "./ReviewsSortTabList";
 
-import { useEffect, useRef, useState } from "react";
-import { TReviews } from "../../../../_components/types/review";
+import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "../../../../../lib/react-query/query-key";
+import { QueryFns } from "../../../../../lib/react-query/queryFn";
+import { daysToMs } from "../../../../../lib/react-query/utils";
+import { useHandleError } from "../../../../hooks/use-handle-error";
+import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
+
+import { useScrollRef } from "../../../../hooks/use-scroll-ref";
 
 export default function ReviewsDetails() {
-  const currTab = useRecoilValue(reviewTabState);
-  const currSort = useRecoilValue(reviewSortOptionsState);
-  const currPage = useRecoilValue(currentPageState);
+  const { bookId } = useParams<{ bookId: string }>();
 
-  /* temporary data */
-  // const temporaryReviews: TReviews = [...reviews, ...reviews2];
-  const pageTotal = 23;
+  const currTab = useRecoilValue(reviewTabState);
+  const sort = useRecoilValue(reviewSortOptionsState);
+  const pageNum = useRecoilValue(currentPageState);
 
   /* paginate-scroll-behavior */
-  const [firstRender, setFirstRender] = useState(true);
+  const { scrollRef } = useScrollRef({ currentPage: pageNum });
 
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const { data, isLoading, isError, error, isSuccess } = useQuery({
+    queryKey: [QueryKeys.REVIEWS, bookId],
+    queryFn: () =>
+      QueryFns.GET_REVIEWS_BY_BOOK_ID({ bookId: bookId!, pageNum, sort }),
+    staleTime: daysToMs(1),
+    gcTime: daysToMs(3),
+    enabled: !!bookId,
+  });
 
-  useEffect(() => {
-    if (firstRender) {
-      setFirstRender(false);
-    } else if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currPage]);
+  useHandleError({
+    isError,
+    error,
+    errorDetails: ERROR_DETAILS.GET_REVIEWS_BY_BOOK_ID,
+  });
 
-  /* API */
-  useEffect(() => {
-    // TODO: service-logic && default paginate, 기본 페이징 로직을 수행
-    // TODO: currTab && getReviewsByTabList, 현재 선택된 탭에 따라 리뷰 데이터를 필터링
-    // TODO: sortOpt && getReviewsBySortOpt, 현재 선택된 정렬 옵션에 따라 리뷰 데이터를 정렬
-    // TODO: currTab, sortOpt && getReviewsByFilteredOpts, 현재 선택된 탭과 정렬 옵션에 따라 리뷰 데이터를 필터링하고 정렬
-  }, [currTab, currSort, currPage]);
+  if (isLoading) return <LoadingComponent />;
 
-  useEffect(() => {
-    // TODO: getReviewsAmount
-  }, []);
+  if (isSuccess) {
+    return (
+      <div className="details-prod-reviews__wrap__reviews-details">
+        <ReviewsSortTabList />
+        <ReviewList ref={scrollRef} reviews={data!.reviews} />
+        {data!.pagination.totalPages > 1 && (
+          <PaginateControl pageTotal={data!.pagination.totalPages} />
+        )}
+      </div>
+    );
+  }
+}
 
+function LoadingComponent() {
   return (
     <div className="details-prod-reviews__wrap__reviews-details">
       <ReviewsSortTabList />
-      {/* <ReviewList ref={scrollRef} reviews={} /> */}
-      {pageTotal > 1 && <PaginateControl pageTotal={pageTotal} />}
     </div>
   );
 }

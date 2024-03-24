@@ -1,3 +1,4 @@
+import { ServerError } from "../../../../fetcher/error";
 import { restFetcher } from "../../../../fetcher/restFetcher";
 import { postError } from "../../../services/postError";
 
@@ -10,7 +11,7 @@ export const increaseView = async (bookId: string) => {
       path,
     });
   } catch (err) {
-    if (err) {
+    if (err instanceof Error || err instanceof ServerError) {
       postError(err);
     }
   }
