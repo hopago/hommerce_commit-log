@@ -48,6 +48,7 @@ export default function PostReview({ setShow, hasNoReview }: PostReviewProps) {
     desc,
   } = useFormInputs();
 
+  // TODO: isUserPosted 시엔 patch handlePatch (로직 작성)
   const { handlePost, isPending } = usePostReview({ bookId: bookId!, setShow });
 
   if (!user || !bookId || !book) return null;

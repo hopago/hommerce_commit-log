@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 
 import { useParams } from "react-router-dom";
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { reviewTabState } from "../../../../../recoil/review-tab";
 import { reviewSortOptionsState } from "../../../../../recoil/review-select";
 import { currentPageState } from "../../../../../recoil/review-paginate";
@@ -26,7 +26,7 @@ export default function ReviewsDetails() {
   const { bookId } = useParams<{ bookId: string }>();
   const { user } = useUser();
 
-  const [userPosted, setUserPosted] = useRecoilState(isAlreadyPostReview);
+  const setUserPosted = useSetRecoilState(isAlreadyPostReview);
 
   const currTab = useRecoilValue(reviewTabState);
   const sort = useRecoilValue(reviewSortOptionsState);
@@ -58,19 +58,7 @@ export default function ReviewsDetails() {
 
   useEffect(() => {
     if (isUserPostedSuccess && userReview?._id) {
-      setUserPosted({
-        isAlreadyPosted: true,
-        initUserReview: {
-          userId: user?.id!,
-          username: user?.username!,
-          bookTitle: userReview.bookTitle,
-          review: {
-            rating: userReview.rating,
-            keyword: userReview.keyword,
-            desc: userReview.desc,
-          },
-        },
-      });
+      setUserPosted(true);
     }
   }, [isUserPostedSuccess, user]);
 

@@ -25,6 +25,7 @@ import { increaseView } from "./services/increaseView";
 
 import { cn } from "../../../lib/utils";
 import Spinner from "../../../_components/Spinner";
+
 import { useObserver } from "./hooks/use-observer";
 
 export type DetailsIndexIds = "prod-info" | "prod-review";
@@ -32,7 +33,6 @@ export type DetailsIndexIds = "prod-info" | "prod-review";
 export default function DetailsIndex() {
   const params = useParams();
   const { bookId } = params;
-
   const setCategory = useSetRecoilState(setGNBCategory);
 
   const prodInfoRef = useRef(null);
@@ -68,7 +68,6 @@ export default function DetailsIndex() {
       increaseView(bookId);
     }
   }, [bookId]);
-
 
   if (isLoading) return <DetailsIndexLoadingComponent />;
 

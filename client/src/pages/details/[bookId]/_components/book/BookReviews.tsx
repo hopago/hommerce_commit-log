@@ -17,8 +17,13 @@ import { useQuery } from "@tanstack/react-query";
 import { daysToMs } from "../../../../../lib/react-query/utils";
 import { QueryKeys } from "../../../../../lib/react-query/query-key";
 import { QueryFns } from "../../../../../lib/react-query/queryFn";
+
 import PostReviewButton from "../PostReviewButton";
 import { useHandleError } from "../../../../hooks/use-handle-error";
+import { useRecoilValue } from "recoil";
+import { postReviewModal } from "../../../../../recoil/modal/post-review";
+import { useModal } from "../../../../hooks/use-modal";
+import PostReview from "../review/@modal/post-review";
 
 type BookReviewProps = {
   bookId: string | undefined;
@@ -40,6 +45,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
     const { isSignedIn } = useSession();
 
     const [show, setShow] = useState(false);
+    const postReviewModalShow = useRecoilValue(postReviewModal);
 
     const handleTooltip = () => {
       setShow((prev) => !prev);
@@ -52,6 +58,8 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
       gcTime: daysToMs(3),
       enabled: !!bookId,
     });
+
+    useModal({ show, setShow });
 
     useHandleError({ error, isError });
 
@@ -74,7 +82,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
                   />
                 )}
               </div>
-              {isSignedIn && <PostReviewButton hasNoReview={true} />}
+              {isSignedIn && <PostReviewButton />}
             </div>
             <div className="details-prod-reviews__wrap__reviews-total">
               <div className="details-prod-reviews__wrap__reviews-total__inner">
@@ -88,9 +96,14 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
               </div>
             </div>
           </div>
+          {postReviewModalShow && (
+            <PostReview setShow={setShow} hasNoReview={true} />
+          )}
         </div>
       );
     }
+
+    // TODO: 토탈 레이팅 패칭
 
     // data-exist
     if (isSuccess && data && data.docsLength > 0) {
@@ -121,6 +134,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
             </div>
             <ReviewsDetails />
           </div>
+          {postReviewModalShow && <PostReview setShow={setShow} />}
         </div>
       );
     }

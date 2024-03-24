@@ -1,22 +1,10 @@
 import pencil from "../../../../assets/ico_pencil.png";
 
-import { useModal } from "../../../hooks/use-modal";
-
-import PostReview from "./review/@modal/post-review";
-
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { postReviewModal } from "../../../../recoil/modal/post-review";
 
-type PostReviewButtonProps = {
-  hasNoReview?: boolean;
-};
-
-export default function PostReviewButton({
-  hasNoReview,
-}: PostReviewButtonProps) {
-  const [show, setShow] = useRecoilState(postReviewModal);
-
-  useModal({ show, setShow });
+export default function PostReviewButton() {
+  const setShow = useSetRecoilState(postReviewModal);
 
   const onClick = () => {
     setShow(true);
@@ -32,7 +20,6 @@ export default function PostReviewButton({
         />
         <span>리뷰 작성</span>
       </button>
-      {show && <PostReview setShow={setShow} hasNoReview={hasNoReview} />}
     </>
   );
 }
