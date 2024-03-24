@@ -7,10 +7,7 @@ import {
 } from "../../../../_components/types/review";
 
 type ReviewInfoProps = {
-  user: {
-    id: string;
-    username: string;
-  };
+  username: string;
   buyWay: SellWay;
   createdAt: string | Date;
   rating: ReviewRatingType;
@@ -18,7 +15,7 @@ type ReviewInfoProps = {
 };
 
 export default function ReviewInfo({
-  user,
+  username,
   buyWay,
   createdAt,
   rating,
@@ -32,7 +29,7 @@ export default function ReviewInfo({
         <div className="info-badge">
           <span>{buyWay}</span>
         </div>
-        <span>{user.username}</span>
+        <span>{username}</span>
         <div className="divider" />
         <span>{formatDate(createdAt)}</span>
         <div className="divider" />

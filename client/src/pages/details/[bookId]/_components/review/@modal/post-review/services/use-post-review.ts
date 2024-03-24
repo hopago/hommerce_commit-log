@@ -9,6 +9,13 @@ import { useHandleError } from "../../../../../../../hooks/use-handle-error";
 import { postError } from "../../../../../../../services/postError";
 import { ERROR_DETAILS } from "../../../../../../../../api/constants/errorDetails";
 
+import { SetterOrUpdater } from "recoil";
+
+type UsePostReviewProps = {
+  bookId: string;
+  setShow: SetterOrUpdater<boolean>;
+};
+
 export type MutationProps = {
   userId: string;
   username: string;
@@ -17,7 +24,7 @@ export type MutationProps = {
   review: TPostReviewInput;
 };
 
-export const usePostReview = ({ bookId }: { bookId: string }) => {
+export const usePostReview = ({ bookId, setShow }: UsePostReviewProps) => {
   const queryClient = getQueryClient();
   const { mutate, isPending } = useMutation<
     IReview,
@@ -63,13 +70,15 @@ export const usePostReview = ({ bookId }: { bookId: string }) => {
     },
   });
 
-  const handlePost = (
+  const handlePost = async (
     e: React.FormEvent<HTMLFormElement>,
     review: MutationProps
   ) => {
     e.preventDefault();
 
     mutate(review);
+
+    setShow(false);
   };
 
   return {

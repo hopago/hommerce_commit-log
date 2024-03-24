@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 
 import ReviewItem from "./ReviewItem";
+import Spinner from "../../../../../_components/Spinner";
 
 type ReviewsListProps = {
   reviews: IReview[];
@@ -21,3 +22,11 @@ const ReviewList = forwardRef<HTMLDivElement, ReviewsListProps>(
 );
 
 export default ReviewList;
+
+export const ReviewListLoadingComponent = () => (
+  <div className="reviews-list">
+    <ul>
+      <Spinner text="리뷰 정보를 불러오는 중 입니다" />
+    </ul>
+  </div>
+);

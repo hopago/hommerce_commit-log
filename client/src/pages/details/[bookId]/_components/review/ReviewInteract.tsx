@@ -22,7 +22,7 @@ export default function ReviewInteract({
     <div className="review-list__item__review-interact">
       <div className="like-section" onClick={handleLikeReview}>
         <MdThumbUp className="icon" />
-        <span>{liked}</span>
+        <span>&nbsp;{liked}</span>
       </div>
       <div className="reply-section" onClick={handleShowReply}>
         <img src={reply} alt="reply-icon" />

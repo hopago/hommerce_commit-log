@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 
+import { IAuthor } from "../../../types/api/author";
+
 type AuthorProps = {
-  author: AuthorInfoShortcut;
+  author: IAuthor;
 };
 
 export default function Author({ author }: AuthorProps) {
@@ -9,7 +11,7 @@ export default function Author({ author }: AuthorProps) {
     <li>
       <Link className="link" to="/">
         <div className="img-wrap">
-          <img src={author.img} alt="" />
+          <img src={author.img} alt={author.name} />
           <div className="bg" />
         </div>
         <div className="info">

@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
+
 import Author from "./Author";
 
+import { IAuthor } from "../../../types/api/author";
+
 type AuthorsProps = {
-  authors: AuthorInfoShortcut[];
+  authors: IAuthor[];
   currIndex: number;
 };
 

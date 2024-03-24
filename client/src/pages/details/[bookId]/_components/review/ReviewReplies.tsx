@@ -1,13 +1,13 @@
 import { MdArrowRight } from "react-icons/md";
 
-import { ReviewReplies } from "../../../../_components/types/review-reply";
-
 import { useNavigate } from "react-router-dom";
 
 import ReplyItem from "../ReplyItem";
 
+import { IReviewReply } from "../../../../../types/api/review-reply";
+
 type ReviewRepliesProps = {
-  replies: ReviewReplies;
+  replies: IReviewReply[] | undefined;
 };
 
 export default function ReviewRepliesContainer({
@@ -37,9 +37,9 @@ export default function ReviewRepliesContainer({
           </div>
         </div>
       )}
-      {replies.map((reply, i) => (
-        <ReplyItem key={`${reply.id}-${i}`} reply={reply} />
-      ))}
+      {Array.isArray(replies) &&
+        replies.length &&
+        replies.map((reply) => <ReplyItem key={reply._id} reply={reply} />)}
     </div>
   );
 }

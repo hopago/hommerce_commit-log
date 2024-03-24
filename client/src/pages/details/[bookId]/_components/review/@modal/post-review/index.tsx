@@ -48,7 +48,7 @@ export default function PostReview({ setShow, hasNoReview }: PostReviewProps) {
     desc,
   } = useFormInputs();
 
-  const { handlePost, isPending } = usePostReview({ bookId: bookId! });
+  const { handlePost, isPending } = usePostReview({ bookId: bookId!, setShow });
 
   if (!user || !bookId || !book) return null;
 
