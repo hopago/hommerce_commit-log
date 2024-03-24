@@ -5,7 +5,6 @@ import { handlePostTotal } from "../(total)/services/postTotal";
 
 export const handlePostReview = async (req: Request, next: NextFunction) => {
   const fields = [
-    "bookId",
     "bookTitle",
     "username",
     "rating",
@@ -18,6 +17,7 @@ export const handlePostReview = async (req: Request, next: NextFunction) => {
   try {
     const newReview = new Review({
       ...req.body,
+      bookId: req.params.bookId,
       userId: req.params.userId,
     });
 

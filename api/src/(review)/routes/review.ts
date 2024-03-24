@@ -12,8 +12,6 @@ import {
 
 const router = express.Router();
 
-router.route("/").delete(deleteReviewById);
-
 router
   .route("/user/:userId/book/:bookId")
   .get(getUserReviewByBookId)
@@ -23,9 +21,11 @@ router
 
 router.route("/book/docs").get(getDocsLength);
 
+router.route("/user/:userId").get(getReviewByUserId);
+
 router.route("/book/:bookId").get(getReviews);
 
-router.route("/user/:userId").get(getReviewByUserId);
+router.route("/").delete(deleteReviewById);
 
 // router.route("/:reviewId/likes").patch(likeReview);
 

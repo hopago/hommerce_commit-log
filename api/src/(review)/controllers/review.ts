@@ -20,11 +20,21 @@ export const deleteReviewById = async (
 ) => {
   try {
     const reviewId = req.query.reviewId as string | undefined;
-    if (!reviewId) throw new HttpException(400, "Review Id required.");
+    const userId = req.query.userId as string | undefined;
+    if (!reviewId || !userId) throw new HttpException(400, "Queries required.");
 
-    await handleDeleteReviewById(reviewId, next);
+    try {
+      const isDeleted = await handleDeleteReviewById(
+        { reviewId, userId },
+        next
+      );
 
-    return res.status(201).json(reviewId);
+      if (isDeleted) {
+        return res.status(201).json({ deletedReviewId: reviewId });
+      }
+    } catch (err) {
+      next(err);
+    }
   } catch (err) {
     next(err);
   }
@@ -39,7 +49,10 @@ export const getUserReviewByBookId = async (
     const { userId, bookId } = req.params;
     if (!userId || !bookId) throw new HttpException(400, "Params required.");
 
-    const userReview = handleGetUserReviewByBookId({ userId, bookId }, next);
+    const userReview = await handleGetUserReviewByBookId(
+      { userId, bookId },
+      next
+    );
 
     if (userReview) {
       return res.status(200).json(userReview);
@@ -63,7 +76,9 @@ export const getDocsLength = async (
     if (typeof docsLength === "number") {
       return res.status(200).json({ docsLength: docsLength ?? 0 });
     }
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const getReviews = async (
@@ -141,8 +156,8 @@ export const postReview = async (
   next: NextFunction
 ) => {
   try {
-    const { userId } = req.params;
-    if (!userId) throw new HttpException(400, "User Id required.");
+    const { userId, bookId } = req.params;
+    if (!userId || !bookId) throw new HttpException(400, "Params required.");
 
     const newReview = await handlePostReview(req, next);
 
