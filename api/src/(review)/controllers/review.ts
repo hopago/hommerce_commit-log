@@ -68,7 +68,9 @@ export const getReviews = async (
       next
     );
 
-    return res.status(200).json(reviews);
+    if (reviews) {
+      return res.status(200).json(reviews);
+    }
   } catch (err) {
     next(err);
   }
@@ -101,7 +103,10 @@ export const getReviewByUserId = async (
         { userId, filter, keyword, pageNum, sort },
         next
       );
-      res.status(200).json(reviews);
+
+      if (reviews) {
+        return res.status(200).json(reviews);
+      }
     } catch (err) {
       next(err);
     }
@@ -121,7 +126,9 @@ export const postReview = async (
 
     const newReview = await handlePostReview(req, next);
 
-    return res.status(201).json(newReview);
+    if (newReview) {
+      return res.status(201).json(newReview);
+    }
   } catch (err) {
     next(err);
   }

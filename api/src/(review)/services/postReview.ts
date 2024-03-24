@@ -5,7 +5,6 @@ import { handlePostTotal } from "../(total)/services/postTotal";
 
 export const handlePostReview = async (req: Request, next: NextFunction) => {
   const fields = [
-    "buyWay",
     "bookId",
     "bookTitle",
     "username",
@@ -16,21 +15,21 @@ export const handlePostReview = async (req: Request, next: NextFunction) => {
 
   isFieldsFullFilled(fields, req);
 
-  const newReview = new Review({
-    ...req.body,
-    userId: req.params.userId,
-  });
-
   try {
-    await handlePostTotal(req, next);
-  } catch (err) {
-    next(err);
-  }
+    const newReview = new Review({
+      ...req.body,
+      userId: req.params.userId,
+    });
 
-  try {
-    const savedReview = await newReview.save();
+    try {
+      await handlePostTotal(req, next);
 
-    return savedReview;
+      const savedReview = await newReview.save();
+
+      return savedReview;
+    } catch (err) {
+      next(err);
+    }
   } catch (err) {
     next(err);
   }

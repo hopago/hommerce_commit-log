@@ -29,11 +29,15 @@ export const postPoint = async (
 ) => {
   try {
     const { userId } = req.params;
-    if (!userId) throw new HttpException(400, "User Id required.");
+    const { point } = req.body;
+    if (!userId || !point)
+      throw new HttpException(400, "User Id or point amount required.");
 
-    const newPoint = await handlePostPoint({ userId }, next);
+    const newPoint = await handlePostPoint({ userId, point }, next);
 
-    return res.status(201).json(newPoint);
+    if (newPoint) {
+      return res.status(201).json(newPoint);
+    }
   } catch (err) {
     next(err);
   }
@@ -50,7 +54,7 @@ export const updatePoint = async (
 
     const updatedPoint = await handleUpdatePoint(req, next);
 
-    return res.status(201).json(updatedPoint);
+    return res.status(201).json({ updatedPoint });
   } catch (err) {
     next(err);
   }

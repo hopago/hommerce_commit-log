@@ -10,17 +10,21 @@ export const postErrorLog = async (
 ) => {
   const { error } = req.body;
 
-  if (!error) throw new HttpException(400, "Error required.");
+  try {
+    if (!error) throw new HttpException(400, "Error required.");
 
-  if (error instanceof ServerError || error instanceof Error) {
-    try {
-      const isSuccess = await handlePostErrorLog(req, next);
+    if (error instanceof ServerError || error instanceof Error) {
+      try {
+        const isSuccess = await handlePostErrorLog(req, next);
 
-      if (isSuccess) {
-        return res.status(204);
+        if (isSuccess) {
+          return res.status(204);
+        }
+      } catch (err) {
+        next(err);
       }
-    } catch (err) {
-      next(err);
     }
+  } catch (err) {
+    next(err);
   }
 };

@@ -19,7 +19,7 @@ const reviewSchema = new Schema(
   {
     buyWay: {
       type: String,
-      require: true,
+      default: "종이책",
     },
     bookId: {
       type: String,

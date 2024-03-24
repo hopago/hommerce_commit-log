@@ -27,7 +27,7 @@ export const handleRegister = async (req: Request, next: NextFunction) => {
     const user = (await handleDatabaseOperation(newUser.save(), next)) as IUser;
 
     await handleDatabaseOperation(
-      handlePostPoint({ userId: user._id.toString() }, next),
+      handlePostPoint({ userId: user._id.toString(), point: 0 }, next),
       next
     );
 
