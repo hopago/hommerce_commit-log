@@ -37,6 +37,7 @@ export const useUpdateReview = ({
       MutateFns.UPDATE_REVIEW({ userId, bookId, rating, keyword, desc }),
     onSuccess: (newReview: IReview | undefined) => {
       if (newReview) {
+        // 현재 유저 리뷰, 총 리뷰
         queryClient.setQueryData([QueryKeys.REVIEW, userId], newReview);
 
         queryClient.setQueryData(
@@ -67,6 +68,11 @@ export const useUpdateReview = ({
             }
           }
         );
+
+        // 리뷰 총점
+        queryClient.invalidateQueries({
+          queryKey: [QueryKeys.REVIEW_TOTAL, bookId],
+        });
       }
     },
   });

@@ -1,14 +1,13 @@
 import { createScoreIcons } from "../../../../utils/create-score-icons";
 
 import { ReviewRatingType } from "../../../_components/types/review";
-import { ReviewsTotalRating } from "../../../_components/types/review-total";
 
 type ScoreBarProps = {
   score: ReviewRatingType;
-  reviewsTotalRating: ReviewsTotalRating;
+  ratingEachPert: Partial<Record<ReviewRatingType, number>>;
 };
 
-export default function ScoreBar({ score, reviewsTotalRating }: ScoreBarProps) {
+export default function ScoreBar({ score, ratingEachPert }: ScoreBarProps) {
   return (
     <div className="review-box__score-bar__vertical__item">
       <div className="icons">{createScoreIcons(Number(score))}</div>
@@ -17,12 +16,12 @@ export default function ScoreBar({ score, reviewsTotalRating }: ScoreBarProps) {
         <div
           className="fill"
           style={{
-            width: `${reviewsTotalRating.ratingEachPert[score]}%`,
+            width: `${ratingEachPert[score]}%`,
           }}
         />
       </div>
       <div className="text">
-        <span>{reviewsTotalRating.ratingEachPert[score]}%</span>
+        <span>{ratingEachPert[score] ?? 0}%</span>
       </div>
     </div>
   );

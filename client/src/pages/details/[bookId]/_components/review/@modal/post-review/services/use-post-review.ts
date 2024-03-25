@@ -53,6 +53,7 @@ export const usePostReview = ({
         review,
       }),
     onSuccess: (newReview: IReview) => {
+      // 리뷰 총 갯수
       const prevData = queryClient.getQueryData<{ docsLength: number }>([
         QueryKeys.REVIEW_LENGTH,
         bookId,
@@ -64,6 +65,7 @@ export const usePostReview = ({
         });
       }
 
+      // 현재 유저 리뷰, 총 리뷰
       queryClient.setQueryData([QueryKeys.REVIEW, userId], newReview);
 
       queryClient.setQueryData(
@@ -110,6 +112,11 @@ export const usePostReview = ({
           };
         }
       );
+
+      // 리뷰 총점
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.REVIEW_TOTAL, bookId],
+      });
 
       toast.success("리뷰 작성을 완료했어요.");
     },

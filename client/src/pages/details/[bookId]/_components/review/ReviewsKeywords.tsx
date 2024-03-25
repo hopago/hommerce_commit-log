@@ -1,18 +1,12 @@
-import { useEffect } from "react";
-
-import { reviewsKeywords } from "../../../../_components/constants/reviews-rating";
-
 type ReviewsKeywordsProps = {
-  bookId: string;
+  keywordEachPert: Partial<Record<ReviewKeywords, number>>;
 };
 
-export default function ReviewsKeywords({ bookId }: ReviewsKeywordsProps) {
-  useEffect(() => {
-    // TODO: findReviewsKeywordsByBookId
-  }, [bookId]);
-
-  const keys = Object.keys(reviewsKeywords.keywordEachPert);
-  const values = Object.values(reviewsKeywords.keywordEachPert);
+export default function ReviewsKeywords({
+  keywordEachPert,
+}: ReviewsKeywordsProps) {
+  const keys = Object.keys(keywordEachPert);
+  const values = Object.values(keywordEachPert);
   const reviewsKeywordsList = keys.map((key, index) => ({
     keyword: key,
     pert: values[index],
