@@ -13,7 +13,7 @@ export default function NextBooks({ books, currIndex }: NextBooksProps) {
     if (slideRef.current === null) return;
 
     slideRef.current.style.transition = "all 0.3s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${currIndex * 190}px)`;
+    slideRef.current.style.transform = `translateX(-${(currIndex - 4) * 190}px)`;
   }, [currIndex]);
 
   return (
