@@ -7,3 +7,7 @@ export interface IReviewReply {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface DeletedReviewResponse {
+  deletedReviewId: string;
+}
