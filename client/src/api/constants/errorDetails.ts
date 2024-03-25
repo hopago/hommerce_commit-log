@@ -105,6 +105,16 @@ export const ERROR_DETAILS = {
       message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
     },
   ],
+  PATCH_REVIEW_REPLY: [
+    {
+      code: 404,
+      message: "답글을 찾지 못했어요.",
+    },
+    {
+      code: 500,
+      message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
   POST_REVIEW: [
     {
       code: 400,

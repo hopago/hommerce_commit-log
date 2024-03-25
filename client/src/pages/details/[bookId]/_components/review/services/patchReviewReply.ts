@@ -15,8 +15,8 @@ export const patchReviewReply = async ({
   desc,
 }: PatchReviewReplyProps) => {
   if (!userId || !reviewId) return;
-  if (desc.length > 100) {
-    toast.message("입력 가능한 글자수(100자)를 초과했습니다.");
+  if (desc.length > 1000) {
+    toast.message("입력 가능한 글자수(1000자)를 초과했습니다.");
     return;
   }
   if (desc.trim() === "" || !desc) {

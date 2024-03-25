@@ -1717,12 +1717,21 @@
                                         vertical-align: top;
                                         color: $font-gray;
                                     }
+
+                                    .edit,
+                                    .delete {
+                                        cursor: pointer;
+
+                                        &:hover {
+                                            text-decoration: underline;
+                                        }
+                                    }
                                 }
 
                                 &__desc {
                                     padding: 0.5rem;
                                     background-color: rgba(0, 0, 0, .04);
-                                    width: max-content;
+                                    width: 100%;
                                     border-radius: 0.25rem;
 
                                     span {
@@ -1730,6 +1739,20 @@
                                         font-size: 14px;
                                         line-height: 22px;
                                         letter-spacing: -0.01em;
+                                    }
+                                }
+
+                                &__edit-form {
+                                    padding: 0.5rem 1rem;
+                                    background-color: rgba(0, 0, 0, .04);
+                                    border-radius: 0.5rem;
+
+                                    .review-list__item__review-replies__container {
+                                        width: 100%;
+
+                                        form {
+                                            background-color: white;
+                                        }
                                     }
                                 }
                             }
