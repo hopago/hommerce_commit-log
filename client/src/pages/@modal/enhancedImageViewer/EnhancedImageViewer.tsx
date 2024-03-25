@@ -2,7 +2,7 @@ import { MdClose } from "react-icons/md";
 
 type EnhancedImageViewerProps = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIndex: (i: number) => void;
   images: string[];
   index: number;
 };

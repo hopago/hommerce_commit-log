@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { reviewTabState } from "../../../../../recoil/review-tab";
 import { reviewSortOptionsState } from "../../../../../recoil/review-select";
 import { currentPageState } from "../../../../../recoil/review-paginate";
 import { isAlreadyPostReview } from "../../../../../recoil/edit-user-review";
+import { detailsPageEnabled } from "../../../../../recoil/api/details-page-review-enabled";
 
 import PaginateControl from "../PaginateControl";
 import ReviewList, { ReviewListLoadingComponent } from "./ReviewList";
@@ -18,8 +19,10 @@ import { QueryFns } from "../../../../../lib/react-query/queryFn";
 import { daysToMs } from "../../../../../lib/react-query/utils";
 import { useHandleError } from "../../../../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
+import { getQueryClient } from "../../../../../lib/react-query/getQueryClient";
 
 import { useScrollRef } from "../../../../hooks/use-scroll-ref";
+
 import { useUser } from "@clerk/clerk-react";
 
 export default function ReviewsDetails() {
@@ -31,6 +34,9 @@ export default function ReviewsDetails() {
   const currTab = useRecoilValue(reviewTabState);
   const sort = useRecoilValue(reviewSortOptionsState);
   const pageNum = useRecoilValue(currentPageState);
+  const [shouldRefetch, setShouldRefetch] = useRecoilState(detailsPageEnabled);
+
+  const queryClient = getQueryClient();
 
   /* paginate-scroll-behavior */
   const { scrollRef } = useScrollRef({ currentPage: pageNum });
@@ -47,20 +53,14 @@ export default function ReviewsDetails() {
     enabled: !!user,
   });
 
-  const { data, isLoading, isError, error, isSuccess } = useQuery({
+  const { data, isLoading, isError, error, isSuccess, refetch } = useQuery({
     queryKey: [QueryKeys.REVIEWS, bookId],
     queryFn: () =>
       QueryFns.GET_REVIEWS_BY_BOOK_ID({ bookId: bookId!, pageNum, sort }),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
-    enabled: !!bookId,
+    enabled: shouldRefetch && !!bookId,
   });
-
-  useEffect(() => {
-    if (isUserPostedSuccess && userReview?._id) {
-      setUserPosted(true);
-    }
-  }, [isUserPostedSuccess, user]);
 
   useHandleError({
     isError,
@@ -68,6 +68,30 @@ export default function ReviewsDetails() {
     errorDetails: ERROR_DETAILS.GET_REVIEWS_BY_BOOK_ID,
   });
 
+  /* paginate & sort changed, force refetch */
+  useEffect(() => {
+    if (shouldRefetch) {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.REVIEWS, bookId],
+      });
+      refetch();
+    }
+  }, [shouldRefetch]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setShouldRefetch(false);
+    }
+  }, [isSuccess]);
+
+  /* post or patch user-review */
+  useEffect(() => {
+    if (isUserPostedSuccess && userReview?._id) {
+      setUserPosted(true);
+    }
+  }, [isUserPostedSuccess, user]);
+
+  /* user review && filter-reviews */
   const [reviewsWithUserReview, setReviewsWithUserReview] = useState<IReview[]>(
     data?.reviews ?? []
   );

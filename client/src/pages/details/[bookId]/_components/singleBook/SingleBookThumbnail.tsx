@@ -36,7 +36,7 @@ export default function SingleBookThumbnail({
     const {
       handleNext,
       handlePrev,
-      setIndex,
+      handleSetIndex,
       prevDisabled,
       nextDisabled,
       index,
@@ -77,7 +77,7 @@ export default function SingleBookThumbnail({
         {showImageModal && (
           <EnhancedImageViewer
             setShow={setShowImageModal}
-            setIndex={setIndex}
+            setIndex={handleSetIndex}
             images={slideImages}
             index={index}
           />

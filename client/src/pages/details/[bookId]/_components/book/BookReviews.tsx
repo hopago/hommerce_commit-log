@@ -1,44 +1,30 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useState } from "react";
 
 import { useSession } from "@clerk/clerk-react";
 
 import noResult from "../../../../../assets/ico_info.png";
-
-import CommonTooltip, {
-  CommonToolTipItem,
-} from "../../../../../_components/CommonTooltip";
-import ReviewsTotalRating from "../review/ReviewsTotalRating";
-import ReviewsKeywords from "../review/ReviewsKeywords";
-
 import { MdInfoOutline } from "react-icons/md";
+import { tooltipItems } from "../review/constants/review-tool-tip";
 
-import ReviewsDetails from "../review/ReviewsDetails";
 import { useQuery } from "@tanstack/react-query";
 import { daysToMs } from "../../../../../lib/react-query/utils";
 import { QueryKeys } from "../../../../../lib/react-query/query-key";
 import { QueryFns } from "../../../../../lib/react-query/queryFn";
 
-import PostReviewButton from "../PostReviewButton";
 import { useHandleError } from "../../../../hooks/use-handle-error";
 import { useRecoilState } from "recoil";
 import { postReviewModal } from "../../../../../recoil/modal/post-review";
 import { useModal } from "../../../../hooks/use-modal";
+
+import CommonTooltip from "../../../../../_components/CommonTooltip";
+import PostReviewButton from "../PostReviewButton";
 import PostReview from "../review/@modal/post-review";
+import ReviewsTotals from "../review/ReviewsTotals";
+import ReviewsDetails from "../review/ReviewsDetails";
 
 type BookReviewProps = {
   bookId: string | undefined;
 };
-
-const tooltipItems: CommonToolTipItem[] = [
-  {
-    title: "리워드 안내",
-    desc: "구매 후 90일 이내에 평점 작성 시 e교환권 100원을 적립해드립니다.",
-  },
-  {
-    title: "운영 원칙 안내",
-    desc: "자유로운 의사 표현의 공간인 만큼 타인에 대한 배려를 부탁합니다. 일부 타인의 권리를 침해하거나 불편을 끼친다면 별도의 통보 없이 삭제될 수 있습니다.",
-  },
-];
 
 const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
   ({ bookId }, ref) => {
@@ -104,8 +90,6 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
       );
     }
 
-    // TODO: 토탈 레이팅 패칭
-
     // data-exist
     if (isSuccess && data && data.docsLength > 0) {
       return (
@@ -128,10 +112,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
               {isSignedIn && <PostReviewButton />}
             </div>
             <div className="details-prod-reviews__wrap__reviews-total">
-              <div className="details-prod-reviews__wrap__reviews-total__inner">
-                <ReviewsTotalRating bookId={bookId!} />
-                <ReviewsKeywords bookId={bookId!} />
-              </div>
+              <ReviewsTotals bookId={bookId} />
             </div>
             <ReviewsDetails />
           </div>

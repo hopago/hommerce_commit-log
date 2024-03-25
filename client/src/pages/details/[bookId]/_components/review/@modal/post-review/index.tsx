@@ -16,7 +16,9 @@ import { MutationProps, usePostReview } from "./services/use-post-review";
 
 import { MdClose } from "react-icons/md";
 
-import { SetterOrUpdater } from "recoil";
+import { SetterOrUpdater, useRecoilValue } from "recoil";
+import { useUpdateReview } from "./services/use-update-review";
+import { isAlreadyPostReview } from "../../../../../../../recoil/edit-user-review";
 
 type PostReviewProps = {
   setShow: SetterOrUpdater<boolean>;
@@ -34,6 +36,7 @@ const selectList: ReviewKeywords[] = [
 export default function PostReview({ setShow, hasNoReview }: PostReviewProps) {
   const { bookId } = useParams();
   const { user } = useUser();
+  const isUserPosted = useRecoilValue(isAlreadyPostReview);
 
   const queryClient = getQueryClient();
 
@@ -48,16 +51,24 @@ export default function PostReview({ setShow, hasNoReview }: PostReviewProps) {
     desc,
   } = useFormInputs();
 
-  // TODO: isUserPosted 시엔 patch handlePatch (로직 작성)
-  const { handlePost, isPending } = usePostReview({
+  const { handlePost, isPending: isPostingReview } = usePostReview({
     bookId: bookId!,
     setShow,
     userId: user?.id,
   });
+  const { handlePatch, isPending: isUpdatingReview } = useUpdateReview({
+    bookId: bookId!,
+    setShow,
+    userId: user?.id!,
+  });
 
   if (!user || !bookId || !book) return null;
 
-  const disabled = isPending || desc.trim() === "" || keyword === null;
+  const disabled =
+    isPostingReview ||
+    isUpdatingReview ||
+    desc.trim() === "" ||
+    keyword === null;
 
   const reviewData: MutationProps = {
     userId: user.id,
@@ -75,13 +86,25 @@ export default function PostReview({ setShow, hasNoReview }: PostReviewProps) {
     setShow(false);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    isUserPosted
+      ? handlePatch({
+          rating: reviewData.review.rating,
+          keyword: reviewData.review.keyword,
+          desc: reviewData.review.desc,
+        })
+      : handlePost(reviewData);
+  };
+
   return (
     <div className="post-review">
       <div className="bg-fill" />
       <div className="post-review__contents">
         <form
           className="post-review__contents__container"
-          onSubmit={(e) => handlePost(e, reviewData)}
+          onSubmit={handleSubmit}
         >
           <div className="form-header">
             <h1>리뷰작성</h1>

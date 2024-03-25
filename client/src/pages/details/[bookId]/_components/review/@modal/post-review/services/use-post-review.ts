@@ -59,10 +59,9 @@ export const usePostReview = ({
       ]);
 
       if (prevData) {
-        queryClient.setQueryData(
-          [QueryKeys.REVIEW_LENGTH, bookId],
-          { docsLength: prevData.docsLength + 1 }
-        );
+        queryClient.setQueryData([QueryKeys.REVIEW_LENGTH, bookId], {
+          docsLength: prevData.docsLength + 1,
+        });
       }
 
       queryClient.setQueryData([QueryKeys.REVIEW, userId], newReview);
@@ -116,12 +115,7 @@ export const usePostReview = ({
     },
   });
 
-  const handlePost = async (
-    e: React.FormEvent<HTMLFormElement>,
-    review: MutationProps
-  ) => {
-    e.preventDefault();
-
+  const handlePost = async (review: MutationProps) => {
     mutate(review);
 
     setShow(false);

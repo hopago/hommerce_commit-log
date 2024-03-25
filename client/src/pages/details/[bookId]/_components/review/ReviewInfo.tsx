@@ -37,8 +37,6 @@ export default function ReviewInfo({
 }: ReviewInfoProps) {
   const isUserPosted = useRecoilValue(isAlreadyPostReview);
 
-  // TODO: isUserPosted시엔 수정 시엔 post모달에서 patch 함수 실행, 삭제 시엔 confirm 후에 삭제 진행
-
   return (
     <div className="review-list__item__review-info">
       <div className="review-list__item__review-info__left">

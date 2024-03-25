@@ -16,6 +16,11 @@ export const useImageSlide = ({
   const [prevDisabled, setPrevDisabled] = useState(false);
   const [position, setPosition] = useState(0);
 
+  const handleSetIndex = (i: number) => {
+    setIndex(i);
+    pixelPerSlide && setPosition(-i * pixelPerSlide);
+  }
+
   const handleNext = () => {
     if (index + itemsPerSlide < total) {
       setIndex((prev) => prev + itemsPerSlide);
@@ -37,7 +42,7 @@ export const useImageSlide = ({
 
   return {
     index,
-    setIndex,
+    handleSetIndex,
     handleNext,
     handlePrev,
     nextDisabled,

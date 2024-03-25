@@ -1,5 +1,8 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { ReviewTabList, setReviewTabList } from "../../../../../recoil/review-tab";
+import {
+  ReviewTabList,
+  setReviewTabList,
+} from "../../../../../recoil/review-tab";
 import {
   ReviewSortOptions,
   setReviewSortOptionsState,
@@ -7,6 +10,7 @@ import {
 
 import SelectForm from "../../../../../_components/SelectForm";
 import { cn } from "../../../../../lib/utils";
+import { detailsPageEnabled } from "../../../../../recoil/api/details-page-review-enabled";
 
 type TabList = {
   text: ReviewTabList;
@@ -16,6 +20,7 @@ type TabList = {
 export default function ReviewsSortTabList() {
   const [tab, setTab] = useRecoilState(setReviewTabList);
   const setSortOpt = useSetRecoilState(setReviewSortOptionsState);
+  const setShouldRefetch = useSetRecoilState(detailsPageEnabled);
 
   const tabList: TabList = [
     {
@@ -32,6 +37,7 @@ export default function ReviewsSortTabList() {
 
   const onSelectItemClick = (text: ReviewSortOptions) => {
     setSortOpt(text);
+    setShouldRefetch(true);
   };
 
   return (

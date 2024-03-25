@@ -1,5 +1,6 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { currentPageState } from "../../../../recoil/review-paginate";
+import { detailsPageEnabled } from "../../../../recoil/api/details-page-review-enabled";
 
 import { PAGE_SIZE } from "../../../constants/page";
 
@@ -17,28 +18,34 @@ type PaginateControlProps = {
 
 export default function PaginateControl({ pageTotal }: PaginateControlProps) {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+  const setShouldRefetch = useSetRecoilState(detailsPageEnabled);
 
   const prevPageDisabled = currentPage === 1;
   const nextPageDisabled = currentPage === pageTotal;
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
+    setShouldRefetch(true);
   };
   const handleNextPage = () => {
     setCurrentPage((prevPage) =>
       prevPage < pageTotal ? prevPage + 1 : prevPage
     );
+    setShouldRefetch(true);
   };
 
   const handleSetPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    setShouldRefetch(true);
   };
 
   const handleMoveToFirstPage = () => {
     setCurrentPage(1);
+    setShouldRefetch(true);
   };
   const handleMoveToLastPage = () => {
     setCurrentPage(pageTotal);
+    setShouldRefetch(true);
   };
 
   useEffect(() => {
