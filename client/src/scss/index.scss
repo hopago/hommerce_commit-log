@@ -470,3 +470,53 @@ textarea::placeholder {
         }
     }
 }
+
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: $color-content3;
+    --tw-bg-opacity: 1;
+
+    --tw-before-opacity: 1;
+}
+
+.skeleton::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+    border-top: 1px solid rgba($color-content4, 0.3);
+    background-image: linear-gradient(to right, transparent, $color-content4, transparent);
+    opacity: var(--tw-before-opacity);
+    transition: opacity 300ms;
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    background-color: $color-content3;
+    opacity: 1;
+}
+
+[data-loaded="true"] .skeleton {
+    background-color: transparent;
+}
+
+[data-loaded="true"] .skeleton::before,
+[data-loaded="true"] .skeleton::after {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

@@ -22,15 +22,6 @@ type TBook = {
   sellType?: SellType;
 };
 
-type TBooks = TBook[];
-
-type TBookShortcut = Pick<
-  TBook,
-  "author" | "category" | "representImg" | "title" | "id" | "price" | "discount"
->;
-
-type TBookOptional = Partial<TBook>;
-
 type BookDetails = {
   awards: string[];
   intro: string;

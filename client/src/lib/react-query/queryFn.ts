@@ -1,3 +1,4 @@
+import { fetchBestSellers } from "../../pages/_components/services/fetchBestSellers";
 import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBookBySearchTerm";
 import { findBestAuthors } from "../../pages/_components/services/findBestAuthors";
 import { getReviewReply } from "../../pages/details/[bookId]/_components/review/services/getReviewReply";
@@ -55,6 +56,7 @@ type GetUserReviewByBookIdProps = {
 };
 
 export const QueryFns = {
+  FETCH_BEST_SELLERS: () => fetchBestSellers(),
   FIND_REFERRER_CATEGORY_BEST_AUTHORS: ({
     bookId,
     category,

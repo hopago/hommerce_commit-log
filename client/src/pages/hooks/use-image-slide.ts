@@ -4,12 +4,14 @@ type UseImageSlideProps = {
   total: number;
   pixelPerSlide?: number;
   itemsPerSlide?: number;
+  preventNextNumber?: number;
 };
 
 export const useImageSlide = ({
   total,
   pixelPerSlide,
   itemsPerSlide = 1,
+  preventNextNumber = 0,
 }: UseImageSlideProps) => {
   const [index, setIndex] = useState(0);
   const [nextDisabled, setNextDisabled] = useState(false);
@@ -19,10 +21,10 @@ export const useImageSlide = ({
   const handleSetIndex = (i: number) => {
     setIndex(i);
     pixelPerSlide && setPosition(-i * pixelPerSlide);
-  }
+  };
 
   const handleNext = () => {
-    if (index + itemsPerSlide < total) {
+    if (index + itemsPerSlide < total - preventNextNumber) {
       setIndex((prev) => prev + itemsPerSlide);
       pixelPerSlide && setPosition((prev) => prev - pixelPerSlide);
     }
@@ -37,7 +39,7 @@ export const useImageSlide = ({
 
   useEffect(() => {
     setPrevDisabled(index === 0);
-    setNextDisabled(index + itemsPerSlide >= total);
+    setNextDisabled(index + itemsPerSlide >= total - preventNextNumber);
   }, [index, total, itemsPerSlide]);
 
   return {

@@ -2,6 +2,7 @@ export const QueryKeys = {
   AUTHOR: "author",
   AUTHORS: "authors",
   AUTHORS_BOOK_REF: "authorsBookRef",
+  BEST_SELLERS: "bestsellers",
   BOOK: "book",
   BOOK_DETAILS: "bookDetails",
   BOOKS_DOCS_LENGTH: "bookDocsLength",

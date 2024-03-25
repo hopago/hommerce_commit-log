@@ -122,7 +122,13 @@ function UserActionsControls({
     setShowEdit((prev) => !prev);
   };
 
-  const handleDelete = () => mutate();
+  const handleDelete = () => {
+    const isConfirmed = confirm("정말 삭제하시겠어요?");
+
+    if (isConfirmed) {
+      mutate();
+    }
+  };
 
   return (
     <>

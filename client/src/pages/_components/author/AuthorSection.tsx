@@ -17,7 +17,12 @@ export default function AuthorSection() {
   });
 
   const { handleNext, handlePrev, prevDisabled, nextDisabled, index } =
-    useImageSlide({ total: data?.length ?? 0, itemsPerSlide: 3 });
+    useImageSlide({
+      total: data?.length ?? 0,
+      itemsPerSlide: 1,
+      pixelPerSlide: 302,
+      preventNextNumber: 2,
+    });
 
   useHandleError({ isError, error });
 

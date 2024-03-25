@@ -233,3 +233,33 @@
         text-align: center;
     }
 }
+
+.skeleton.badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton.representImg {
+    width: 200px;
+    height: 294px;
+    cursor: default;
+}
+
+.skeleton.h2 {
+    width: 23px;
+    height: 23px;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .skeleton.span {
+        width: 19px;
+        height: 19px;
+    }
+}
