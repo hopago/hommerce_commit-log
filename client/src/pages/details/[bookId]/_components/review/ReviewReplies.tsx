@@ -1,20 +1,26 @@
 import { MdArrowRight } from "react-icons/md";
 
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
 
-import ReplyItem from "../ReplyItem";
+import { useNavigate } from "react-router-dom";
 
 import { IReviewReply } from "../../../../../types/api/review-reply";
 
+import ReplyItem from "../ReplyItem";
+import ReviewReplyForm from "./ReviewReplyForm";
+
 type ReviewRepliesProps = {
   replies: IReviewReply[] | undefined;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  reviewId: string;
 };
 
 export default function ReviewRepliesContainer({
   replies,
+  setShow,
+  reviewId,
 }: ReviewRepliesProps) {
-  // TODO: useAuth()
-  const isLogin = false;
+  const { isSignedIn } = useAuth();
 
   const navigate = useNavigate();
 
@@ -24,8 +30,8 @@ export default function ReviewRepliesContainer({
 
   return (
     <div className="review-list__item__review-replies">
-      {isLogin ? (
-        <>{/* TODO: POST REPLY FORM */}</>
+      {isSignedIn ? (
+        <ReviewReplyForm setShow={setShow} reviewId={reviewId} isPost={true} />
       ) : (
         <div className="review-list__item__review-replies__bg">
           <div className="reply-form-no-auth">
@@ -38,7 +44,7 @@ export default function ReviewRepliesContainer({
         </div>
       )}
       {Array.isArray(replies) &&
-        replies.length &&
+        replies.length > 0 &&
         replies.map((reply) => <ReplyItem key={reply._id} reply={reply} />)}
     </div>
   );

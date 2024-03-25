@@ -44,7 +44,13 @@ export default function ReviewItem({ review }: ReviewItemProps) {
         liked={review.liked}
         setShow={setShow}
       />
-      {show && <ReviewRepliesContainer replies={data} />}
+      {show && (
+        <ReviewRepliesContainer
+          replies={data}
+          setShow={setShow}
+          reviewId={review._id}
+        />
+      )}
     </li>
   );
 }

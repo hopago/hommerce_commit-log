@@ -62,7 +62,7 @@ export const useUpdateReview = ({
               return { ...prevData };
             } else {
               prevReviews[foundIndex] = newReview;
-              toast.info("리뷰가 업데이트되었습니다.");
+              toast.info("리뷰가 업데이트 되었습니다.");
 
               return { ...prevData, reviews: prevReviews };
             }

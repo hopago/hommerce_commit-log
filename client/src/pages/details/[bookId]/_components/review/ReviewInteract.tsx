@@ -7,6 +7,8 @@ type ReviewInteractProps = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+// TODO: queryKey: [QueryKeys.REVIEWS, bookId]에 likes 업데이트
+
 export default function ReviewInteract({
   repliesLength,
   liked,

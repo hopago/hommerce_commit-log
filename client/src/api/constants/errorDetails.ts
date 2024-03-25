@@ -115,4 +115,18 @@ export const ERROR_DETAILS = {
       message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
     },
   ],
+  POST_REVIEW_REPLY: [
+    {
+      code: 400,
+      message: "모든 필수 정보가 입력됐는지 확인해주세요.",
+    },
+    {
+      code: 404,
+      message: "리뷰 정보를 찾을 수 없습니다.",
+    },
+    {
+      code: 500,
+      message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
 };
