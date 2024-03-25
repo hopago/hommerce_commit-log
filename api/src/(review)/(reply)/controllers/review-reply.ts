@@ -32,12 +32,16 @@ export const postReply = async (
 ) => {
   try {
     const { reviewId } = req.params;
+    const userId = req.query.userId;
 
     if (!reviewId) throw new HttpException(400, "Review Id required.");
+    if (!userId) throw new HttpException(400, "User Id required.");
 
     const newReply = await handlePostReply(req, next);
 
-    return res.status(201).json(newReply);
+    if (newReply) {
+      return res.status(201).json(newReply);
+    }
   } catch (err) {
     next(err);
   }
@@ -50,14 +54,16 @@ export const updateReply = async (
 ) => {
   try {
     const { reviewId } = req.params;
-    const { userId } = req.body;
-  
+    const userId = req.query.userId;
+
     if (!reviewId) throw new HttpException(400, " Review Id required.");
     if (!userId) throw new HttpException(400, "User Id required.");
 
     const updatedReply = await handleUpdateReply(req, next);
 
-    return res.status(201).json(updatedReply);
+    if (updatedReply) {
+      return res.status(201).json(updatedReply);
+    }
   } catch (err) {
     next(err);
   }
@@ -71,13 +77,15 @@ export const deleteReply = async (
   try {
     const { reviewId } = req.params;
     const userId = req.query.userId as string;
-  
+
     if (!reviewId) throw new HttpException(400, "Review Id required.");
     if (!userId) throw new HttpException(400, "User Id required.");
 
     const _id = await handleDeleteReply({ userId, reviewId }, next);
 
-    return res.status(201).json({ reviewId: _id });
+    if (_id) {
+      return res.status(201).json({ deletedReviewId: _id });
+    }
   } catch (err) {
     next(err);
   }

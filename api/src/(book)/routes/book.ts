@@ -9,10 +9,13 @@ import {
   updateImage,
 } from "../controllers/book";
 import { getDocsLength } from "../services/getDocsLength";
+import { getBestBooks } from "../controllers/bestBooks";
 
 const router = express.Router();
 
 router.route("/").get(getBooks).post(postBook);
+
+router.route("/best").get(getBestBooks);
 
 router.route("/docs").get(getDocsLength);
 
