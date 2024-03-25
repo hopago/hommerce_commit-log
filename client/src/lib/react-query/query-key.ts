@@ -9,6 +9,7 @@ export const QueryKeys = {
   BOOK_SEARCH: "bookSearchResults",
   FAVOR_LENGTH: "favorLength",
   FAVOR_SUBSCRIPTION: "favorSubscription",
+  MONTHLY_PICKS: "monthlyPicks",
   REVIEW_REPLY: "reviewReply",
   REVIEW_TOTAL: "reviewTotal",
   REVIEW_LENGTH: "reviewDocsLength",

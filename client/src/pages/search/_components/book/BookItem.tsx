@@ -47,7 +47,7 @@ export default function BookItem({ book, display }: BookItemProps) {
         <div className="book-info__text">
           {book.parentCategory
             ? book.parentCategory.map((category) => (
-                <ParentCategoryBadge text={category} />
+                <ParentCategoryBadge key={category} text={category} />
               ))
             : null}
           <Link to={`/details/${book._id}`} className="link">

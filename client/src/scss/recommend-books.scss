@@ -57,6 +57,7 @@
                                 font-size: 14px;
                                 line-height: 22px;
                                 letter-spacing: -0.01em;
+                                padding-right: 3rem;
 
                                 .title {
                                     margin-top: 1rem;
@@ -251,6 +252,7 @@
         &__grid {
             width: 100%;
             padding: 0.5rem;
+            padding-bottom: 1.5rem;
             display: flex;
             align-items: center;
 

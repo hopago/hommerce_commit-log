@@ -2,25 +2,19 @@ import { Link } from "react-router-dom";
 import ParentCategoryBadge from "./ParentCategoryBadge";
 
 type NextBookItemProps = {
-  book: {
-    id: number;
-    title: string;
-    category: BookSubCategory;
-    img: string;
-    parentCategory: BookParentCategory;
-  };
+  book: IBook;
 };
 
 export default function NextBookItem({ book }: NextBookItemProps) {
   return (
-    <li>
-      <Link to={`/details/${book.id}`} className="img-wrap link">
-        <img src={book.img} alt={book.title} />
+    <li key={book._id}>
+      <Link to={`/details/${book._id}`} className="img-wrap link">
+        <img src={book.representImg} alt={book.title} />
       </Link>
-      {book.parentCategory ? (
-        <ParentCategoryBadge text={book.parentCategory} />
-      ) : null}
-      <Link to={`/details/${book.id}`} className="link">
+      {book.parentCategory.map((category) => (
+        <ParentCategoryBadge key={category} text={category} />
+      ))}
+      <Link to={`/details/${book._id}`} className="link">
         <p>{book.title}</p>
       </Link>
     </li>

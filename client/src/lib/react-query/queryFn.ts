@@ -1,5 +1,6 @@
 import { fetchBestSellers } from "../../pages/_components/services/fetchBestSellers";
 import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBookBySearchTerm";
+import { fetchMonthlyPicks } from "../../pages/_components/services/fetchBookInformation";
 import { findBestAuthors } from "../../pages/_components/services/findBestAuthors";
 import { getReviewReply } from "../../pages/details/[bookId]/_components/review/services/getReviewReply";
 import { getUserReviewByBookId } from "../../pages/details/[bookId]/_components/review/services/getUserReviewByBookId";
@@ -15,6 +16,13 @@ import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
 import { getSubscriptionLength } from "../../pages/search/services/getSubscriptionLength";
 import { ReviewSortOptions } from "../../recoil/review-select";
+
+type LimitType = 1 | 3;
+
+type FetchMonthlyPicksProps = {
+  pageNum: number;
+  limit: LimitType;
+};
 
 type FindReferrerCategoryBestAuthorsProps = {
   bookId?: string;
@@ -57,6 +65,8 @@ type GetUserReviewByBookIdProps = {
 
 export const QueryFns = {
   FETCH_BEST_SELLERS: () => fetchBestSellers(),
+  FETCH_MONTHLY_PICKS: ({ pageNum, limit }: FetchMonthlyPicksProps) =>
+    fetchMonthlyPicks({ pageNum, limit }),
   FIND_REFERRER_CATEGORY_BEST_AUTHORS: ({
     bookId,
     category,

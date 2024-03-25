@@ -3,17 +3,18 @@ import { AiFillMessage } from "react-icons/ai";
 import ParentCategoryBadge from "./ParentCategoryBadge";
 
 import { AnimatePresence, motion } from "framer-motion";
+
 import { Link } from "react-router-dom";
 
 type SingleBookProps = {
-  currentBook: TBook;
+  currentBook: IBook;
 };
 
 export default function SingleBook({ currentBook }: SingleBookProps) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={currentBook ? `${currentBook.id}${currentBook.title}` : "empty"}
+        key={currentBook ? `${currentBook._id}${currentBook.title}` : "empty"}
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -10, opacity: 0 }}
@@ -24,16 +25,16 @@ export default function SingleBook({ currentBook }: SingleBookProps) {
           <div className="recommend-books__today-pick__contents__single-book__wrap">
             <div className="recommend-books__today-pick__contents__single-book__wrap__horizontal">
               <Link
-                to={`/details/${currentBook.id}`}
+                to={`/details/${currentBook._id}`}
                 className="recommend-books__today-pick__contents__single-book__wrap__horizontal__img link"
               >
                 <img src={currentBook.representImg} alt={currentBook.title} />
               </Link>
               <div className="recommend-books__today-pick__contents__single-book__wrap__horizontal__info">
-                {currentBook.parentCategory ? (
-                  <ParentCategoryBadge text={currentBook.parentCategory} />
-                ) : null}
-                <Link to={`/details/${currentBook.id}`} className="link">
+                {currentBook.parentCategory.map((category) => (
+                  <ParentCategoryBadge key={category} text={category} />
+                ))}
+                <Link to={`/details/${currentBook._id}`} className="link">
                   <p className="title">{currentBook.title}</p>
                 </Link>
                 <p className="author">{currentBook.author}</p>
