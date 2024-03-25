@@ -4,26 +4,22 @@ import { HttpException } from "../../middleware/error/utils";
 
 const perPage = 10;
 
-type QuerySortType = "최신순" | "좋아요 순" | "undefined" | undefined;
+type QuerySortType = "최신순" | "좋아요 순";
 
 type HandleGetReviewProps = {
   bookId: string;
   pageNum: number;
-  sort: QuerySortType;
-};
-
-const getSortCondition: any = (sort: QuerySortType) => {
-  return sort === "최신순" ? { createdAt: -1 } : { createdAt: 1 };
+  sort: string;
 };
 
 export const handleGetReviews = async (
-  { bookId, pageNum = 1, sort }: HandleGetReviewProps,
+  { bookId, pageNum = 1, sort = "최신순" }: HandleGetReviewProps,
   next: NextFunction
 ) => {
   const skip = (pageNum - 1) * perPage;
 
   const getSortCondition: any = (sort: QuerySortType) => {
-    switch (sort) {
+    switch (decodeURIComponent(sort)) {
       case "최신순":
         return { createdAt: -1 };
       case "좋아요 순":

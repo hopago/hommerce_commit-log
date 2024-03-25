@@ -19,6 +19,7 @@ export const getTotal = async (
 
     const total = await handleGetTotal({ bookId }, next);
 
+    // search 페이지 -> 리뷰 총 갯수 UI
     const reviewsLength = await handleGetDocsLength({ bookId }, next);
 
     if (total && typeof reviewsLength === "number") {
@@ -36,12 +37,13 @@ export const postTotal = async (
 ) => {
   try {
     const { bookId } = req.params;
-
     if (!bookId) throw new HttpException(400, "Book Id required.");
 
     const newTotal = await handlePostTotal(req, next);
 
-    return res.status(201).json(newTotal);
+    if (newTotal) {
+      return res.status(201).json(newTotal);
+    }
   } catch (err) {
     next(err);
   }

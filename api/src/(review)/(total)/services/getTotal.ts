@@ -12,9 +12,7 @@ export const handleGetTotal = async (
     });
     if (!reviewTotal) throw new HttpException(404, "Review total not found.");
 
-    const { totalRating, totalKeyword } = reviewTotal;
-
-    return { totalRating, totalKeyword };
+    return reviewTotal;
   } catch (err) {
     next(err);
   }

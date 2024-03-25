@@ -88,11 +88,21 @@ export const getReviews = async (
 ) => {
   try {
     const { bookId } = req.params;
-    const pageNum = req.query.pageNum as number | undefined;
-    const sort = req.query.sort as QuerySortType;
+    const pageNum = parseInt(req.query.pageNum as string);
+    let sort = req.query.sort as string;
 
     if (!bookId) throw new HttpException(400, "Book Id required.");
-    if (!pageNum) throw new HttpException(400, "Page number required.");
+    if (isNaN(pageNum)) throw new HttpException(400, "Page number required.");
+
+    if (sort === "undefined" || sort === undefined) {
+      throw new HttpException(400, "Sort query undefined.");
+    } else {
+      sort = decodeURIComponent(sort);
+    }
+
+    if (!["최신순", "좋아요 순"].includes(sort)) {
+      throw new HttpException(400, "Invalid sort parameter.");
+    }
 
     const reviews = await handleGetReviews(
       {

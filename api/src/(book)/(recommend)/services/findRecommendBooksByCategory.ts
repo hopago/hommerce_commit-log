@@ -30,7 +30,9 @@ export const handleFindRecommendBookByCategory = async (
       const sortedRecommendBooks: IBook[] = recommendBooks
         .map((book: any & { _doc: IBook }) => {
           const favorCount = favorCounts.find(
-            (favor: IBook) => favor._id.toString() === book._id.toString()
+            (favor: IBook) =>
+              favor._id.toString().toLowerCase() ===
+              book._id.toString().toLowerCase()
           );
 
           return {
