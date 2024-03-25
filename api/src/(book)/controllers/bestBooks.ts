@@ -8,14 +8,14 @@ import { findMonthlyPicks } from "../services/findMonthlyPicks";
 
 const bestBooksQueries: BestBooksQueryType[] = [
   "bestsellers",
-  "userPicks",
-  "monthlyPicks",
+  "userpicks",
+  "monthlypicks",
 ];
 
 const queryActions = {
   bestsellers: findBestSellers,
-  userPicks: findUserPicks,
-  monthlyPicks: findMonthlyPicks,
+  userpicks: findUserPicks,
+  monthlypicks: findMonthlyPicks,
 };
 
 export const getBestBooks = async (
@@ -37,9 +37,9 @@ export const getBestBooks = async (
       throw new HttpException(400, "Invalid type");
     }
 
-    const result = await action(next);
+    const result = await action(req, res, next);
 
-    if (result && Array.isArray(result) && result.length > 0) {
+    if (result) {
       return res.status(200).json(result);
     }
   } catch (err) {

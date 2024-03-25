@@ -1,1 +1,1 @@
-type BestBooksQueryType = "bestsellers" | "userPicks" | "monthlyPicks";
+type BestBooksQueryType = "bestsellers" | "userpicks" | "monthlypicks";

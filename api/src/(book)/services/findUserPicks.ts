@@ -1,7 +1,9 @@
-import { NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import Book from "../models/book";
 
 export const findUserPicks = async (
+  req: Request,
+  res: Response,
   next: NextFunction
 ) => {
   try {
