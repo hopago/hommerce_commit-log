@@ -7,6 +7,8 @@ import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../lib/react-query/query-key";
 import { QueryFns } from "../../../lib/react-query/queryFn";
+import { getQueryClient } from "../../../lib/react-query/getQueryClient";
+import { Link } from "react-router-dom";
 
 type SeenBookItemProps = {
   book: IBook;
@@ -14,6 +16,8 @@ type SeenBookItemProps = {
 
 export default function SeenBookItem({ book }: SeenBookItemProps) {
   const { user } = useUser();
+
+  const queryClient = getQueryClient();
   const { data: isSubscribed } = useQuery({
     queryKey: [QueryKeys.FAVOR_SUBSCRIPTION, book._id],
     queryFn: () =>
@@ -26,18 +30,36 @@ export default function SeenBookItem({ book }: SeenBookItemProps) {
     enabled: Boolean(user),
   });
 
-  const handleClose = () => {};
+  const removeBookId = (deletedBookId: string) => {
+    const seenBookIds: string[] = JSON.parse(
+      localStorage.getItem("seenBookIds") || "[]"
+    );
+
+    const updatedBookIds = seenBookIds.filter((id) => id !== deletedBookId);
+
+    queryClient.setQueryData([QueryKeys.SEEN_BOOKS], updatedBookIds);
+
+    localStorage.setItem("seenBookIds", JSON.stringify(updatedBookIds));
+  };
+
+  const handleDelete = () => {
+    removeBookId(book._id);
+  };
 
   return (
     <li className="seen-book-list__wrap__book-list__wrap__book-item">
-      <div className="img-wrap">
-        <img src={book.representImg} alt={book.title} />
-      </div>
+      <Link to={`/details/${book._id}`} className="link">
+        <div className="img-wrap">
+          <img src={book.representImg} alt={book.title} />
+        </div>
+      </Link>
       <div className="seen-book-list__wrap__book-list__wrap__book-item__book-info">
         {book.parentCategory.map((category) => (
           <ParentCategoryBadge key={category} text={category} />
         ))}
-        <h1 className="title">{book.title}</h1>
+        <Link to={`/details/${book._id}`} className="link">
+          <h1 className="title">{book.title}</h1>
+        </Link>
         <p className="author">{book.author}</p>
         <div className="text-wrap">
           {book.discount ? (
@@ -50,7 +72,7 @@ export default function SeenBookItem({ book }: SeenBookItemProps) {
         </div>
       </div>
       <div className="seen-book-list__wrap__book-list__wrap__book-item__buttons">
-        <button className="close" onClick={handleClose}>
+        <button className="close" onClick={handleDelete}>
           <span>
             <MdClose />
           </span>

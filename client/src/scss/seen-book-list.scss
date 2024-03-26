@@ -233,7 +233,7 @@
 
                             .img-wrap {
                                 width: 86px;
-                                height: 86px;
+                                height: 130px;
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
@@ -241,7 +241,7 @@
                                 
                                 img {
                                     width: 84px;
-                                    height: 84px;
+                                    height: 128px;
                                     object-fit: cover;
                                 }
                             }
@@ -254,6 +254,10 @@
                                     font-size: 16px;
                                     line-height: 30px;
                                     letter-spacing: -0.01em;
+
+                                    &:hover {
+                                        text-decoration: underline;
+                                    }
                                 }
 
                                 .author {
