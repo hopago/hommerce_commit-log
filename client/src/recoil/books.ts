@@ -308,14 +308,14 @@ export const bookDetails: BookDetails = {
 
 /* CLIENT STATE */
 
-export const booksState = atom<TBooks>({
+export const booksState = atom<IBook[] | null>({
   key: "booksState",
-  default: books,
+  default: null,
 });
 
-export const currentBookState = atom<TBook>({
+export const currentBookState = atom<IBook | null>({
   key: "currentBookState",
-  default: temporaryBook,
+  default: null,
 });
 
 export const selectedCurrentBook = selectorFamily({
@@ -324,13 +324,17 @@ export const selectedCurrentBook = selectorFamily({
     (index: number) =>
     ({ get }) => {
       const books = get(booksState);
-      return books[index];
+      if (books) {
+        return books[index];
+      }
     },
   set:
     (index: number) =>
     ({ set, get }) => {
       const books = get(booksState);
-      const currentBook = books[index];
-      set(currentBookState, currentBook);
+      if (books) {
+        const currentBook = books[index];
+        set(currentBookState, currentBook);
+      }
     },
 });

@@ -3,7 +3,7 @@ import { createQueryString } from "../../../fetcher/utils";
 import { BEST_BOOKS_QUERY } from "../constants/best-books-query";
 
 // preview 3개, 이후 1개씩 fetching
-type LimitType = 1 | 3;
+type LimitType = number;
 
 type FetchMonthlyPicksProps = {
   pageNum: number;

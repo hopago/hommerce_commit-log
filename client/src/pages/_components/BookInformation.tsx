@@ -6,7 +6,7 @@ import InfoTitle from "./InfoTitle";
 
 import { bookParentCategory } from "./constants/category";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../lib/react-query/query-key";
@@ -14,84 +14,55 @@ import { daysToMs } from "../../lib/react-query/utils";
 import { QueryFns } from "../../lib/react-query/queryFn";
 import { useHandleError } from "../hooks/use-handle-error";
 
-import { toast } from "sonner";
+import { useInfinityFetching } from "./hooks/use-infinity-fetching";
+
+const FIRST_PREFETCH_LENGTH = 6;
 
 export default function BookInformation() {
-  const [currIndex, setCurrIndex] = useState(4);
-  const [pageNum, setPageNum] = useState(0);
-  const [prevDisabled, setPrevDisabled] = useState(false);
-  const [nextDisabled, setNextDisabled] = useState(false);
-  const [books, setBooks] = useState<IBook[]>([]);
-  const [hasNextPage, setHasNextPage] = useState(false);
+  const [pageNum, setPageNum] = useState(1);
+  const [currIndex, setCurrIndex] = useState(0);
 
   const { data, isSuccess, isError, error, isLoading } = useQuery({
-    queryKey: [QueryKeys.MONTHLY_PICKS, pageNum],
+    queryKey: [QueryKeys.MONTHLY_PICKS],
     queryFn: () =>
       QueryFns.FETCH_MONTHLY_PICKS({
         pageNum,
-        limit: 1,
+        limit: FIRST_PREFETCH_LENGTH,
       }),
     staleTime: daysToMs(31),
     gcTime: daysToMs(33),
+    enabled: pageNum === 1,
   });
 
   useHandleError({ isError, error });
 
-  useEffect(() => {
-    if (isSuccess && data && "bestBooks" in data) {
-      const newBooks = data.bestBooks.map((book) => book.bookDetails);
-
-      const isDuplicated = newBooks.some((newBook) =>
-        books.find((book) => book._id === newBook._id)
-      );
-
-      if (isDuplicated && pageNum + 1 <= data.totalCount) {
-        setPageNum((prev) => prev + 1);
-      } else {
-        setBooks((prevBooks) => [...prevBooks, ...newBooks]);
-        setHasNextPage(data.hasNextPage);
-      }
-    }
-  }, [isSuccess, data]);
-
-  useEffect(() => {
-    setPrevDisabled(currIndex === 0);
-    setNextDisabled(!hasNextPage);
-  }, [currIndex, books, hasNextPage]);
-
-  const handlePrev = () => {
-    setNextDisabled(false);
-    if (currIndex !== 0) {
-      setCurrIndex((prev) => prev - 1);
-      setPageNum((prev) => prev - 1);
-    }
-  };
-
-  const handleNext = () => {
-    setPrevDisabled(false);
-    if (!data || !data?.totalCount) {
-      toast.error("데이터를 불러오던 중 무언가 문제가 생겼어요.");
-      return;
-    }
-
-    if (currIndex + 3 < data.totalCount) {
-      setCurrIndex((prev) => prev + 1);
-      setPageNum((prev) => prev + 1);
-    }
-  };
+  const {
+    books,
+    handleNext,
+    handlePrev,
+    nextDisabled,
+    prevDisabled,
+    setNextDisabled,
+  } = useInfinityFetching({
+    data,
+    isSuccess,
+    setPageNum,
+    currIndex,
+    setCurrIndex,
+  });
 
   if (isLoading) {
     // TODO: 로딩 컴포넌트
   }
 
-  if (books.length > 0) {
+  if (isSuccess && books) {
     return (
       <div className="recommend-books__today-pick">
         <InfoTitle title="이달의 책" category={bookParentCategory} />
         <PrevIcon prevDisabled={prevDisabled} handlePrev={handlePrev} />
         <div className={"recommend-books__today-pick__contents"}>
-          <SingleBook currentBook={books[0]} />
-          <NextBooks currIndex={currIndex} books={books.slice(1)} />
+          <SingleBook index={currIndex} />
+          <NextBooks pageNum={pageNum} setNextDisabled={setNextDisabled} />
         </div>
         <NextIcon nextDisabled={nextDisabled} handleNext={handleNext} />
       </div>

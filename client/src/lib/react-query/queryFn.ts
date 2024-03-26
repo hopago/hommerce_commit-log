@@ -17,7 +17,7 @@ import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTot
 import { getSubscriptionLength } from "../../pages/search/services/getSubscriptionLength";
 import { ReviewSortOptions } from "../../recoil/review-select";
 
-type LimitType = 1 | 3;
+type LimitType = number;
 
 type FetchMonthlyPicksProps = {
   pageNum: number;
