@@ -4,6 +4,7 @@ import {
   deleteImage,
   getBook,
   getBooks,
+  getBooksByIds,
   postBook,
   updateBook,
   updateImage,
@@ -14,6 +15,8 @@ import { getBestBooks } from "../controllers/bestBooks";
 const router = express.Router();
 
 router.route("/").get(getBooks).post(postBook);
+
+router.route("/ids").get(getBooksByIds);
 
 router.route("/best").get(getBestBooks);
 

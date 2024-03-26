@@ -5,11 +5,12 @@ import { handleGetBook } from "../services/getBook";
 import { handleUpdateBook } from "../services/updateBook";
 import { handleDeleteBook } from "../services/deleteBook";
 import { HttpException } from "../../middleware/error/utils";
-import { IBook } from "../models/book";
+import Book, { IBook } from "../models/book";
 import { handleGetBooksBySearchTerm } from "../services/getBooksBySearchTerm";
 import { DBResponse } from "../../types/response";
 import { handleUpdateImage } from "../services/updateImage";
 import { handleDeleteImage } from "../services/handleDeleteImage";
+import mongoose from "mongoose";
 
 type FilterType = "통합검색" | "제목" | "저자";
 
@@ -42,6 +43,34 @@ export const getBooks = async (
         next
       );
 
+    if (books) {
+      return res.status(200).json(books);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getBooksByIds = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const idsParam = req.query.ids;
+
+    if (typeof idsParam !== "string") {
+      throw new HttpException(400, "Invalid Ids.");
+    }
+
+    const ids: string[] = idsParam.split(",");
+
+    const validIds = ids.filter((id) => mongoose.Types.ObjectId.isValid(id));
+    if (validIds.length === 0) {
+      return res.status(400).json({ message: "No valid IDs provided." });
+    }
+
+    const books = await Book.find({ _id: { $in: validIds } });
     if (books) {
       return res.status(200).json(books);
     }
@@ -121,7 +150,9 @@ export const getBook = async (
   try {
     const book = await handleGetBook(req, next);
 
-    return res.status(200).json(book);
+    if (book) {
+      return res.status(200).json(book);
+    }
   } catch (err) {
     next(err);
   }

@@ -6,23 +6,18 @@ export const handleUpdateUserBookData = async (
   req: Request,
   next: NextFunction
 ) => {
-  const userId = req.params.userId as string | undefined;
-  if (!userId) {
-    next(new HttpException(400, "User Id required."));
-    return;
-  }
-  const category = req.query.category as
-    | BookSubCategory
-    | undefined
-    | "undefined";
+  let category = req.query.category as string | undefined;
+
   if (!category || category === "undefined") {
     next(new HttpException(400, "Query required."));
     return;
   }
 
+  category = decodeURIComponent(category);
+
   try {
     const userData = await UserData.updateOne(
-      { id: userId },
+      { id: req.params.userId },
       { $inc: { [`category.${category}`]: 1 } }
     );
     if (!userData) throw new HttpException(404, "User data not found.");
