@@ -1,7 +1,7 @@
 import NextIcon from "./NextIcon";
 import PrevIcon from "./PrevIcon";
-import NextBooks from "./NextBooks";
-import SingleBook from "./SingleBook";
+import NextBooks, { NextBooksSkeleton } from "./NextBooks";
+import SingleBook, { SingleBookSkeleton } from "./SingleBook";
 import InfoTitle from "./InfoTitle";
 
 import { bookParentCategory } from "./constants/category";
@@ -18,11 +18,13 @@ import { useInfinityFetching } from "./hooks/use-infinity-fetching";
 
 const FIRST_PREFETCH_LENGTH = 6;
 
+const isLoading = true;
+
 export default function BookInformation() {
   const [pageNum, setPageNum] = useState(1);
   const [currIndex, setCurrIndex] = useState(0);
 
-  const { data, isSuccess, isError, error, isLoading } = useQuery({
+  const { data, isSuccess, isError, error } = useQuery({
     queryKey: [QueryKeys.MONTHLY_PICKS],
     queryFn: () =>
       QueryFns.FETCH_MONTHLY_PICKS({
@@ -51,9 +53,7 @@ export default function BookInformation() {
     setCurrIndex,
   });
 
-  if (isLoading) {
-    // TODO: 로딩 컴포넌트
-  }
+  if (isLoading) return <BookInformationSkeleton />;
 
   if (isSuccess && books) {
     return (
@@ -72,4 +72,16 @@ export default function BookInformation() {
       </div>
     );
   }
+}
+
+function BookInformationSkeleton() {
+  return (
+    <div className="recommend-books__today-pick">
+      <InfoTitle title="이달의 책" category={bookParentCategory} />
+      <div className={"recommend-books__today-pick__contents"}>
+        <SingleBookSkeleton />
+        <NextBooksSkeleton />
+      </div>
+    </div>
+  );
 }

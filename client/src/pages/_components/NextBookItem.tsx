@@ -5,6 +5,8 @@ import ParentCategoryBadge from "./ParentCategoryBadge";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { generateKey } from "../../utils/generate-key";
+import { Skeleton } from "@nextui-org/skeleton";
+import { cn } from "../../lib/utils";
 
 type NextBookItemProps = {
   book: IBook;
@@ -35,3 +37,19 @@ export default function NextBookItem({ book }: NextBookItemProps) {
     </AnimatePresence>
   );
 }
+
+export const NextBookItemSkeleton = () => {
+  return (
+    <li>
+      <div className="img-wrap">
+        <Skeleton className={cn("skeleton", "representImg")} />
+      </div>
+      <div className="skeleton-badge-wrap">
+        {[...Array.from({ length: 3 })].map((_, i) => (
+          <Skeleton key={i} className={cn("skeleton", "badge")} />
+        ))}
+      </div>
+      <Skeleton className={cn("skeleton", "p")} />
+    </li>
+  );
+};

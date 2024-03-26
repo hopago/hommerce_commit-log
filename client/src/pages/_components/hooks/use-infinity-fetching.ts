@@ -37,7 +37,7 @@ export const useInfinityFetching = ({
     if (!data) return;
 
     if (data && !data.hasNextPage) {
-      toast.message("마지막 데이터입니다.");
+      toast.message("더 이상 표시할 새로운 콘텐츠가 없습니다.");
       setNextDisabled(true);
     }
   }, [currIndex, books]);

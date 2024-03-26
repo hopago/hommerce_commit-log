@@ -1,12 +1,13 @@
 import { useRecoilState } from "recoil";
 import { booksState } from "../../recoil/books";
 
-import NextBookItem from "./NextBookItem";
+import NextBookItem, { NextBookItemSkeleton } from "./NextBookItem";
 
 import { QueryKeys } from "../../lib/react-query/query-key";
 import { useQuery } from "@tanstack/react-query";
 import { QueryFns } from "../../lib/react-query/queryFn";
 import { daysToMs } from "../../lib/react-query/utils";
+
 import { useEffect } from "react";
 import { useHandleError } from "../hooks/use-handle-error";
 
@@ -54,6 +55,8 @@ export default function NextBooks({
     }
   }, [isSuccess]);
 
+  if (isLoading) return <NextBooksSkeleton />;
+
   return (
     <div className="recommend-books__today-pick__contents__preview">
       <ol>
@@ -64,3 +67,15 @@ export default function NextBooks({
     </div>
   );
 }
+
+export const NextBooksSkeleton = () => {
+  return (
+    <div className="recommend-books__today-pick__contents__preview">
+      <ol>
+        {[...Array.from({ length: 3 })].map((_, i) => (
+          <NextBookItemSkeleton key={i} />
+        ))}
+      </ol>
+    </div>
+  );
+};

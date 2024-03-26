@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { selectedCurrentBook } from "../../recoil/books";
 
+import { Skeleton } from "@nextui-org/skeleton";
+import { cn } from "../../lib/utils";
+
 type SingleBookProps = {
   index: number;
 };
@@ -71,3 +74,43 @@ export default function SingleBook({ index }: SingleBookProps) {
     );
   }
 }
+
+export const SingleBookSkeleton= () => {
+  return (
+    <div className="single-book-motion">
+      <div className="recommend-books__today-pick__contents__single-book">
+        <div className="recommend-books__today-pick__contents__single-book__wrap">
+          <div className="recommend-books__today-pick__contents__single-book__wrap__horizontal">
+            <div className="recommend-books__today-pick__contents__single-book__wrap__horizontal__img">
+              <Skeleton className={cn("skeleton", "representImg")} />
+            </div>
+            <div className="recommend-books__today-pick__contents__single-book__wrap__horizontal__info">
+              <div className="skeleton-badge-wrap">
+                {[...Array.from({ length: 3 })].map((_, i) => (
+                  <Skeleton key={i} className={cn("skeleton", "badge")} />
+                ))}
+              </div>
+              <div>
+                <Skeleton className={cn("skeleton", "h1")} />
+              </div>
+              <Skeleton className={cn("skeleton", "p")} />
+              <div className="recommend-books__today-pick__contents__single-book__wrap__horizontal__info__price-texts">
+                <Skeleton className={cn("skeleton", "p")} />
+                <Skeleton className={cn("skeleton", "span")} />
+              </div>
+              <p className="comment">
+                <span>
+                  <span>
+                    <AiFillMessage color="#474C98" />
+                  </span>
+                  <Skeleton className={cn("skeleton", "span")} />
+                </span>
+              </p>
+              <Skeleton className={cn("skeleton", "p")} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
