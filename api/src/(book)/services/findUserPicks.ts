@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import Book from "../models/book";
+import Book, { IBook } from "../models/book";
 
 export const findUserPicks = async (
   req: Request,
@@ -7,7 +7,9 @@ export const findUserPicks = async (
   next: NextFunction
 ) => {
   try {
-    const randomPicks = await Book.aggregate([{ $sample: { size: 10 } }]);
+    const randomPicks: IBook[] = await Book.aggregate([
+      { $sample: { size: 10 } },
+    ]);
 
     return randomPicks;
   } catch (err) {

@@ -4,6 +4,7 @@ import { handleDatabaseOperation } from "../../utils/db-operation";
 import { handleDeletePoint } from "../(point)/services/deletePoint";
 import { HttpException } from "../../middleware/error/utils";
 import { handleDeletePointLog } from "../(point)/(log)/services/deletePointLog";
+import { handleDeleteUserData } from "./deleteUserData";
 
 export const handleDeleteUser = async (req: Request, next: NextFunction) => {
   const userId = req.query.userId as string | undefined;
@@ -20,6 +21,8 @@ export const handleDeleteUser = async (req: Request, next: NextFunction) => {
     await handleDatabaseOperation(handleDeletePoint({ userId }, next), next);
 
     await handleDatabaseOperation(handleDeletePointLog(userId, next), next);
+
+    await handleDatabaseOperation(handleDeleteUserData({ userId }, next), next);
   } catch (err) {
     next(err);
   }

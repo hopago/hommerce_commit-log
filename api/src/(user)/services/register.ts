@@ -3,6 +3,7 @@ import { HttpException } from "../../middleware/error/utils";
 import User, { IUser } from "../model/user";
 import { handleDatabaseOperation } from "../../utils/db-operation";
 import { handlePostPoint } from "../(point)/services/postPoint";
+import { handleCreateUserData } from "./createUserData";
 
 export const handleRegister = async (req: Request, next: NextFunction) => {
   try {
@@ -27,7 +28,12 @@ export const handleRegister = async (req: Request, next: NextFunction) => {
     const user = (await handleDatabaseOperation(newUser.save(), next)) as IUser;
 
     await handleDatabaseOperation(
-      handlePostPoint({ userId: user._id.toString(), point: 0 }, next),
+      handlePostPoint({ userId: id, point: 0 }, next),
+      next
+    );
+
+    await handleDatabaseOperation(
+      handleCreateUserData({ userId: id }, next),
       next
     );
 

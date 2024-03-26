@@ -16,6 +16,7 @@ import { errorHandler } from "./middleware/error/errorHandler";
 // a: 인사이트 제공, d: 데이터 수집 로직
 
 import userRouter from "./(user)/routes/user";
+import userDataRouter from "./(user)/routes/user-data";
 
 import authorRouter from "./(author)/routes/author";
 
@@ -72,6 +73,7 @@ app.use("/review", reviewRouter);
 app.use("/review/reply", reviewReplyRouter);
 app.use("/review/total", reviewTotalRouter);
 
+app.use("/user/d", userDataRouter);
 app.use("/user", userRouter);
 
 app.use("/webhook/clerk", clerkRouter);
