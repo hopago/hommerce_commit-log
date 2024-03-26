@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useFilterOption } from "./hooks/use-filter-option";
 
@@ -6,12 +6,31 @@ import Heading from "./_components/Heading";
 import FilterOptions from "./_components/FilterOptions";
 import SeenBooks from "./_components/SeenBooks";
 
+import { QueryKeys } from "../../lib/react-query/query-key";
+import { useQuery } from "@tanstack/react-query";
+import { QueryFns } from "../../lib/react-query/queryFn";
+import { daysToMs } from "../../lib/react-query/utils";
+import { useHandleError } from "../../pages/hooks/use-handle-error";
+
 type SeenBookListProps = {
-  books: TBooks;
   show: boolean;
 };
 
-export default function SeenBookModal({ books, show }: SeenBookListProps) {
+export default function SeenBookModal({ show }: SeenBookListProps) {
+  const [seenBookIds, _] = useState<string[]>(
+    JSON.parse(localStorage.getItem("seenBookIds") || "[]")
+  );
+
+  const { data, isError, error, isSuccess } = useQuery<IBook[] | undefined>({
+    queryKey: [QueryKeys.SEEN_BOOKS],
+    queryFn: () => QueryFns.FIND_BOOKS_BY_IDS(seenBookIds),
+    staleTime: daysToMs(1),
+    gcTime: daysToMs(3),
+    enabled: seenBookIds.length > 0,
+  });
+
+  useHandleError({ error, isError });
+
   const { option, onClick } = useFilterOption();
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -23,14 +42,16 @@ export default function SeenBookModal({ books, show }: SeenBookListProps) {
     }
   }, [show]);
 
-  return (
-    <div className="seen-book-list">
-      <div className="bg-fill" />
-      <div className="seen-book-list__wrap" ref={modalRef}>
-        <Heading />
-        <FilterOptions onClick={onClick} option={option} />
-        <SeenBooks books={books} option={option} />
+  if (isSuccess && data) {
+    return (
+      <div className="seen-book-list">
+        <div className="bg-fill" />
+        <div className="seen-book-list__wrap" ref={modalRef}>
+          <Heading />
+          <FilterOptions onClick={onClick} option={option} />
+          <SeenBooks books={data} option={option} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

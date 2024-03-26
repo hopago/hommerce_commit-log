@@ -16,6 +16,9 @@ type FavorButtonProps = {
   img: string;
   userId: string | null;
   isSubscribed: boolean | undefined;
+  width?: number;
+  height?: number;
+  margin?: number;
 };
 
 export default function FavorButton({
@@ -26,6 +29,9 @@ export default function FavorButton({
   img,
   userId,
   isSubscribed,
+  width,
+  height,
+  margin,
 }: FavorButtonProps) {
   const queryClient = getQueryClient();
 
@@ -62,10 +68,21 @@ export default function FavorButton({
 
   return (
     <button className="favor-btn" onClick={onClick}>
-      <div className="img-wrap">
-        <img src={isSubscribed ? heartActive : heart} alt="heart-icon" />
+      <div
+        className="img-wrap"
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+          margin: `${margin}px`,
+        }}
+      >
+        <img
+          src={isSubscribed ? heartActive : heart}
+          alt="heart-icon"
+          style={{ width: "14px", height: "14px" }}
+        />
       </div>
-      <span>{favorLength ?? 0}</span>
+      {favorLength && <span>{favorLength ?? 0}</span>}
     </button>
   );
 }

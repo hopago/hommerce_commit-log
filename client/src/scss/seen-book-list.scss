@@ -6,7 +6,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 99999;
+    z-index: 99999999999;
 
     @keyframes right-pop-animation {
         0% {
@@ -31,6 +31,7 @@
         right: 0;
         background-color: #ffffff;
         width: 460px;
+        height: 100dvh;
         margin-left: auto;
 
         &.right-pop {
@@ -113,6 +114,7 @@
 
         &__book-list {
             width: 100%;
+            height: calc(100% - 142px);
 
             &__wrap {
                 padding: 0 2rem;

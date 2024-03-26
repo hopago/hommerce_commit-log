@@ -1,4 +1,3 @@
-import { books as seenBooks } from "../recoil/books";
 import { useRecoilState } from "recoil";
 import { seenModalState } from "../recoil/seen-modal";
 
@@ -18,7 +17,7 @@ import { cn } from "../lib/utils";
 import { usePrefetchBooks } from "../hooks/use-prefetch-books";
 
 export default function FixedSeenBooks() {
-  const [seenBookIds, _] = useState(
+  const [seenBookIds, _] = useState<string[]>(
     JSON.parse(localStorage.getItem("seenBookIds") || "[]")
   );
 
@@ -31,7 +30,7 @@ export default function FixedSeenBooks() {
     queryFn: () => QueryFns.GET_BOOK(seenBookIds[seenBookIds.length - 1]),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
-    enabled: !!seenBookIds[seenBookIds.length - 1],
+    enabled: Boolean(seenBookIds[seenBookIds.length - 1]),
   });
 
   const [show, setShow] = useRecoilState(seenModalState);
@@ -58,7 +57,7 @@ export default function FixedSeenBooks() {
           </div>
         </div>
       )}
-      {show && <SeenBookModal show={show} books={seenBooks} />}
+      {show && <SeenBookModal show={show} />}
     </>
   );
 }

@@ -1,25 +1,32 @@
 import { MdClose } from "react-icons/md";
-import heart from "../../../assets/ico_heart.png";
-
-import { useState } from "react";
 
 import ParentCategoryBadge from "../../../pages/_components/ParentCategoryBadge";
+import FavorButton from "../../../pages/search/_components/FavorButton";
 
-import { cn } from "../../../lib/utils";
+import { useUser } from "@clerk/clerk-react";
+import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "../../../lib/react-query/query-key";
+import { QueryFns } from "../../../lib/react-query/queryFn";
 
 type SeenBookItemProps = {
-  book: TBook;
+  book: IBook;
 };
 
 export default function SeenBookItem({ book }: SeenBookItemProps) {
-  const [active, setActive] = useState(false);
+  const { user } = useUser();
+  const { data: isSubscribed } = useQuery({
+    queryKey: [QueryKeys.FAVOR_SUBSCRIPTION, book._id],
+    queryFn: () =>
+      QueryFns.GET_FAVOR_SUBSCRIPTION_IS_SUBSCRIBED({
+        bookId: book._id,
+        userId: user!.id,
+      }),
+    staleTime: Infinity,
+    gcTime: Infinity,
+    enabled: Boolean(user),
+  });
 
   const handleClose = () => {};
-
-  const handleFavorite = () => {
-    // TODO: DB에 찜 상품 추가, 클라이언트에 낙관적 업데이트
-    setActive(true);
-  };
 
   return (
     <li className="seen-book-list__wrap__book-list__wrap__book-item">
@@ -27,9 +34,9 @@ export default function SeenBookItem({ book }: SeenBookItemProps) {
         <img src={book.representImg} alt={book.title} />
       </div>
       <div className="seen-book-list__wrap__book-list__wrap__book-item__book-info">
-        {book.parentCategory ? (
-          <ParentCategoryBadge text={book.parentCategory} />
-        ) : null}
+        {book.parentCategory.map((category) => (
+          <ParentCategoryBadge key={category} text={category} />
+        ))}
         <h1 className="title">{book.title}</h1>
         <p className="author">{book.author}</p>
         <div className="text-wrap">
@@ -48,13 +55,18 @@ export default function SeenBookItem({ book }: SeenBookItemProps) {
             <MdClose />
           </span>
         </button>
-        <div
-          className={cn("heart-button-wrap", active && "active")}
-          onClick={handleFavorite}
-        >
-          <button>
-            <img src={heart} alt="heart-button" />
-          </button>
+        <div className="heart-button-wrap">
+          <FavorButton
+            bookId={book._id}
+            title={book.title}
+            author={book.author}
+            img={book.representImg}
+            isSubscribed={isSubscribed}
+            userId={user?.id!}
+            width={34}
+            height={34}
+            margin={0}
+          />
         </div>
       </div>
     </li>
