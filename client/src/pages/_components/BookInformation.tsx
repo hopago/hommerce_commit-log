@@ -62,7 +62,11 @@ export default function BookInformation() {
         <PrevIcon prevDisabled={prevDisabled} handlePrev={handlePrev} />
         <div className={"recommend-books__today-pick__contents"}>
           <SingleBook index={currIndex} />
-          <NextBooks pageNum={pageNum} setNextDisabled={setNextDisabled} />
+          <NextBooks
+            pageNum={pageNum}
+            setNextDisabled={setNextDisabled}
+            currIndex={currIndex}
+          />
         </div>
         <NextIcon nextDisabled={nextDisabled} handleNext={handleNext} />
       </div>
