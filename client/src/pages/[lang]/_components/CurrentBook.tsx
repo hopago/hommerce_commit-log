@@ -4,11 +4,11 @@ import ParentCategoryBadge from "../../_components/ParentCategoryBadge";
 
 import { AiFillMessage } from "react-icons/ai";
 
-export default function book({ book }: { book: TBook }) {
+export default function book({ book }: { book: IBook }) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={book ? `${book.id}${book.title}` : "empty"}
+        key={book._id}
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -10, opacity: 0 }}
@@ -20,9 +20,9 @@ export default function book({ book }: { book: TBook }) {
             <img src={book.representImg} alt={book.title} />
           </div>
           <div className="lang-page-picks__today__vertical__single-book__horizontal__book-info">
-            {book.parentCategory ? (
-              <ParentCategoryBadge text={book.parentCategory} />
-            ) : null}
+            {book.parentCategory.map((category) => (
+              <ParentCategoryBadge key={category} text={category} />
+            ))}
             <p className="title">{book.title}</p>
             <p className="author">{book.author}</p>
             <div className="lang-page-picks__today__vertical__single-book__horizontal__book-info__price-texts">

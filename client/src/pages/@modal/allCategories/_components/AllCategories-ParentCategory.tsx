@@ -1,26 +1,30 @@
-import { useState } from "react";
-
 import { bookParentCategory } from "../../../_components/constants/category";
 
 import { cn } from "../../../../lib/utils";
 
-export default function AllCategoriesParentCategory() {
-  const [currCategory, setCurrCategory] =
-    useState<BookParentCategory>("국내도서");
+type AllCategoriesParentCategoryProps = {
+  handleChangeParentCategory: (category: BookParentCategory) => void;
+  parentCategory: BookParentCategory;
+};
 
-  const handleActive = (category: BookParentCategory) => {
-    setCurrCategory(category);
-  };
-
+export default function AllCategoriesParentCategory({
+  handleChangeParentCategory,
+  parentCategory,
+}: AllCategoriesParentCategoryProps) {
   return (
     <div className="all-categories__parent-category">
       <ul className="parent-category-list">
         {bookParentCategory.map((category) => (
-          <li key={category} onClick={() => handleActive(category)}>
-            <span className={cn("", currCategory === category && "active")}>
+          <li
+            key={category}
+            onClick={() => handleChangeParentCategory(category)}
+          >
+            <span className={cn("", parentCategory === category && "active")}>
               {category}
             </span>
-            {currCategory === category ? <div className="active-fill" /> : null}
+            {parentCategory === category ? (
+              <div className="active-fill" />
+            ) : null}
           </li>
         ))}
       </ul>

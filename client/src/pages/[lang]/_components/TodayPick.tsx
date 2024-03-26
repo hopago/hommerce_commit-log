@@ -1,5 +1,10 @@
 import { useRecoilValue } from "recoil";
-import { booksState, selectedCurrentBook } from "../../../recoil/books";
+import {
+  booksState,
+  clientBookState,
+  selectedClientBookState,
+  selectedCurrentBook,
+} from "../../../recoil/books";
 import { useImageSlide } from "../../hooks/use-image-slide";
 
 import NextIcon from "../../_components/NextIcon";
@@ -9,7 +14,7 @@ import Preview from "./Preview";
 import Heading from "./TodayPickHeading";
 
 export default function TodayPick() {
-  const books = useRecoilValue(booksState);
+  const books = useRecoilValue(clientBookState);
 
   const {
     setIndex,
@@ -20,12 +25,12 @@ export default function TodayPick() {
     handleNext,
   } = useImageSlide({ total: books.length });
 
-  const currentBook = useRecoilValue(selectedCurrentBook(index));
+  const currentBook = useRecoilValue(selectedClientBookState(index));
 
   return (
     <div className="lang-page-picks__today__vertical">
       <Heading title="오늘의 선택" />
-      <CurrentBook book={currentBook} />
+      {currentBook && <CurrentBook book={currentBook!} />}
       <Preview setCurrIndex={setIndex} currIndex={index} books={books} />
       <div className="lang-page-picks__today__vertical__slide-btn">
         <div className="process">

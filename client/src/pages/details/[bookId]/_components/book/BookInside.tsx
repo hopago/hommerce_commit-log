@@ -7,7 +7,8 @@ type BookInsideProps = {
 };
 
 export default function BookInside({ bookInside }: BookInsideProps) {
-  const preview = bookInside.slice(0, 100);
+  const preview =
+    bookInside.slice(0, 100) ?? "책 속으로 컨텐츠가 아직 준비되지 않았어요.";
 
   const [show, setShow] = useState(false);
 

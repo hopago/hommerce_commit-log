@@ -11,6 +11,8 @@ import FAQ from "./_components/faq/FAQ";
 
 import { useEffect, useRef, useState } from "react";
 
+import { useUser } from "@clerk/clerk-react";
+
 import { useParams } from "react-router-dom";
 
 import { useSetRecoilState } from "recoil";
@@ -27,11 +29,14 @@ import { cn } from "../../../lib/utils";
 import Spinner from "../../../_components/Spinner";
 
 import { useObserver } from "./hooks/use-observer";
+import { useRecordSeenBook } from "./hooks/use-record-seen-book";
 
 export type DetailsIndexIds = "prod-info" | "prod-review";
 
 export default function DetailsIndex() {
   const params = useParams();
+
+  const { user } = useUser();
   const { bookId } = params;
   const setCategory = useSetRecoilState(setGNBCategory);
 
@@ -68,6 +73,8 @@ export default function DetailsIndex() {
       increaseView(bookId);
     }
   }, [bookId]);
+
+  useRecordSeenBook({ bookId, userId: user?.id, category: data?.category });
 
   if (isLoading) return <DetailsIndexLoadingComponent />;
 

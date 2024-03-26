@@ -2,12 +2,12 @@ import { atom, selectorFamily } from "recoil";
 
 /* TEMPORARY BOOK DATA */
 
-const temporaryBook: TBook = {
-  id: 1,
+const temporaryBook: IBook = {
+  _id: "13571957192712597215912",
   representImg:
     "https://contents.kyobobook.co.kr/sih/fit-in/300x0/pdt/9791198356680.jpg",
   category: "인문",
-  parentCategory: "국내도서",
+  parentCategory: ["국내도서"],
   title: "[뇌건강] 스스로 치유하는 뇌",
   author: "노먼 도이치",
   discount: 17,
@@ -18,9 +18,9 @@ const temporaryBook: TBook = {
   publisher: "동아시아",
 };
 
-export const books: TBooks = [...Array.from({ length: 10 })].map((_, i) => {
+export const books: IBook[] = [...Array.from({ length: 10 })].map((_, i) => {
   const book = { ...temporaryBook };
-  book.id = i;
+  book._id = book._id += i;
   return book;
 });
 
@@ -307,7 +307,39 @@ export const bookDetails: BookDetails = {
 };
 
 /* CLIENT STATE */
+export const clientBookState = atom<IBook[]>({
+  key: "clientBookState",
+  default: books,
+});
 
+export const currentClientBookState = atom<IBook | null>({
+  key: "currentClientBookState",
+  default: null,
+});
+
+export const selectedClientBookState = selectorFamily({
+  key: "selectedCurrentBook",
+  get:
+    (index: number) =>
+    ({ get }) => {
+      const books = get(clientBookState);
+      if (books) {
+        return books[index];
+      }
+    },
+  set:
+    (index: number) =>
+    ({ set, get }) => {
+      const books = get(clientBookState);
+      if (books) {
+        const currentBook = books[index];
+        set(currentClientBookState, currentBook);
+      }
+    },
+});
+
+/* API 연동 STATE */
+// TODO: 이름 구체화 + 홈페이지 슬라이더에서 사용 중
 export const booksState = atom<IBook[] | null>({
   key: "booksState",
   default: null,
@@ -335,6 +367,38 @@ export const selectedCurrentBook = selectorFamily({
       if (books) {
         const currentBook = books[index];
         set(currentBookState, currentBook);
+      }
+    },
+});
+
+// lang-page img slider used
+export const langPageImageSliderBookState = atom<IBook[] | null>({
+  key: "langPageImgSliderBookState",
+  default: null,
+});
+
+export const currentLangPageImageSliderBookState = atom<IBook | null>({
+  key: "currentLangPageImgSliderBookState",
+  default: null,
+});
+
+export const selectedLangPageImageSLiderBookState = selectorFamily({
+  key: "selectedLangPageImgSliderBookState",
+  get:
+    (index: number) =>
+    ({ get }) => {
+      const books = get(langPageImageSliderBookState);
+      if (books) {
+        return books[index];
+      }
+    },
+  set:
+    (index: number) =>
+    ({ set, get }) => {
+      const books = get(langPageImageSliderBookState);
+      if (books) {
+        const currentBook = books[index];
+        set(currentLangPageImageSliderBookState, currentBook);
       }
     },
 });

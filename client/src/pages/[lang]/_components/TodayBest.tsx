@@ -5,10 +5,10 @@ import ProdBooks from "./ProdBooks";
 import OtherBooks from "./OtherBooks";
 
 import { useRecoilValue } from "recoil";
-import { booksState } from "../../../recoil/books";
+import { clientBookState } from "../../../recoil/books";
 
 export default function TodayBest() {
-  const books = useRecoilValue(booksState);
+  const books = useRecoilValue(clientBookState);
 
   const prodBooks = books.slice(0, 2);
   const otherBooks = books.slice(2, books.length);

@@ -26,12 +26,19 @@ export default function BookIntro({ intro, awards }: BookIntroProps) {
           <p>수상내역</p>
         </div>
         <div className="intro_sub-text awards">
-          {awards.map((award) => (
-            <p key={award}>{award}</p>
-          ))}
+          {awards ? (
+            awards?.map((award) => <p key={award}>{award}</p>)
+          ) : (
+            <p>수상내역이 존재하지 않습니다.</p>
+          )}
         </div>
         <hr />
-        <div className="intro_sub-text info">{intro}</div>
+        <div className="intro_sub-text info">
+        <div className="title-wrap">
+          <p>책 소개</p>
+        </div>
+          {intro ?? "책 소개가 아직 준비되지 않았어요."}
+        </div>
       </div>
     </div>
   );

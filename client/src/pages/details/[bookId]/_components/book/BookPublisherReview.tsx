@@ -7,7 +7,7 @@ type BookPublisherReview = {
 };
 
 export default function BookPublisherReview({ review }: BookPublisherReview) {
-  const preview = review.slice(0, 100);
+  const preview = review.slice(0, 100) ?? "출판사 서평이 아직 없습니다.";
 
   const [show, setShow] = useState(false);
 

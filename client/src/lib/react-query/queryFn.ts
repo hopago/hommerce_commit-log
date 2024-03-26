@@ -17,6 +17,7 @@ import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
 import { getSubscriptionLength } from "../../pages/search/services/getSubscriptionLength";
 import { ReviewSortOptions } from "../../recoil/review-select";
+import { findBooksByIds } from "../../services/findBooksByIds";
 
 type LimitType = number;
 
@@ -68,13 +69,15 @@ export const QueryFns = {
   FETCH_BEST_SELLERS: () => fetchBestSellers(),
   FETCH_MONTHLY_PICKS: ({ pageNum, limit }: FetchMonthlyPicksProps) =>
     fetchMonthlyPicks({ pageNum, limit }),
-  FETCH_USER_PICKS: (userId?: string | null | undefined) => fetchUserPicks(userId),
+  FETCH_USER_PICKS: (userId?: string | null | undefined) =>
+    fetchUserPicks(userId),
   FIND_REFERRER_CATEGORY_BEST_AUTHORS: ({
     bookId,
     category,
   }: FindReferrerCategoryBestAuthorsProps) =>
     findReferrerCategoryBestAuthors({ bookId, category }),
   FIND_BEST_AUTHORS: () => findBestAuthors(),
+  FIND_BOOKS_BY_IDS: (ids: string[]) => findBooksByIds(ids),
   FIND_RECOMMEND_BOOK_BY_CATEGORY: (category: BookSubCategory) =>
     findRecommendBookByCategory(category),
   GET_AUTHOR: (name: string) => getAuthor(name),

@@ -35,7 +35,7 @@ export default function BestAwards() {
 
   if (isSuccess && data.length > 1) {
     return (
-      <div className="recommend-books">
+      <div id="best-steady" className="recommend-books">
         <div className="recommend-books__best-seller">
           <InfoTitle
             title="베스트 | 스테디"

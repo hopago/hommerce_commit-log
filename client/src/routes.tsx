@@ -9,6 +9,7 @@ import SigninSuccessIndex from "./pages/join/success";
 import SearchIndex from "./pages/search";
 import SigninFailureIndex from "./pages/join/failure";
 import CartIndex from "./pages/cart";
+import BookCategoryIndex from "./pages/category/[lang]/[category]";
 
 export const routes = [
   {
@@ -28,6 +29,11 @@ export const routes = [
       {
         path: "/details/:bookId",
         element: <DetailsIndex />,
+        index: true,
+      },
+      {
+        path: "/category/:lang/:category",
+        element: <BookCategoryIndex />,
         index: true,
       },
     ],

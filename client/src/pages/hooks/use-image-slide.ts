@@ -50,5 +50,6 @@ export const useImageSlide = ({
     nextDisabled,
     prevDisabled,
     position,
+    setIndex,
   };
 };

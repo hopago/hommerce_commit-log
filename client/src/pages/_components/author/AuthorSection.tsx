@@ -28,7 +28,7 @@ export default function AuthorSection() {
 
   if (isSuccess && data.length) {
     return (
-      <div className="author">
+      <div id="recommend-author" className="author">
         <div className="author__wrapper">
           <AuthorHeading
             handleNext={handleNext}

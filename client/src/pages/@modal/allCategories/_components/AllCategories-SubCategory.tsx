@@ -1,13 +1,20 @@
-import { bookSubCategory } from '../../../_components/constants/category';
-import AD from '../../../../assets/nav-modal-ad.png';
+import { bookSubCategory } from "../../../_components/constants/category";
+
+import AD from "../../../../assets/nav-modal-ad.png";
 import { MdAdd } from "react-icons/md";
 
-export default function AllCategoriesSubCategory() {
+type AllCategoriesSubCategoryProps = {
+  handleNavigate: (category: BookSubCategory) => void;
+};
+
+export default function AllCategoriesSubCategory({
+  handleNavigate,
+}: AllCategoriesSubCategoryProps) {
   return (
     <div className="all-categories__book-category">
       <ul className="sub-category-list">
         {bookSubCategory.map((category) => (
-          <li key={category}>
+          <li key={category} onClick={() => handleNavigate(category)}>
             <span>{category}</span>
             <div className="sub-category-list__icon-wrap">
               <MdAdd />

@@ -7,7 +7,7 @@ export default function BookContentList({
 }: {
   contentList: string;
 }) {
-  const preview = contentList.slice(0, 100);
+  const preview = contentList.slice(0, 100) ?? "목차가 아직 준비되지 않았어요.";
 
   const [show, setShow] = useState(false);
 

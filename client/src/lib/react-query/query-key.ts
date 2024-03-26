@@ -16,6 +16,8 @@ export const QueryKeys = {
   REVIEW_LENGTH: "reviewDocsLength",
   REVIEW: "review",
   REVIEWS: "reviews",
+  SEEN_BOOKS: "seenBooks",
+  SEEN_BOOK_LAST_ITEM: "seenBookLastItem",
   RECOMMEND_BOOK: "recommendBooks",
   USER_PICKS: "userPicks",
 };

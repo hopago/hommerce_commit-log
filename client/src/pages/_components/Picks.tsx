@@ -4,7 +4,7 @@ import RecommendBookInformationHeading from "./recommend/RecommendBookInformatio
 
 export default function Picks() {
   return (
-    <div className="recommend-books picks">
+    <div id="picks" className="recommend-books picks">
       <div className="recommend-books__user">
         <RecommendBookInformationHeading />
         <div className="recommend-books__user__horizontal">
