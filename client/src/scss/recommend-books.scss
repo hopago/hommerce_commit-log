@@ -408,6 +408,17 @@
                         line-height: 23px;
                         letter-spacing: -.01em;
                         font-weight: bold;
+
+                        &.user {
+                            display: inline-block;
+                            font-size: 24px;
+                            line-height: 35px;
+                            letter-spacing: -0.01em;
+                            font-weight: 700;
+                            width: 230px;
+                            text-wrap: balance;
+                            margin-top: 0.5rem;
+                        }
                     }
 
                     .info {
@@ -419,6 +430,13 @@
                             letter-spacing: -0.01em;
                             font-weight: 700;
                             text-wrap: balance;
+                        }
+
+                        &.user {
+                            font-size: 24px;
+                            line-height: 35px;
+                            letter-spacing: -0.01em;
+                            font-weight: 700;
                         }
                     }
                 }
@@ -509,6 +527,7 @@
                                 display: -webkit-box;
                                 max-height: 38px;
                                 line-height: 19px;
+                                max-width: 176px;
                             }
 
                             .author {
@@ -520,6 +539,36 @@
                             }
                         }
                     }
+                }
+
+                .skeleton-text-wrap {
+                    width: 100%;
+                    height: 42px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-top: 1.25rem;
+
+                    .skeleton.p {
+                        width: 41px;
+                        height: 21px;
+                    }
+                }
+
+                .skeleton.representImg {
+                    width: 120px;
+                    height: 160px;
+                    margin-bottom: 0.5rem;
+                }
+
+                .skeleton.h2 {
+                    margin-bottom: 1.25rem;
+                    width: 90px;
+                }
+
+                .skeleton.span {
+                    width: 45px;
+                    height: 13px;
                 }
             }
         }

@@ -18,13 +18,11 @@ import { useInfinityFetching } from "./hooks/use-infinity-fetching";
 
 const FIRST_PREFETCH_LENGTH = 6;
 
-const isLoading = true;
-
 export default function BookInformation() {
   const [pageNum, setPageNum] = useState(1);
   const [currIndex, setCurrIndex] = useState(0);
 
-  const { data, isSuccess, isError, error } = useQuery({
+  const { data, isSuccess, isError, error, isLoading } = useQuery({
     queryKey: [QueryKeys.MONTHLY_PICKS],
     queryFn: () =>
       QueryFns.FETCH_MONTHLY_PICKS({

@@ -17,4 +17,5 @@ export const QueryKeys = {
   REVIEW: "review",
   REVIEWS: "reviews",
   RECOMMEND_BOOK: "recommendBooks",
+  USER_PICKS: "userPicks",
 };

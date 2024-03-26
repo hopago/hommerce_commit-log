@@ -1,9 +1,17 @@
-import RecommendBookInformation from "./recommend/RecommendBookInformation";
+import RecommendBookInformationBookList from "./recommend/RecommendBookInformation-BookList";
+import RecommendBookInformationMarketing from "./recommend/RecommendBookInformation-Marketing";
+import RecommendBookInformationHeading from "./recommend/RecommendBookInformationHeading";
 
 export default function Picks() {
   return (
     <div className="recommend-books picks">
-      <RecommendBookInformation />
+      <div className="recommend-books__user">
+        <RecommendBookInformationHeading />
+        <div className="recommend-books__user__horizontal">
+          <RecommendBookInformationMarketing />
+          <RecommendBookInformationBookList />
+        </div>
+      </div>
     </div>
   );
 }

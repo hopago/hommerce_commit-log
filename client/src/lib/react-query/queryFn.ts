@@ -1,6 +1,7 @@
 import { fetchBestSellers } from "../../pages/_components/services/fetchBestSellers";
 import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBookBySearchTerm";
 import { fetchMonthlyPicks } from "../../pages/_components/services/fetchBookInformation";
+import { fetchUserPicks } from "../../pages/_components/services/fetchUserPicks";
 import { findBestAuthors } from "../../pages/_components/services/findBestAuthors";
 import { getReviewReply } from "../../pages/details/[bookId]/_components/review/services/getReviewReply";
 import { getUserReviewByBookId } from "../../pages/details/[bookId]/_components/review/services/getUserReviewByBookId";
@@ -67,6 +68,7 @@ export const QueryFns = {
   FETCH_BEST_SELLERS: () => fetchBestSellers(),
   FETCH_MONTHLY_PICKS: ({ pageNum, limit }: FetchMonthlyPicksProps) =>
     fetchMonthlyPicks({ pageNum, limit }),
+  FETCH_USER_PICKS: (userId?: string | null | undefined) => fetchUserPicks(userId),
   FIND_REFERRER_CATEGORY_BEST_AUTHORS: ({
     bookId,
     category,
