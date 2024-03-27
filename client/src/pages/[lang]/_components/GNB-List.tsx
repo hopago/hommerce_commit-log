@@ -19,8 +19,8 @@ type RouteParams = {
 type GNBListProps = {
   list: BookParentCategoryList | BookSubCategoryList;
   type: "parent" | "sub";
-  category: BookParentCategory | BookSubCategory | undefined;
-  parentCategory?: BookParentCategory;
+  category: BookParentCategory | BookSubCategory | undefined | null;
+  parentCategory?: BookParentCategory | null;
 };
 
 export default function GNBList({

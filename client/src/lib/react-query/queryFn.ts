@@ -1,3 +1,4 @@
+import { findTodayPick } from "../../pages/[lang]/_components/services/findTodayPick";
 import { fetchBestSellers } from "../../pages/_components/services/fetchBestSellers";
 import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBookBySearchTerm";
 import { fetchMonthlyPicks } from "../../pages/_components/services/fetchBookInformation";
@@ -76,6 +77,10 @@ export const QueryFns = {
     category,
   }: FindReferrerCategoryBestAuthorsProps) =>
     findReferrerCategoryBestAuthors({ bookId, category }),
+  FIND_TODAY_PICK: <T>(
+    type: LangPageBestBookQueriesValues,
+    lang: BookParentCategory
+  ) => findTodayPick<T>(type, lang),
   FIND_BEST_AUTHORS: () => findBestAuthors(),
   FIND_BOOKS_BY_IDS: (ids: string[]) => findBooksByIds(ids),
   FIND_RECOMMEND_BOOK_BY_CATEGORY: (category: BookSubCategory) =>

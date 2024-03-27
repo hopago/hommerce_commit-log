@@ -19,5 +19,6 @@ export const QueryKeys = {
   SEEN_BOOKS: "seenBooks",
   SEEN_BOOK_LAST_ITEM: "seenBookLastItem",
   RECOMMEND_BOOK: "recommendBooks",
+  TODAY_PICK: "todayPick",
   USER_PICKS: "userPicks",
 };

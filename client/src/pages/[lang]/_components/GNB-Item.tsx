@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 type GNBCategoryProps = {
   category: BookParentCategory | BookSubCategory;
   type: "parent" | "sub";
-  parentCategory: BookParentCategory | undefined;
+  parentCategory: BookParentCategory | null | undefined;
 };
 
 export default function GNBCategory({

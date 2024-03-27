@@ -15,6 +15,10 @@ export default function GNB() {
   const { parentCategory, category: subCategory } =
     useRecoilValue(gnbCategoryState);
 
+  // [0] 국내도서, [1] 해외도서
+  const getParentCategoryValue =
+    parentCategory?.[0] || parentCategory?.[1] || null;
+
   return (
     <div className="kor-gnb">
       <div className="kor-gnb__horizontal">
@@ -26,7 +30,7 @@ export default function GNB() {
         <div className="kor-gnb__horizontal__default">
           <GNBList
             type="parent"
-            category={parentCategory!}
+            category={getParentCategoryValue}
             list={bookParentCategory}
           />
           <img src={divider} alt="" />
@@ -34,7 +38,7 @@ export default function GNB() {
             type="sub"
             category={subCategory!}
             list={bookSubCategory}
-            parentCategory={parentCategory!}
+            parentCategory={getParentCategoryValue}
           />
         </div>
       </div>

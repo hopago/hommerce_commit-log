@@ -3,15 +3,12 @@ import { cn } from "../../../lib/utils";
 type PreviewBookProps = {
   currIndex: number;
   i: number;
-  book: {
-    representImg: string;
-    id: number;
-  };
+  img: string;
   setCurrIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function PreviewBook({
-  book,
+  img,
   currIndex,
   i,
   setCurrIndex,
@@ -25,7 +22,7 @@ export default function PreviewBook({
       onClick={() => setCurrIndex(i)}
     >
       <div className="img-wrap">
-        <img src={book.representImg} alt="preview-book-img" />
+        <img src={img} alt="preview-book-img" />
       </div>
     </li>
   );

@@ -3,21 +3,20 @@ import { useEffect, useRef } from "react";
 import PreviewBook from "./PreviewBook";
 
 type PreviewProps = {
-  books: TBooks;
+  books: TodayBestResponse;
   currIndex: number;
   setCurrIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function Preview({ books, currIndex, setCurrIndex }: PreviewProps) {
+export default function Preview({
+  books,
+  currIndex,
+  setCurrIndex,
+}: PreviewProps) {
   const filteredBooksInfo = books.map((book) => {
-    const { representImg, id } = book;
+    const { representImg, _id } = book;
 
-    const filterBookInfo = {
-      representImg,
-      id,
-    };
-
-    return filterBookInfo;
+    return { representImg, _id };
   });
 
   const slideRef = useRef<HTMLUListElement>(null);
@@ -39,11 +38,11 @@ export default function Preview({ books, currIndex, setCurrIndex }: PreviewProps
       <ul ref={slideRef}>
         {filteredBooksInfo.map((book, i) => (
           <PreviewBook
-            key={`${book.id}-${book.representImg}`}
+            key={book._id}
             setCurrIndex={setCurrIndex}
             currIndex={currIndex}
             i={i}
-            book={book}
+            img={book.representImg}
           />
         ))}
       </ul>
