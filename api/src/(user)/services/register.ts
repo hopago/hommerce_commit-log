@@ -4,6 +4,7 @@ import User, { IUser } from "../model/user";
 import { handleDatabaseOperation } from "../../utils/db-operation";
 import { handlePostPoint } from "../(point)/services/postPoint";
 import { handleCreateUserData } from "./createUserData";
+import { handlePostCartItem } from "../(cart)/services/postCartItem";
 
 export const handleRegister = async (req: Request, next: NextFunction) => {
   try {
@@ -26,6 +27,8 @@ export const handleRegister = async (req: Request, next: NextFunction) => {
     });
 
     const user = (await handleDatabaseOperation(newUser.save(), next)) as IUser;
+
+    await handleDatabaseOperation(handlePostCartItem(req, next, user.id), next);
 
     await handleDatabaseOperation(
       handlePostPoint({ userId: id, point: 0 }, next),

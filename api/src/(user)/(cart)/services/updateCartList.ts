@@ -17,7 +17,7 @@ export const handleUpdateCartList = async (
     "price",
     "unit",
   ];
-  const requiredFields = ["bookId", "amount"];
+  const requiredFields = ["bookId", "amount", "actionType"];
 
   validateFields(fields, req);
   isFieldsFullFilled(requiredFields, req);
@@ -29,12 +29,28 @@ export const handleUpdateCartList = async (
     const cart = await Cart.findOne({ userId });
     if (!cart) throw new HttpException(404, "Cart not found.");
 
-    const book = cart.books.find((book) => book.bookId === req.body.bookId);
-    if (!book) throw new HttpException(404, "Book not found in the cart.");
+    const { actionType, amount, bookId, title, author, img, price, unit } =
+      req.body;
 
-    book.amount = req.body.amount;
+    const bookIndex = cart.books.findIndex((book) => book.bookId === bookId);
+
+    if (actionType === "add") {
+      if (bookIndex !== -1) {
+        cart.books[bookIndex].amount += amount;
+      } else {
+        cart.books.push({ bookId, title, author, img, amount, price, unit });
+      }
+    } else if (actionType === "remove") {
+      if (bookIndex !== -1) {
+        cart.books.splice(bookIndex, 1);
+      } else {
+        throw new HttpException(404, "Book not found in the cart.");
+      }
+    } else {
+      throw new HttpException(400, "Invalid action actionType.");
+    }
+
     await cart.save();
-
     return cart;
   } catch (err) {
     next(err);

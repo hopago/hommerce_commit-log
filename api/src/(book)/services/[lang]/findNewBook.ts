@@ -1,13 +1,14 @@
 import { NextFunction, Request } from "express";
 import { HttpException } from "../../../middleware/error/utils";
-import Book from "../../models/book";
+import Book, { IBook } from "../../models/book";
+import { FilterQuery } from "mongoose";
 
 export const findNewBook = async (req: Request, next: NextFunction) => {
   const langCategory = req.query.lang as
     | BookParentCategory
     | undefined
     | "undefined";
-  const targetCategory = req.query.category as
+  let targetCategory = req.query.category as
     | BookSubCategory
     | undefined
     | "undefined";
@@ -21,8 +22,10 @@ export const findNewBook = async (req: Request, next: NextFunction) => {
     throw new HttpException(400, "Book category not found.");
   }
 
+  targetCategory = decodeURIComponent(targetCategory) as BookSubCategory;
+
   try {
-    const query: any = {};
+    const query: FilterQuery<IBook> = {};
     query.parentCategory = langCategory;
     if (targetCategory) {
       query.category = targetCategory;
