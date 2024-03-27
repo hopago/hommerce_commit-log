@@ -1,7 +1,7 @@
 import ProdBookItem from "./ProdBookItem";
 
 type ProdBooksProps = {
-  books: TBooks;
+  books: IBook[];
 };
 
 export default function ProdBooks({ books }: ProdBooksProps) {
@@ -9,7 +9,7 @@ export default function ProdBooks({ books }: ProdBooksProps) {
     <div className="lang-page-picks__best__container__book-list__prod">
       <ul>
         {books.map((book, i) => (
-          <ProdBookItem key={`${book.id}-${book.title}`} i={i} book={book} />
+          <ProdBookItem key={book._id} i={i} book={book} />
         ))}
       </ul>
     </div>

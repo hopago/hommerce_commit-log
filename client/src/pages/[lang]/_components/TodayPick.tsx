@@ -1,22 +1,18 @@
-import { useRecoilValue } from "recoil";
-import {
-  clientBookState,
-  selectedClientBookState,
-} from "../../../recoil/books";
 import { useImageSlide } from "../../hooks/use-image-slide";
+
+import { useQuery } from "@tanstack/react-query";
+import { QueryFns } from "../../../lib/react-query/queryFn";
+import { useParams } from "react-router-dom";
+import { QueryKeys } from "../../../lib/react-query/query-key";
+import { daysToMs } from "../../../lib/react-query/utils";
+import { useHandleError } from "../../hooks/use-handle-error";
 
 import NextIcon from "../../_components/NextIcon";
 import PrevIcon from "../../_components/PrevIcon";
 import CurrentBook from "./CurrentBook";
 import Preview from "./Preview";
 import Heading from "./TodayPickHeading";
-import { useQuery } from "@tanstack/react-query";
-import { QueryFns } from "../../../lib/react-query/queryFn";
-import { useParams } from "react-router-dom";
-import { QueryKeys } from "../../../lib/react-query/query-key";
-import { daysToMs } from "../../../lib/react-query/utils";
 import NoContent from "../../../_components/NoContent";
-import { useHandleError } from "../../hooks/use-handle-error";
 import Spinner from "../../../_components/Spinner";
 
 export default function TodayPick() {
@@ -41,7 +37,7 @@ export default function TodayPick() {
     handlePrev,
     nextDisabled,
     handleNext,
-  } = useImageSlide({ total: data?.length! });
+  } = useImageSlide({ total: data?.length!, preventNextNumber: 4 });
 
   const currentBook = data && data[index];
 

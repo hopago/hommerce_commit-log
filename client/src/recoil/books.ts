@@ -306,38 +306,6 @@ export const bookDetails: BookDetails = {
   행복과 고통을 알기 시작한 마흔에게, 삶을 현실적으로 보고 싶은 마흔에게, 인생의 무게 중심을 자기 안으로 옮기고자 하는 마흔에게 ‘생활 철학자’ 쇼펜하우어는 마음의 위기를 다스리고 인생을 지혜롭게 즐기며 살아가는 방법을 안내한다.`,
 };
 
-/* CLIENT STATE */
-export const clientBookState = atom<IBook[]>({
-  key: "clientBookState",
-  default: books,
-});
-
-export const currentClientBookState = atom<IBook | null>({
-  key: "currentClientBookState",
-  default: null,
-});
-
-export const selectedClientBookState = selectorFamily({
-  key: "selectedCurrentBook",
-  get:
-    (index: number) =>
-    ({ get }) => {
-      const books = get(clientBookState);
-      if (books) {
-        return books[index];
-      }
-    },
-  set:
-    (index: number) =>
-    ({ set, get }) => {
-      const books = get(clientBookState);
-      if (books) {
-        const currentBook = books[index];
-        set(currentClientBookState, currentBook);
-      }
-    },
-});
-
 /* API 연동 STATE */
 // TODO: 이름 구체화 + 홈페이지 슬라이더에서 사용 중
 export const booksState = atom<IBook[] | null>({
@@ -367,38 +335,6 @@ export const selectedCurrentBook = selectorFamily({
       if (books) {
         const currentBook = books[index];
         set(currentBookState, currentBook);
-      }
-    },
-});
-
-// lang-page img slider used
-export const langPageImageSliderBookState = atom<IBook[] | null>({
-  key: "langPageImgSliderBookState",
-  default: null,
-});
-
-export const currentLangPageImageSliderBookState = atom<IBook | null>({
-  key: "currentLangPageImgSliderBookState",
-  default: null,
-});
-
-export const selectedLangPageImageSLiderBookState = selectorFamily({
-  key: "selectedLangPageImgSliderBookState",
-  get:
-    (index: number) =>
-    ({ get }) => {
-      const books = get(langPageImageSliderBookState);
-      if (books) {
-        return books[index];
-      }
-    },
-  set:
-    (index: number) =>
-    ({ set, get }) => {
-      const books = get(langPageImageSliderBookState);
-      if (books) {
-        const currentBook = books[index];
-        set(currentLangPageImageSliderBookState, currentBook);
       }
     },
 });

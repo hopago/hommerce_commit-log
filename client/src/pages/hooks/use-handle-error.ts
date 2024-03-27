@@ -10,6 +10,7 @@ type CustomizeError = {
   error: Error | null;
   isError: boolean;
   isRefetchError?: boolean;
+  fieldName?: string;
   errorDetails?: {
     code: number;
     message: string;
@@ -20,6 +21,7 @@ export const useHandleError = ({
   error,
   isError,
   isRefetchError,
+  fieldName,
   errorDetails = [
     {
       code: 500,
@@ -27,6 +29,15 @@ export const useHandleError = ({
     },
   ],
 }: CustomizeError) => {
+  if (fieldName) {
+    errorDetails = [
+      {
+        code: 500,
+        message: `${fieldName}을(를) 불러오던 도중 문제가 생겼습니다. 잠시 후 다시 시도해주세요.`,
+      },
+    ];
+  }
+
   useEffect(() => {
     if (!isError || !error || Object.keys(error).length === 0) return;
 
