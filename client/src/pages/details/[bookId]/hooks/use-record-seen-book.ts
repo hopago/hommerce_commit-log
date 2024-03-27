@@ -13,17 +13,24 @@ export const useRecordSeenBook = ({
   category,
 }: UseRecordSeenBookProps) => {
   useEffect(() => {
-    const seenBookIdsJSON = localStorage.getItem("seenBookIds");
-    const seenBookIds = seenBookIdsJSON ? JSON.parse(seenBookIdsJSON) : [];
+    if (bookId) {
+      const seenBookIdsJSON = localStorage.getItem("seenBookIds");
+      const seenBookIds: string[] = seenBookIdsJSON
+        ? JSON.parse(seenBookIdsJSON)
+        : [];
 
-    if (!seenBookIds.includes(bookId)) {
-      seenBookIds.push(bookId);
-      localStorage.setItem("seenBookIds", JSON.stringify(seenBookIds));
+      if (!seenBookIds.includes(bookId)) {
+        if (seenBookIds.length === 10) {
+          seenBookIds.shift();
+        }
+        seenBookIds.push(bookId);
+        localStorage.setItem("seenBookIds", JSON.stringify(seenBookIds));
+      }
     }
   }, [bookId]);
 
   useEffect(() => {
-    if (category && userId) {
+    if (bookId && category && userId) {
       patchSeenBookCategory(category, userId);
     }
   }, [bookId]);

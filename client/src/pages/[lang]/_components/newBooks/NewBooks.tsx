@@ -1,4 +1,4 @@
-import Heading from "./TodayPickHeading";
+import Heading from "../picks/TodayPickHeading";
 
 import NewBookList from "./NewBookList";
 

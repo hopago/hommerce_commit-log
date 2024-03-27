@@ -1,6 +1,8 @@
 import { Skeleton } from "@nextui-org/skeleton";
+
 import { Link } from "react-router-dom";
-import { cn } from "../../../lib/utils";
+
+import { cn } from "../../../../lib/utils";
 
 type NewBookItemProps = {
   book: IBook;

@@ -87,6 +87,8 @@ export default function SeenBookItem({ book }: SeenBookItemProps) {
             userId={user?.id!}
             width={34}
             height={34}
+            imgWidth={14}
+            imgHeight={14}
             margin={0}
           />
         </div>

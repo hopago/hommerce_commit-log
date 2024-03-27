@@ -78,14 +78,14 @@ export default function DetailsIndex() {
 
   if (isLoading) return <DetailsIndexLoadingComponent />;
 
-  if (isSuccess) {
+  if (isSuccess && data) {
     return (
       <>
         <SearchSection />
         <FixedDetailsTabList isInView={isInView} />
         <GNB />
         <SingleBook
-          book={data!}
+          book={data}
           currSellType={currSellType}
           setCurrSellType={setCurrSellType}
         />
@@ -93,16 +93,15 @@ export default function DetailsIndex() {
           ref={prodInfoRef}
           bookId={bookId}
           category={data?.category}
-          lang={data?.parentCategory}
+          lang={data.parentCategory}
           setReObserve={setReObserve}
         />
-        <AuthorInfo authorName={data!.author} />
+        <AuthorInfo authorName={data.author} />
         <BookReviews ref={reviewRef} bookId={bookId} />
         <FAQ />
         <FixedPurchaseShortcut
-          price={currSellType === "종이책" ? data!.price : data!.eBookPrice}
-          discount={data!.discount}
-          unit={data!.unit}
+          price={currSellType === "종이책" ? data.price : data.eBookPrice}
+          book={data}
         />
       </>
     );

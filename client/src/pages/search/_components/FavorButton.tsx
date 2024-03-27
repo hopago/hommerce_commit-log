@@ -6,7 +6,10 @@ import { getQueryClient } from "../../../lib/react-query/getQueryClient";
 import { QueryKeys } from "../../../lib/react-query/query-key";
 import { MutateFns } from "../../../lib/react-query/mutateFn";
 import { useHandleError } from "../../hooks/use-handle-error";
+
 import { ERROR_DETAILS } from "../../../api/constants/errorDetails";
+
+import { cn } from "../../../lib/utils";
 
 type FavorButtonProps = {
   favorLength?: number;
@@ -19,6 +22,10 @@ type FavorButtonProps = {
   width?: number;
   height?: number;
   margin?: number;
+  padding?: number;
+  className?: string;
+  imgWidth?: number;
+  imgHeight?: number;
 };
 
 export default function FavorButton({
@@ -32,6 +39,10 @@ export default function FavorButton({
   width,
   height,
   margin,
+  className,
+  padding,
+  imgWidth,
+  imgHeight,
 }: FavorButtonProps) {
   const queryClient = getQueryClient();
 
@@ -67,19 +78,27 @@ export default function FavorButton({
   const onClick = () => mutate();
 
   return (
-    <button className="favor-btn" onClick={onClick}>
+    <button
+      className={cn("favor-btn", className && className)}
+      onClick={onClick}
+    >
       <div
         className="img-wrap"
         style={{
           width: `${width}px`,
           height: `${height}px`,
           margin: `${margin}px`,
+          padding: `${padding}px`,
         }}
       >
         <img
           src={isSubscribed ? heartActive : heart}
           alt="heart-icon"
-          style={{ width: "14px", height: "14px" }}
+          style={
+            imgWidth && imgHeight
+              ? { width: `${imgWidth}px`, height: `${imgHeight}px` }
+              : {}
+          }
         />
       </div>
       {favorLength && <span>{favorLength ?? 0}</span>}

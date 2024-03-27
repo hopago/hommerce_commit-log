@@ -57,6 +57,8 @@ export default function BookItemButtons({
         img={img}
         isSubscribed={isSubscribed}
         userId={user?.id ?? null}
+        imgWidth={14}
+        imgHeight={14}
       />
       {display === "flex" && (
         <>

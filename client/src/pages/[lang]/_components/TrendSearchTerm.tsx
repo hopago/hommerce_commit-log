@@ -1,6 +1,6 @@
 import { trendSearchTerms } from "../constants/issue-trend";
 
-import Heading from "./TodayPickHeading";
+import Heading from "./picks/TodayPickHeading";
 
 export default function TrendSearchTerm() {
   return (

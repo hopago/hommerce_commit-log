@@ -1,6 +1,8 @@
 import { Skeleton } from "@nextui-org/skeleton";
-import BestFlagBadge from "../../_components/utils/BestFlagBadge";
-import { cn } from "../../../lib/utils";
+
+import BestFlagBadge from "../../../_components/utils/BestFlagBadge";
+
+import { cn } from "../../../../lib/utils";
 
 type OtherBooksProps = {
   books: string[];

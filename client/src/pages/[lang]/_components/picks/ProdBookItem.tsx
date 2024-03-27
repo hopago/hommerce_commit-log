@@ -1,6 +1,9 @@
 import { Skeleton } from "@nextui-org/skeleton";
-import BestFlagBadge from "../../_components/utils/BestFlagBadge";
-import { cn } from "../../../lib/utils";
+
+import BestFlagBadge from "../../../_components/utils/BestFlagBadge";
+
+import { cn } from "../../../../lib/utils";
+import { Link } from "react-router-dom";
 
 type ProdBookItemProps = {
   book: IBook;
@@ -11,11 +14,15 @@ export default function ProdBookItem({ book, i }: ProdBookItemProps) {
   return (
     <li>
       <div className="img-wrap">
-        <img src={book.representImg} alt={book.title} />
+        <Link to={`/details/${book._id}`} className="link">
+          <img src={book.representImg} alt={book.title} />
+        </Link>
       </div>
       <div className="book-info">
         <BestFlagBadge i={i} />
-        <h3>{book.title}</h3>
+        <Link to={`/details/${book._id}`} className="link">
+          <h3>{book.title}</h3>
+        </Link>
         <div className="publish">
           <span>
             {book.author}&nbsp;·&nbsp;{book.publisher}

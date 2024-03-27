@@ -4,7 +4,7 @@ import plus from "../assets/ico_plus.png";
 import { cn } from "../lib/utils";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { amountState, setAmountState } from "../recoil/product-amount";
+import { amountState, setAmountState } from "../recoil/cart/product-amount";
 
 export default function AmountButton({ size }: { size: "sm" | "md" }) {
   const amount = useRecoilValue(amountState);

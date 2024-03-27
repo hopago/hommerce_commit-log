@@ -1,29 +1,34 @@
-import { useImageSlide } from "../../hooks/use-image-slide";
+import { useParams } from "react-router-dom";
 
 import { useQuery } from "@tanstack/react-query";
-import { QueryFns } from "../../../lib/react-query/queryFn";
-import { useParams } from "react-router-dom";
-import { QueryKeys } from "../../../lib/react-query/query-key";
-import { daysToMs } from "../../../lib/react-query/utils";
-import { useHandleError } from "../../hooks/use-handle-error";
+import { QueryFns } from "../../../../lib/react-query/queryFn";
+import { QueryKeys } from "../../../../lib/react-query/query-key";
+import { daysToMs } from "../../../../lib/react-query/utils";
 
-import NextIcon from "../../_components/NextIcon";
-import PrevIcon from "../../_components/PrevIcon";
-import CurrentBook from "./CurrentBook";
-import Preview from "./Preview";
+import { useImageSlide } from "../../../hooks/use-image-slide";
+import { useHandleError } from "../../../hooks/use-handle-error";
+
 import Heading from "./TodayPickHeading";
-import NoContent from "../../../_components/NoContent";
-import Spinner from "../../../_components/Spinner";
+import CurrentBook from "../CurrentBook";
+import Preview from "../Preview";
+import PrevIcon from "../../../_components/PrevIcon";
+import NextIcon from "../../../_components/NextIcon";
+import NoContent from "../../../../_components/NoContent";
+import Spinner from "../../../../_components/Spinner";
 
 export default function TodayPick() {
-  const { lang } = useParams<{ lang: BookParentCategory }>();
+  const { lang, category } = useParams<{
+    lang: BookParentCategory;
+    category: BookSubCategory | undefined;
+  }>();
 
   const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: [QueryKeys.TODAY_PICK],
     queryFn: () =>
       QueryFns.FIND_TODAY_PICK<TodayBestResponse | undefined>(
         "todaypicks",
-        lang!
+        lang!,
+        category
       ),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),

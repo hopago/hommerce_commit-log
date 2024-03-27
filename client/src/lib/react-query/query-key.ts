@@ -7,6 +7,7 @@ export const QueryKeys = {
   BOOK_DETAILS: "bookDetails",
   BOOKS_DOCS_LENGTH: "bookDocsLength",
   BOOK_SEARCH: "bookSearchResults",
+  CART: "cart",
   FAVOR_LENGTH: "favorLength",
   FAVOR_SUBSCRIPTION: "favorSubscription",
   MONTHLY_PICKS: "monthlyPicks",

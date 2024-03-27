@@ -4,6 +4,7 @@ import { postReviewReply } from "../../pages/details/[bookId]/_components/review
 import { deleteReviewReply } from "../../pages/details/[bookId]/services/deleteReviewReply";
 import { updateReview } from "../../pages/details/[bookId]/services/updateReview";
 import { patchFavorItem } from "../../pages/search/services/patchFavorItem";
+import { updateCart } from "../../services/updateCart";
 
 type DeleteReviewProps = {
   reviewId: string;
@@ -14,6 +15,8 @@ type DeleteReviewReplyProps = {
   reviewId: string;
   userId: string;
 };
+
+type UpdateCartProps = CartActionRequestBody & { userId: string };
 
 type UpdateReviewProps = {
   userId: string;
@@ -50,6 +53,28 @@ export const MutateFns = {
     desc,
   }: PostReviewReplyProps) =>
     postReviewReply({ userId, username, reviewId, desc }),
+  UPDATE_CART: ({
+    userId,
+    actionType,
+    amount,
+    bookId,
+    title,
+    author,
+    img,
+    price,
+    unit,
+  }: UpdateCartProps) =>
+    updateCart({
+      userId,
+      actionType,
+      bookId,
+      amount,
+      title,
+      author,
+      img,
+      price,
+      unit,
+    }),
   UPDATE_REVIEW: ({
     userId,
     bookId,

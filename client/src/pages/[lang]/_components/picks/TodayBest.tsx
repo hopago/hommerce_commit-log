@@ -8,20 +8,24 @@ import OtherBooks, { OtherBooksSkeleton } from "./OtherBooks";
 import { ProdBookItemSkeleton } from "./ProdBookItem";
 
 import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "../../../lib/react-query/query-key";
-import { QueryFns } from "../../../lib/react-query/queryFn";
-import { daysToMs } from "../../../lib/react-query/utils";
-import { useHandleError } from "../../hooks/use-handle-error";
+import { QueryKeys } from "../../../../lib/react-query/query-key";
+import { QueryFns } from "../../../../lib/react-query/queryFn";
+import { daysToMs } from "../../../../lib/react-query/utils";
+import { useHandleError } from "../../../hooks/use-handle-error";
 
 export default function TodayBest() {
-  const { lang } = useParams<{ lang: BookParentCategory }>();
+  const { lang, category } = useParams<{
+    lang: BookParentCategory;
+    category: BookSubCategory | undefined;
+  }>();
 
   const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: [QueryKeys.TODAY_BEST],
     queryFn: () =>
       QueryFns.FIND_TODAY_PICK<TodayBestResponse | undefined>(
         "todaybest",
-        lang!
+        lang!,
+        category
       ),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),

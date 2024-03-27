@@ -95,6 +95,20 @@ export const ERROR_DETAILS = {
       message: "서버 오류입니다. 잠시 후 다시 시도해주세요.",
     },
   ],
+  PATCH_CART: [
+    {
+      code: 400,
+      message: "도서 수량을 확인해주세요.",
+    },
+    {
+      code: 404,
+      message: "장바구니 정보를 찾을 수 없어요.",
+    },
+    {
+      code: 500,
+      message: "서버 에러입니다. 잠시 후 다시 시도해주세요.",
+    },
+  ],
   PATCH_FAVOR_ITEM: [
     {
       code: 400,

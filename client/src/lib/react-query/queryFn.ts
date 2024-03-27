@@ -4,6 +4,7 @@ import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBoo
 import { fetchMonthlyPicks } from "../../pages/_components/services/fetchBookInformation";
 import { fetchUserPicks } from "../../pages/_components/services/fetchUserPicks";
 import { findBestAuthors } from "../../pages/_components/services/findBestAuthors";
+import { getCart } from "../../pages/cart/services/getCart";
 import { getReviewReply } from "../../pages/details/[bookId]/_components/review/services/getReviewReply";
 import { getUserReviewByBookId } from "../../pages/details/[bookId]/_components/review/services/getUserReviewByBookId";
 import { findRecommendBookByCategory } from "../../pages/details/[bookId]/services/findRecommendBookByCategory";
@@ -17,7 +18,7 @@ import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
 import { getSubscriptionLength } from "../../pages/search/services/getSubscriptionLength";
-import { ReviewSortOptions } from "../../recoil/review-select";
+import { ReviewSortOptions } from "../../recoil/review/review-select";
 import { findBooksByIds } from "../../services/findBooksByIds";
 
 type LimitType = number;
@@ -101,6 +102,7 @@ export const QueryFns = {
     keyword,
   }: BookSearchResultsLengthProps) =>
     getResultsTotal({ filter, searchTerm: keyword }),
+  GET_CART: (userId: string) => getCart(userId),
   GET_REVIEWS_BY_BOOK_ID: ({
     bookId,
     pageNum,

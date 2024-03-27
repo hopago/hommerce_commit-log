@@ -3,23 +3,30 @@ import { useParams } from "react-router-dom";
 import NewBookItem, { NewBookItemSkeleton } from "./NewBookItem";
 
 import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "../../../lib/react-query/query-key";
-import { QueryFns } from "../../../lib/react-query/queryFn";
-import { daysToMs } from "../../../lib/react-query/utils";
-import { useHandleError } from "../../hooks/use-handle-error";
-import NoContent from "../../../_components/NoContent";
+import { QueryKeys } from "../../../../lib/react-query/query-key";
+import { QueryFns } from "../../../../lib/react-query/queryFn";
+import { daysToMs } from "../../../../lib/react-query/utils";
+import { useHandleError } from "../../../hooks/use-handle-error";
+import NoContent from "../../../../_components/NoContent";
 
 type NewBookListProps = {
   category: BookSubCategory;
 };
 
 export default function NewBookList({ category }: NewBookListProps) {
-  const { lang } = useParams<{ lang: BookParentCategory }>();
+  const { lang, category: paramsCategory } = useParams<{
+    lang: BookParentCategory;
+    category: BookSubCategory | undefined;
+  }>();
 
   const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: [QueryKeys.NEW_BOOKS, category],
     queryFn: () =>
-      QueryFns.FIND_TODAY_PICK<IBook[]>("newbook", lang!, category),
+      QueryFns.FIND_TODAY_PICK<IBook[]>(
+        "newbook",
+        lang!,
+        paramsCategory ?? category
+      ),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
     enabled: !!lang && !!category,
