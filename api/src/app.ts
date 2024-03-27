@@ -25,6 +25,7 @@ import bookDataRouter from "./(book)/routes/data";
 import bookAnalyticsRouter from "./(book)/routes/bookAnalytics";
 import bookDetailsRouter from "./(book)/(details)/routes/detail";
 import bookRecommendRouter from "./(book)/(recommend)/routes/route";
+import bookLangPageRouter from "./(book)/routes/[lang]/book";
 
 import clientRequestRouter from "./client/router/client";
 
@@ -57,6 +58,7 @@ app.use("/author", authorRouter);
 
 app.use("/book/details", bookDetailsRouter);
 app.use("/book/recommend", bookRecommendRouter);
+app.use("/book/lang", bookLangPageRouter);
 app.use("/book/a", bookAnalyticsRouter);
 app.use("/book/d", bookDataRouter);
 app.use("/book", bookRouter);

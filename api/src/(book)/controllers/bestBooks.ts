@@ -4,8 +4,6 @@ import { findBestSellers } from "../services/findBestSellers";
 import { findUserPicks } from "../services/findUserPicks";
 import { findMonthlyPicks } from "../services/findMonthlyPicks";
 
-// TODO: 유저 클릭 기반 카테고리 수집 후 findUserPicks
-
 const bestBooksQueries: BestBooksQueryType[] = [
   "bestsellers",
   "userpicks",
@@ -37,7 +35,7 @@ export const getBestBooks = async (
       throw new HttpException(400, "Invalid type");
     }
 
-    const result = await action(req, res, next);
+    const result: unknown = await action(req, res, next);
 
     if (result) {
       return res.status(200).json(result);
