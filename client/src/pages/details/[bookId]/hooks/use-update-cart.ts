@@ -8,11 +8,13 @@ import { ERROR_DETAILS } from "../../../../api/constants/errorDetails";
 import { QueryFns } from "../../../../lib/react-query/queryFn";
 
 type UseUpdateCartProps = {
-  book: IBook;
+  book?: IBook;
   userId: string | undefined;
   actionType: "add" | "remove";
   amount: number;
 };
+
+type UseUpdateCartOptionalParams = Partial<UseUpdateCartProps>;
 
 export const useUpdateCart = ({
   book,
@@ -23,19 +25,20 @@ export const useUpdateCart = ({
   const queryClient = getQueryClient();
   const { mutate, isPending, isError, error } = useMutation<
     ICart | undefined,
-    ServerError | Error
+    ServerError | Error,
+    UseUpdateCartOptionalParams
   >({
-    mutationFn: () =>
+    mutationFn: ({ book: paramsBook }: UseUpdateCartOptionalParams) =>
       MutateFns.UPDATE_CART({
-        bookId: book._id,
+        bookId: paramsBook?._id ?? book?._id,
         userId: userId!,
         actionType,
         amount,
-        title: book.title,
-        author: book.author,
-        img: book.representImg,
-        price: book.price,
-        unit: book.unit,
+        title: paramsBook?.title ?? book?.title,
+        author: paramsBook?.author ?? book?.author,
+        img: paramsBook?.representImg ?? book?.representImg,
+        price: paramsBook?.price ?? book?.price,
+        unit: paramsBook?.unit ?? book?.unit,
       }),
     onSuccess: async (newCart: ICart | undefined) => {
       if (newCart) {
@@ -54,8 +57,13 @@ export const useUpdateCart = ({
     },
   });
 
-  const handlePatch = async () => {
-    mutate();
+  const handlePatch = async (
+    book?: IBook,
+    userId?: string,
+    actionType?: "add" | "remove",
+    amount?: number
+  ) => {
+    mutate({ book, userId, actionType, amount });
   };
 
   useHandleError({

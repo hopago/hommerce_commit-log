@@ -80,10 +80,7 @@ export default function BookItem({ book, display }: BookItemProps) {
         </div>
       </div>
       <BookItemButtons
-        bookId={book._id}
-        title={book.title}
-        author={book.author}
-        img={book.representImg}
+        book={book}
         display={display}
       />
     </li>
