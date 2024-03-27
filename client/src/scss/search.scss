@@ -702,11 +702,14 @@
 
     .home-nav__user__session__button {
         padding: 0;
-        margin-right: 0.5rem;
 
         &__wrapper {
             padding: 0.5rem;
         }
+    }
+
+    .session-button.logout {
+        margin-right: 0.5rem;
     }
 
     .home-nav__logo.link.fixed {
@@ -727,11 +730,14 @@
 
     .home-nav__user__session__button {
         padding: 0;
-        margin-right: 1rem;
 
         &__wrapper {
             padding: 0.5rem;
         }
+    }
+
+    .session-button.logout {
+        margin-right: 1rem;
     }
 
     .icon-wrap {
@@ -753,11 +759,14 @@
 
     .home-nav__user__session__button {
         padding: 0;
-        margin-right: 1rem;
 
         &__wrapper {
             padding: 0.5rem;
         }
+    }
+
+    .session-button.logout {
+        margin-right: 1rem;
     }
 
     .icon-wrap {
@@ -779,11 +788,14 @@
 
     .home-nav__user__session__button {
         padding: 0;
-        margin-right: 1rem;
 
         &__wrapper {
             padding: 0.5rem;
         }
+    }
+
+    .session-button.logout {
+        margin-right: 1rem;
     }
 
     .icon-wrap {

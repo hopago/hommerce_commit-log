@@ -1,0 +1,10 @@
+{
+  "name": "Hommerce",
+  "icons": [
+    {
+      "src": "/public/assets/logo.png",
+      "sizes": "32X32",
+      "type": "image/png"
+    }
+  ]
+}

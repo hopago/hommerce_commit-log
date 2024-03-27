@@ -22,15 +22,11 @@ import { daysToMs } from "../../lib/react-query/utils";
 import { useHandleError } from "../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../api/constants/errorDetails";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import noResults from "../../assets/img_no-results.png";
 
 import { getQueryClient } from "../../lib/react-query/getQueryClient";
-
-type LoadingProps = {
-  initialSearchTerm: string;
-};
 
 export default function SearchIndex() {
   const queryClient = getQueryClient();
@@ -44,7 +40,6 @@ export default function SearchIndex() {
   const { onSubmit, onChange, searchTerm } = useSearchForm();
   const filter = useRecoilValue<SearchType>(searchFilterState);
   const [shouldRefetch, setShouldRefetch] = useRecoilState(searchPageEnabled);
-  const [initialSearchTerm] = useState(searchTerm);
 
   const { data, isLoading, isSuccess, isError, error, refetch } = useQuery({
     queryKey: [QueryKeys.BOOKS_DOCS_LENGTH, keyword],
@@ -77,8 +72,7 @@ export default function SearchIndex() {
 
   if (isLoading) return <GlobalLoadingLayout />;
 
-  if (isError || (isSuccess && data.docsLength === 0))
-    return <NoContents initialSearchTerm={initialSearchTerm} />;
+  if (isError || (isSuccess && data.docsLength === 0)) return <NoContents />;
 
   if (isSuccess) {
     return (
@@ -89,10 +83,7 @@ export default function SearchIndex() {
           searchTerm={searchTerm}
         />
         <header>
-          <SearchHeading
-            searchTerm={initialSearchTerm}
-            docsLength={data.docsLength}
-          />
+          <SearchHeading docsLength={data.docsLength} />
         </header>
         <main>
           <section className="search-ad">
@@ -112,12 +103,12 @@ export default function SearchIndex() {
   }
 }
 
-function NoContents({ initialSearchTerm }: LoadingProps) {
+function NoContents() {
   return (
     <div id="search-page">
       <FixedSearchBar />
       <header>
-        <SearchHeading searchTerm={initialSearchTerm} docsLength={0} />
+        <SearchHeading docsLength={0} />
       </header>
       <main>
         <section className="search-ad">

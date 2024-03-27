@@ -1,16 +1,19 @@
+import { useLocation } from "react-router-dom";
+
 type SearchHeadingProps = {
-  searchTerm: string;
   docsLength: number;
 };
 
-export default function SearchHeading({
-  searchTerm,
-  docsLength,
-}: SearchHeadingProps) {
+export default function SearchHeading({ docsLength }: SearchHeadingProps) {
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const keyword = queryParams.get("keyword");
+
   return (
     <div className="search-heading">
       <h1>
-        <span>' {searchTerm} '</span> 에 대한 {docsLength.toLocaleString()}
+        <span>' {keyword} '</span> 에 대한 {docsLength.toLocaleString()}
         개의 검색 결과
       </h1>
     </div>

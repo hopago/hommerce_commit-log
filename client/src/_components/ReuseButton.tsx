@@ -7,7 +7,7 @@ type FAQText = "반품/교환 신청" | "1:1문의";
 type ReuseButtonProps = {
   type?: "button" | "submit";
   style: "default" | "purple";
-  text: PurchaseButtonText | FAQText | string;
+  text?: PurchaseButtonText | FAQText | string;
   size: "sm" | "md" | "lg";
   icon?: JSX.Element | string;
   onClick?: () => void | (() => Promise<void>);
@@ -43,7 +43,7 @@ export default function ReuseButton({
       disabled={disabled}
     >
       {iconContent && iconContent}
-      <span>{text}</span>
+      {text && <span>{text}</span>}
     </button>
   );
 }

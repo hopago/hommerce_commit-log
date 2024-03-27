@@ -17,6 +17,7 @@ export default function UserAfterLoginButton() {
 
   const handleLogout = () => {
     signOut();
+    window.location.reload();
   };
 
   return (
