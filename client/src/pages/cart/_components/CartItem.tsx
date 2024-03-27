@@ -7,8 +7,6 @@ type CartItemProps = {
 };
 
 export default function CartItem({ book }: CartItemProps) {
-  console.log(book);
-
   return (
     <li className="cart-list__scroll-inner__cart-item">
       <SelectOneCartItem
@@ -23,7 +21,15 @@ export default function CartItem({ book }: CartItemProps) {
         price={book.price}
         unit={book.unit}
       />
-      <AmountControl />
+      <AmountControl
+        bookId={book.bookId}
+        price={book.price}
+        discount={book.discount}
+      />
     </li>
   );
 }
+
+export const CartItemSkeleton = () => (
+  <li className="cart-list__scroll-inner__cart-item"></li>
+);

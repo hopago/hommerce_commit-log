@@ -3,25 +3,19 @@ import plus from "../assets/ico_plus.png";
 
 import { cn } from "../lib/utils";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { amountState, setAmountState } from "../recoil/cart/product-amount";
+type AmountButtonProps = {
+  increaseAmount: () => void;
+  decreaseAmount: () => void;
+  size: "sm" | "md";
+  amount: number;
+};
 
-export default function AmountButton({ size }: { size: "sm" | "md" }) {
-  const amount = useRecoilValue(amountState);
-  const setAmountSelector = useSetRecoilState(setAmountState);
-
-  const increaseAmount = () => {
-    if (amount < 10) {
-      setAmountSelector(1);
-    }
-  };
-
-  const decreaseAmount = () => {
-    if (amount > 1) {
-      setAmountSelector(-1);
-    }
-  };
-
+export default function AmountButton({
+  size,
+  amount,
+  increaseAmount,
+  decreaseAmount,
+}: AmountButtonProps) {
   return (
     <button className={cn("amount-btn", size && size)}>
       <div className="flex-between">

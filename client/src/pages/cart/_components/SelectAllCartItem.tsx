@@ -1,8 +1,5 @@
 import { MdCheck } from "react-icons/md";
 
-import { getQueryClient } from "../../../lib/react-query/getQueryClient";
-import { QueryKeys } from "../../../lib/react-query/query-key";
-
 import { useUser } from "@clerk/clerk-react";
 
 import { useSetRecoilState } from "recoil";
@@ -10,20 +7,19 @@ import { selectedCartProductState } from "../../../recoil/cart/product-to-pay";
 
 import { cn } from "../../../lib/utils";
 
+import { getCartData } from "../utils/getCartData";
+
 export default function SelectAllCartItem() {
   const { user } = useUser();
-  const queryClient = getQueryClient();
-  const data = queryClient.getQueryData<ICart | undefined>([
-    QueryKeys.CART,
-    user?.id,
-  ]);
+
+  const data = getCartData(user?.id!);
 
   const setSelectedBooks = useSetRecoilState(selectedCartProductState);
 
   const onClick = () => {
     if (data) {
       const filteredInfo = data.books.map((book) => ({
-        bookId: book._id,
+        bookId: book.bookId,
         price: book.price,
         discount: book.discount,
       }));

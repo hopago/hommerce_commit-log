@@ -5,12 +5,16 @@ import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
 import { QueryFns } from "../../../../lib/react-query/queryFn";
+import { postError } from "../../../services/postError";
 
 import { calculateDiscount } from "../../../../utils/calculate-price";
 import { cn } from "../../../../lib/utils";
 
-import { useRecoilValue } from "recoil";
-import { amountState } from "../../../../recoil/cart/product-amount";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  amountState,
+  setAmountState,
+} from "../../../../recoil/cart/product-amount";
 import { enhancedImageModal } from "../../../../recoil/modal/enhanced-image";
 import { postReviewModal } from "../../../../recoil/modal/post-review";
 
@@ -19,8 +23,10 @@ import AmountButton from "../../../../_components/AmountButton";
 import ReuseButton from "../../../../_components/ReuseButton";
 
 import { useNavigate } from "react-router-dom";
+
 import { useUpdateCart } from "../hooks/use-update-cart";
-import { postError } from "../../../services/postError";
+
+import { toast } from "sonner";
 
 type FixedPurchaseShortcutProps = {
   price: number | undefined;
@@ -55,14 +61,27 @@ export default function FixedPurchaseShortcut({
 
   const [total, setTotal] = useState(discountedPrice ?? book.price);
   const amount = useRecoilValue(amountState);
+  const setAmountSelector = useSetRecoilState(setAmountState);
 
   useEffect(() => {
     if (amount >= 10) {
-      alert("수량 10개 이상부터는 대량주문안내를 참고 해주세요.");
+      toast.info("수량 10개 이상부터는 대량주문안내를 참고 해주세요.");
     } else {
       setTotal(discountedPrice! * amount);
     }
   }, [amount]);
+
+  const increaseAmount = () => {
+    if (amount < 10) {
+      setAmountSelector(1);
+    }
+  };
+
+  const decreaseAmount = () => {
+    if (amount > 1) {
+      setAmountSelector(-1);
+    }
+  };
 
   const { handlePatch } = useUpdateCart({
     book,
@@ -102,7 +121,12 @@ export default function FixedPurchaseShortcut({
         </div>
         <div className="right-area">
           <div className="buttons-wrap">
-            <AmountButton size="md" />
+            <AmountButton
+              size="md"
+              amount={amount}
+              increaseAmount={increaseAmount}
+              decreaseAmount={decreaseAmount}
+            />
             <FavorButton
               bookId={book._id}
               author={book.author}
