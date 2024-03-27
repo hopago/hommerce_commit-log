@@ -29,6 +29,9 @@ export default function AddCartButton() {
   });
 
   const onCartClick = async () => {
+    const isConfirmed = confirm("선택된 항목들을 장바구니에 담겠습니까?");
+    if (!isConfirmed) return;
+
     if (!user) {
       toast.info("로그인 후 이용 가능합니다.");
       setIsAllPatched(false);

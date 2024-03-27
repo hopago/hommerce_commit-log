@@ -1,5 +1,8 @@
 import UserButton from "./UserButton";
+
 import { GlobalSvg } from "../constants/Icons";
+
+import CartButton from "../cart/CartButton";
 
 export default function UserSection() {
   return (
@@ -13,6 +16,7 @@ export default function UserSection() {
         </div>
       </div>
       <div className="home-nav__user__session">
+        <CartButton />
         <UserButton />
       </div>
     </div>

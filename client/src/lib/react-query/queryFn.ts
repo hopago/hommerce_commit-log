@@ -4,6 +4,7 @@ import { fetchBookBySearchTerm } from "../../pages/_components/services/fetchBoo
 import { fetchMonthlyPicks } from "../../pages/_components/services/fetchBookInformation";
 import { fetchUserPicks } from "../../pages/_components/services/fetchUserPicks";
 import { findBestAuthors } from "../../pages/_components/services/findBestAuthors";
+import { getCartLength } from "../../pages/_components/services/getCartLength";
 import { getCart } from "../../pages/cart/services/getCart";
 import { getReviewReply } from "../../pages/details/[bookId]/_components/review/services/getReviewReply";
 import { getUserReviewByBookId } from "../../pages/details/[bookId]/_components/review/services/getUserReviewByBookId";
@@ -103,6 +104,7 @@ export const QueryFns = {
   }: BookSearchResultsLengthProps) =>
     getResultsTotal({ filter, searchTerm: keyword }),
   GET_CART: (userId: string) => getCart(userId),
+  GET_CART_ITEM_LENGTH: (userId: string) => getCartLength(userId),
   GET_REVIEWS_BY_BOOK_ID: ({
     bookId,
     pageNum,

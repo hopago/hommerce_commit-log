@@ -13,6 +13,7 @@ import { AllCategories } from "../@modal";
 import Logo from "./Logo";
 
 import { cn } from "../../lib/utils";
+import CartButton from "./cart/CartButton";
 
 type FixedSearchBarProps = {
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -63,6 +64,7 @@ export default function FixedSearchBar({
           <SearchButton />
         </form>
         <div className="user-button-wrap">
+          <CartButton />
           <UserButton />
         </div>
       </div>
