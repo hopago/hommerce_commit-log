@@ -10,7 +10,7 @@ export default function NewBooks({
   return (
     <div className="new-books">
       <Heading title={`새로나온 책 | ${bookSubCategory}`} />
-      <NewBookList />
+      <NewBookList category={bookSubCategory} />
     </div>
   );
 }

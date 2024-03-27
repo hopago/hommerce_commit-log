@@ -17,8 +17,9 @@ export default function ProdBookItem({ book, i }: ProdBookItemProps) {
         <BestFlagBadge i={i} />
         <h3>{book.title}</h3>
         <div className="publish">
-          <span>{book.author}&nbsp;·&nbsp;</span>
-          <span>{book.publisher}</span>
+          <span>
+            {book.author}&nbsp;·&nbsp;{book.publisher}
+          </span>
         </div>
         {book.discount ? (
           <span className="discount">{book.discount}%</span>
@@ -42,7 +43,6 @@ export const ProdBookItemSkeleton = () => {
         <Skeleton className={cn("skeleton", "badge")} />
         <Skeleton className={cn("skeleton", "title")} />
         <div className="publish">
-          <Skeleton className={cn("skeleton", "span gap")} />
           <Skeleton className={cn("skeleton", "span")} />
         </div>
         <Skeleton className={cn("skeleton", "span")} />

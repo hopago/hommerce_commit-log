@@ -543,6 +543,23 @@ main {
                                     }
                                 }
                             }
+
+                            .skeleton.representImg {
+                                width: 100px;
+                                height: 140px;
+                            }
+
+                            .skeleton.title {
+                                width: 66%;
+                                height: 23px;
+                                margin-bottom: 0.5rem;
+                            }
+
+                            .skeleton.span {
+                                width: 33%;
+                                height: 17px;
+                                margin-bottom: 0.25rem;
+                            }
                         }
 
                         &__other-books {
@@ -592,6 +609,13 @@ main {
                                         }
                                     }
                                 }
+                            }
+
+                            .skeleton.span {
+                                margin-left: 0.25rem;
+                                width: 66%;
+                                height: 17px;
+                                margin-bottom: 0.25rem;
                             }
                         }
                     }
@@ -711,6 +735,23 @@ main {
                             }
                         }
                     }
+                }
+
+                .skeleton.representImg {
+                    width: 140px;
+                    height: 200px;
+                }
+
+                .skeleton.title {
+                    margin-top: 0.5rem;
+                    width: 70px;
+                    height: 23px;
+                }
+
+                .skeleton.span {
+                    margin-top: 0.5rem;
+                    width: 35px;
+                    height: 11px;
                 }
             }
         }

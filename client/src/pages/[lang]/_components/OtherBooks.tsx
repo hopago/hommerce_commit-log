@@ -11,7 +11,7 @@ export default function OtherBooks({ books }: OtherBooksProps) {
     <div className="lang-page-picks__best__container__book-list__other-books">
       <ul>
         {books.map((title, i) => (
-          <li key={title}>
+          <li key={title + i}>
             <div className="text-wrap">
               <BestFlagBadge i={i + 2} />
               <div className="span-wrap">
@@ -29,12 +29,10 @@ export const OtherBooksSkeleton = () => {
   return (
     <div className="lang-page-picks__best__container__book-list__other-books">
       <ul>
-        {[...Array.from({ length: 8 })].map(() => (
-          <li>
+        {[...Array.from({ length: 8 })].map((_, i) => (
+          <li key={i}>
             <Skeleton className={cn("skeleton", "badge")} />
-            <div className="span-wrap">
-              <Skeleton className={cn("skeleton", "span")} />
-            </div>
+            <Skeleton className={cn("skeleton", "span")} />
           </li>
         ))}
       </ul>

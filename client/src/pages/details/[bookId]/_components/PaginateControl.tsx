@@ -1,5 +1,5 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { currentPageState } from "../../../../recoil/review-paginate";
+import { currentPageState } from "../../../../recoil/paginate";
 import { detailsPageEnabled } from "../../../../recoil/api/details-page-review-enabled";
 
 import { PAGE_SIZE } from "../../../constants/page";

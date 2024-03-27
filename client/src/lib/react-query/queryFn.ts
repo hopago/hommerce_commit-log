@@ -79,8 +79,9 @@ export const QueryFns = {
     findReferrerCategoryBestAuthors({ bookId, category }),
   FIND_TODAY_PICK: <T>(
     type: LangPageBestBookQueriesValues,
-    lang: BookParentCategory
-  ) => findTodayPick<T>(type, lang),
+    lang: BookParentCategory,
+    category?: BookSubCategory
+  ) => findTodayPick<T>(type, lang, category),
   FIND_BEST_AUTHORS: () => findBestAuthors(),
   FIND_BOOKS_BY_IDS: (ids: string[]) => findBooksByIds(ids),
   FIND_RECOMMEND_BOOK_BY_CATEGORY: (category: BookSubCategory) =>

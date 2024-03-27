@@ -5,13 +5,13 @@ import { useParams } from "react-router-dom";
 import Heading from "./TodayPickHeading";
 import ProdBooks from "./ProdBooks";
 import OtherBooks, { OtherBooksSkeleton } from "./OtherBooks";
+import { ProdBookItemSkeleton } from "./ProdBookItem";
 
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../lib/react-query/query-key";
 import { QueryFns } from "../../../lib/react-query/queryFn";
 import { daysToMs } from "../../../lib/react-query/utils";
 import { useHandleError } from "../../hooks/use-handle-error";
-import { ProdBookItemSkeleton } from "./ProdBookItem";
 
 export default function TodayBest() {
   const { lang } = useParams<{ lang: BookParentCategory }>();

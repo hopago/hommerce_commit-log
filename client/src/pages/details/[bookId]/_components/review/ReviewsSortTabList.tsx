@@ -1,12 +1,12 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
-  ReviewTabList,
-  setReviewTabList,
-} from "../../../../../recoil/review-tab";
-import {
   ReviewSortOptions,
   setReviewSortOptionsState,
-} from "../../../../../recoil/review-select";
+} from "../../../../../recoil/review/review-select";
+import {
+  ReviewTabList,
+  setReviewTabList,
+} from "../../../../../recoil/review/review-tab";
 
 import SelectForm from "../../../../../_components/SelectForm";
 import { cn } from "../../../../../lib/utils";

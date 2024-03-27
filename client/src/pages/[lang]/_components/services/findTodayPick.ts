@@ -3,11 +3,19 @@ import { createQueryString } from "../../../../fetcher/utils";
 
 export const findTodayPick = async <T>(
   type: LangPageBestBookQueriesValues,
-  lang: BookParentCategory
+  lang: BookParentCategory,
+  category?: BookSubCategory
 ) => {
   if (!type || !lang) return;
 
-  const queryString = createQueryString({ type, lang });
+  let queryString;
+
+  queryString = createQueryString({ type, lang });
+
+  if (category) {
+    const categoryQueryString = createQueryString({ category });
+    queryString += `&${categoryQueryString}`;
+  }
 
   try {
     const todayPicks = await restFetcher<T>({
