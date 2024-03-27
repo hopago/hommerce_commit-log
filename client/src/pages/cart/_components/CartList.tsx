@@ -1,7 +1,7 @@
 import CartItem from "./CartItem";
 
 type CartListProps = {
-  books: IBook[];
+  books: CartList;
 };
 
 export default function CartList({ books }: CartListProps) {
@@ -9,10 +9,10 @@ export default function CartList({ books }: CartListProps) {
     <>
       <div className="divider" />
       <div className="cart-list">
-        <ul>
-          {books.map((book) => (
-            <CartItem key={book._id} book={book} />
-          ))}
+        <ul className="cart-list__scroll-inner">
+          {Array.isArray(books) &&
+            books.length > 0 &&
+            books.map((book) => <CartItem key={book.bookId} book={book} />)}
         </ul>
       </div>
     </>

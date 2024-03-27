@@ -9,7 +9,20 @@ interface CartActionRequestBody {
   unit?: string;
 }
 
+type CartItem = {
+  bookId: string;
+  title: string;
+  author: string;
+  img: string;
+  amount: number;
+  price: number;
+  unit: "원";
+  discount?: number;
+};
+
+type CartList = CartItem[];
+
 interface ICart {
   userId: string;
-  books: IBook[];
+  books: CartList;
 }

@@ -179,12 +179,17 @@ textarea::placeholder {
     border-radius: 0.5rem;
     cursor: pointer;
     outline: 0.5px solid #DDDDDD;
+    transition: all .15s ease;
 
     .session-button__wrapper.logout {
         padding: 0.25rem;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    &:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px -3px;
     }
 }
 
