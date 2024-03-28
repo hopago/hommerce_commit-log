@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+
 type CartItemInfoProps = {
   title: string;
   img: string;
   discount: number | undefined;
   price: number;
   unit: "원";
+  bookId: string;
 };
 
 export default function CartItemInfo({
@@ -12,14 +15,19 @@ export default function CartItemInfo({
   discount,
   price,
   unit,
+  bookId,
 }: CartItemInfoProps) {
   const discountedPrice = discount ? price - price * (discount / 100) : price;
 
   return (
     <div className="cart-list__container__scroll-inner__cart-item__details">
-      <img src={img} alt={title} />
+      <Link to={`/details/${bookId}`} className="link">
+        <img src={img} alt={title} />
+      </Link>
       <div className="flex-col">
-        <h1 className="title">{title}</h1>
+        <Link to={`/details/${bookId}`} className="link">
+          <h1 className="title">{title}</h1>
+        </Link>
         <div className="price-wrap">
           {discount ? <span className="discount">{discount}%</span> : null}
           {discount ? (

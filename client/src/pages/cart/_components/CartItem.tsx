@@ -22,6 +22,7 @@ export default function CartItem({ book }: CartItemProps) {
           amount={book.amount}
         />
         <CartItemInfo
+          bookId={book.bookId}
           title={book.title}
           img={book.img}
           discount={book.discount}

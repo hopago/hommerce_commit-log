@@ -40,6 +40,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
       />
       <ReviewDesc desc={review.desc} />
       <ReviewInteract
+        reviewId={review._id}
         repliesLength={data?.length ?? 0}
         liked={review.liked}
         setShow={setShow}

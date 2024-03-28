@@ -38,6 +38,7 @@ const SingleBook = ({
       )}
       <div className="details-single-book__horizontal">
         <SingleBookInfo
+          bookId={book._id}
           title={book.title}
           author={book.author}
           publisher={book.publisher}

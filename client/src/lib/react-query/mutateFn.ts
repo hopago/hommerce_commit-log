@@ -1,4 +1,5 @@
 import { deleteReview } from "../../pages/details/[bookId]/_components/review/services/deleteReview";
+import { likeReview } from "../../pages/details/[bookId]/_components/review/services/likeReview";
 import { patchReviewReply } from "../../pages/details/[bookId]/_components/review/services/patchReviewReply";
 import { postReviewReply } from "../../pages/details/[bookId]/_components/review/services/postReviewReply";
 import { deleteReviewReply } from "../../pages/details/[bookId]/services/deleteReviewReply";
@@ -42,6 +43,8 @@ export const MutateFns = {
     deleteReview({ reviewId, userId }),
   DELETE_REVIEW_REPLY: ({ reviewId, userId }: DeleteReviewReplyProps) =>
     deleteReviewReply({ reviewId, userId }),
+  LIKE_REVIEW: (reviewId: string, userId: string | undefined | null) =>
+    likeReview(reviewId, userId),
   PATCH_FAVOR_ITEM: ({ userId, book }: PatchFavorItemProps) =>
     patchFavorItem({ userId, book }),
   PATCH_REVIEW_REPLY: ({ userId, reviewId, desc }: PatchReviewReplyProps) =>

@@ -1,13 +1,14 @@
 import { useRecoilValue } from "recoil";
-import { productPriceInfoState } from "../../../recoil/cart/product-to-pay";
+import {
+  productPriceInfoState,
+  selectedCartProductState,
+} from "../../../recoil/cart/product-to-pay";
+
 import ReuseButton from "../../../_components/ReuseButton";
-import { getCartData } from "../utils/getCartData";
-import { useUser } from "@clerk/clerk-react";
 
 export default function PaymentInfo() {
-  const { user } = useUser();
   const priceInfo = useRecoilValue(productPriceInfoState);
-  const { cartData } = getCartData(user?.id!);
+  const selected = useRecoilValue(selectedCartProductState);
 
   return (
     <div className="payment-info">
@@ -49,7 +50,7 @@ export default function PaymentInfo() {
         <ReuseButton
           style="purple"
           size="lg"
-          text={`주문하기 (${cartData?.books.length ?? 0})`}
+          text={`주문하기 (${selected.length ?? 0})`}
         />
       </div>
     </div>

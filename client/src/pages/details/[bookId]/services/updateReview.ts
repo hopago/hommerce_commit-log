@@ -8,6 +8,7 @@ type UpdateReviewProps = {
   desc?: string;
 };
 
+// 유저 리뷰 수정 로직
 export const updateReview = async ({
   userId,
   bookId,

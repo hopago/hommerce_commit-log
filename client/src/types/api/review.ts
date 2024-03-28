@@ -18,7 +18,7 @@ interface IReview extends Document {
   rating: ReviewRatingType;
   keyword: ReviewKeywords;
   desc: string;
-  liked: number;
+  liked: string[];
   createdAt: Date;
   updatedAt: Date;
 }

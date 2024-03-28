@@ -114,6 +114,8 @@ export default function ReviewsDetails() {
         ? reviewsWithUserReview
         : data?.reviews ?? [];
 
+    console.log(reviewsToDisplay);
+
     return (
       <div className="details-prod-reviews__wrap__reviews-details">
         <ReviewsSortTabList />
