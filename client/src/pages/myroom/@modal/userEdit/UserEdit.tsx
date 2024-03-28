@@ -11,6 +11,7 @@ import { FaCamera } from "react-icons/fa";
 
 import { useSetRecoilState } from "recoil";
 import { editUserModal } from "../../../../recoil/modal/edit-user";
+
 import { MdClose } from "react-icons/md";
 
 export default function UserEdit() {
@@ -39,12 +40,15 @@ export default function UserEdit() {
           <div className="user-edit__wrap">
             <div className="user-edit__wrap__header">
               <h1>프로필 정보 수정</h1>
+              <button className="close-btn" onClick={() => setEditShow(false)}>
+                <MdClose size={24} />
+              </button>
             </div>
-            <div className="user-edit__wrap__header__user-image">
+            <div className="user-edit__wrap__user-image">
               <img src={dbUser.imageUrl} alt={dbUser.username} />
               <label id="user-imageUrl" className="update-image">
                 <div className="upload-label">
-                  <FaCamera size={24} />
+                  <FaCamera size={17} />
                   <span>이미지 변경</span>
                 </div>
                 <input
@@ -54,27 +58,26 @@ export default function UserEdit() {
                 />
               </label>
             </div>
-            <div className="user-edit__wrap__header__username">
+            <div className="user-edit__wrap__username">
               <label>유저명</label>
               <input
                 type="text"
                 value={localUsername}
                 onChange={onChangeUsername}
               />
-              <ReuseButton
-                type="button"
-                text="저장"
-                style="purple"
-                size="md"
-                onClick={handleChangeUsername as any}
-                disabled={isPending}
-              />
+              <div className="btn-wrap">
+                <ReuseButton
+                  type="button"
+                  text="저장"
+                  style="purple"
+                  size="md"
+                  onClick={handleChangeUsername as any}
+                  disabled={isPending}
+                />
+              </div>
             </div>
           </div>
         </div>
-        <button onClick={() => setEditShow(false)}>
-          <MdClose size={24} />
-        </button>
       </div>
     );
   }

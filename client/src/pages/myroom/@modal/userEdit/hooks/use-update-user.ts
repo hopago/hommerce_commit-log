@@ -8,8 +8,8 @@ import { ServerError } from "../../../../../fetcher/error";
 import { useClerk } from "@clerk/clerk-react";
 
 import { toast } from "sonner";
-
-import { setQueryClientUserData } from "../../../../../lib/react-query/services/setUser";
+import { getQueryClient } from "../../../../../lib/react-query/getQueryClient";
+import { QueryKeys } from "../../../../../lib/react-query/query-key";
 
 type UseUpdateUserProps = {
   username: string;
@@ -31,9 +31,23 @@ export const useUpdateUser = ({ username }: UseUpdateUserProps) => {
     mutationFn: ({ imageUrl, username }) =>
       MutateFns.UPDATE_USER({ imageUrl, username }),
     onSuccess: (updatedUser: IUser | undefined) => {
-      setQueryClientUserData(updatedUser);
+      if (updatedUser) {
+        const queryClient = getQueryClient();
+        const userData = queryClient.getQueryData([
+          QueryKeys.USER,
+          clerk?.user?.id,
+        ]);
+
+        if (userData) {
+          queryClient.setQueryData(
+            [QueryKeys.USER, clerk?.user?.id],
+            updatedUser
+          );
+        }
+      }
     },
     onError: (error) => {
+      console.log(error);
       if (error instanceof ServerError) {
         toast.error("유저 정보를 변경하던 중 문제가 생겼어요.");
       } else {
@@ -84,7 +98,20 @@ export const useUpdateUser = ({ username }: UseUpdateUserProps) => {
       await clerk.user?.update({
         username: updatedUser.username,
       });
-      setQueryClientUserData(updatedUser);
+      if (updatedUser) {
+        const queryClient = getQueryClient();
+        const userData = queryClient.getQueryData([
+          QueryKeys.USER,
+          clerk?.user?.id,
+        ]);
+
+        if (userData) {
+          queryClient.setQueryData(
+            [QueryKeys.USER, clerk?.user?.id],
+            updatedUser
+          );
+        }
+      }
     }
   };
 
