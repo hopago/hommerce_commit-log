@@ -42,6 +42,7 @@ const SingleBook = ({
           title={book.title}
           author={book.author}
           publisher={book.publisher}
+          createdAt={book.createdAt}
         />
         <SingleBookThumbnail
           representImage={book.representImg}
