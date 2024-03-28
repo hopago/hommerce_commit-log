@@ -3,33 +3,40 @@ import { useEffect, useState } from "react";
 import { getCartData } from "../utils/getCartData";
 
 import { useUser } from "@clerk/clerk-react";
-import AmountButton from "../../../_components/AmountButton";
 import { toast } from "sonner";
+import { QueryKeys } from "../../../lib/react-query/query-key";
+
+import AmountButton from "../../../_components/AmountButton";
 
 type AmountControlProps = {
   price: number;
   bookId: string;
   discount: number | undefined;
+  unit: "원";
 };
 
 export default function AmountControl({
   bookId,
   price,
   discount,
+  unit,
 }: AmountControlProps) {
   const { user } = useUser();
-  const cartData = getCartData(user?.id!);
+  const { cartData, queryClient } = getCartData(user?.id!);
 
   const targetItem = cartData?.books.filter(
     (book) => book.bookId === bookId
   )[0];
 
-  const [localPrice, _] = useState(price);
   const [localAmount, setLocalAmount] = useState(targetItem!.amount);
 
-  const total = localPrice && localAmount ? localPrice * localAmount : null;
+  const discountedPrice = discount ? price - price * discount : price;
 
-  useEffect(() => {}, [localAmount]);
+  const total = discountedPrice * localAmount;
+
+  useEffect(() => {
+    updateAmount();
+  }, [localAmount]);
 
   const increaseAmount = () => {
     if (localAmount >= 10) {
@@ -46,10 +53,31 @@ export default function AmountControl({
     }
   };
 
+  const updateAmount = () => {
+    targetItem!.amount = localAmount;
+    queryClient.setQueryData([QueryKeys.CART, user?.id], (prevData: ICart) => {
+      const { books } = prevData;
+      const updatedBooks = books.map((book) => {
+        if (book.bookId === targetItem!.bookId) {
+          return { ...targetItem };
+        } else {
+          book;
+        }
+      });
+      return {
+        ...prevData,
+        books: updatedBooks,
+      };
+    });
+  };
+
   return (
     <div className="amount-control">
       <div className="amount-control__wrap">
-        <span>{total?.toLocaleString()}</span>
+        <div className="price-wrap">
+          <span className="price">{total?.toLocaleString()}</span>
+          <span className="unit">{unit}</span>
+        </div>
         <AmountButton
           size="sm"
           increaseAmount={increaseAmount}

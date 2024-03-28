@@ -1,29 +1,55 @@
 import { MdCheck } from "react-icons/md";
 
-import { useSetRecoilState } from "recoil";
-import { selectedCartProductState } from "../../../recoil/cart/product-to-pay";
+import { useRecoilState } from "recoil";
+import {
+  SelectedCartProductState,
+  selectedCartProductState,
+} from "../../../recoil/cart/product-to-pay";
 
 type SelectOneCartItemProps = {
   bookId: string;
   price: number;
   discount: number | null;
+  amount: number;
 };
 
 export default function SelectOneCartItem({
   bookId,
   price,
   discount,
+  amount,
 }: SelectOneCartItemProps) {
-  const setSelectedCartItem = useSetRecoilState(selectedCartProductState);
+  const [selectedCartItem, setSelectedCartItem] = useRecoilState(
+    selectedCartProductState
+  );
+
+  console.log(bookId, amount, price);
+  console.log(selectedCartItem);
 
   const onClick = () => {
-    setSelectedCartItem([
-      {
-        bookId,
-        price,
-        discount,
-      },
-    ]);
+    const findIndex = selectedCartItem.findIndex(
+      (prev) => prev.bookId === bookId
+    );
+
+    let updatedCartList: SelectedCartProductState;
+
+    if (findIndex !== -1) {
+      updatedCartList = selectedCartItem.filter(
+        (_, index) => index !== findIndex
+      );
+    } else {
+      updatedCartList = [
+        ...selectedCartItem,
+        {
+          bookId,
+          price,
+          discount,
+          amount,
+        },
+      ];
+    }
+
+    setSelectedCartItem(updatedCartList);
   };
 
   return (

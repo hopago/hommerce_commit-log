@@ -13,6 +13,7 @@ export default function CartItem({ book }: CartItemProps) {
         bookId={book.bookId}
         price={book.price}
         discount={book.discount ?? null}
+        amount={book.amount}
       />
       <CartItemInfo
         title={book.title}
@@ -25,6 +26,7 @@ export default function CartItem({ book }: CartItemProps) {
         bookId={book.bookId}
         price={book.price}
         discount={book.discount}
+        unit={book.unit}
       />
     </li>
   );

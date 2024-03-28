@@ -9,5 +9,8 @@ export const getCartData = (userId: string) => {
     userId,
   ]);
 
-  return data;
+  return {
+    cartData: data,
+    queryClient,
+  };
 };
