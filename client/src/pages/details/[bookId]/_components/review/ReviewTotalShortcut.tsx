@@ -23,9 +23,9 @@ export default function ReviewTotalShortcut({
         </div>
         <div className="keyword">
           <img src={quotes} alt="keyword-img" />
-          <span className="keyword">{data.total.totalKeyword}</span>
+          <span className="keyword-span">{data.total.totalKeyword}</span>
           <span className="light">
-            ({data.total.keywordEachPert[data.total.totalKeyword]})
+            ({data.total.keywordEachPert[data.total.totalKeyword]}%의 구매자)
           </span>
         </div>
       </div>

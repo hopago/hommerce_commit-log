@@ -138,6 +138,60 @@
                     letter-spacing: -0.01em;
                 }
             }
+
+            .review-total-shortcut {
+                box-sizing: border-box;
+                width: 100%;
+                margin-right: 3rem;
+                margin-top: 1.5rem;
+                border: 1px solid rgba(0, 0, 0, .18);
+                border-radius: 0.5rem;
+                padding: 1.5rem;
+
+                &__wrap {
+                    display: flex;
+
+                    img {
+                        width: 21px;
+                        height: 21px;
+                    }
+
+                    .rating,
+                    .keyword {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.25rem;
+                        align-items: center;
+                        justify-content: flex-end;
+                    }
+
+                    .total-rating {
+                        color: $font-green;
+                        font-size: 20px;
+                        line-height: 36px;
+                        letter-spacing: -0.01em;
+                        font-weight: 700;
+                        vertical-align: top;
+                    }
+
+                    .keyword-span {
+                        color: $font-purple;
+                        font-size: 17px;
+                        line-height: 36px;
+                        letter-spacing: -0.01em;
+                        font-weight: 700;
+                        vertical-align: top;
+                    }
+
+                    .light {
+                        color: $font-light-gray;
+                        font-size: 14px;
+                        line-height: 22px;
+                        letter-spacing: -0.01em;
+                    }
+                }
+            }
         }
 
         &__thumbnail {

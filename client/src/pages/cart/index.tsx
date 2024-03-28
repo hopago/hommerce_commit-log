@@ -14,7 +14,6 @@ import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { getCart } from "./services/getCart";
 import { daysToMs } from "../../lib/react-query/utils";
-import { Suspense } from "react";
 import { useHandleError } from "../hooks/use-handle-error";
 
 export default function CartIndex() {
@@ -29,6 +28,7 @@ export default function CartIndex() {
 
   const {
     data: cartData,
+    isLoading,
     isError,
     error,
     isSuccess,
@@ -41,6 +41,33 @@ export default function CartIndex() {
   });
 
   useHandleError({ error, isError, fieldName: "장바구니" });
+
+  if (isLoading)
+    return (
+      <div id="cart-page">
+        <FixedSearchBar
+          onChange={onChange}
+          searchTerm={searchTerm}
+          onSubmit={onSubmit}
+        />
+        <header>
+          <CartHeading itemLength={data?.docsLength ?? 0} />
+        </header>
+        <main>
+          <section className="cart-control">
+            <ControlOverallCart />
+          </section>
+          <section className="cart-contents">
+            <CartListSkeleton />
+            <aside>
+              <PaymentInfo />
+            </aside>
+          </section>
+        </main>
+        <Footer />
+        <FixedSeenBooks />
+      </div>
+    );
 
   return (
     <div id="cart-page">
@@ -57,14 +84,12 @@ export default function CartIndex() {
           <ControlOverallCart />
         </section>
         {isSuccess && cartData && (
-          <Suspense fallback={<CartListSkeleton />}>
-            <section className="cart-contents">
-              <CartList books={cartData.books} />
-              <aside>
-                <PaymentInfo />
-              </aside>
-            </section>
-          </Suspense>
+          <section className="cart-contents">
+            <CartList books={cartData.books} />
+            <aside>
+              <PaymentInfo />
+            </aside>
+          </section>
         )}
       </main>
       <Footer />

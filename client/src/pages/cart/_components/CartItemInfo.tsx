@@ -1,3 +1,5 @@
+import { Skeleton } from "@nextui-org/skeleton";
+
 import { Link } from "react-router-dom";
 
 type CartItemInfoProps = {
@@ -44,3 +46,18 @@ export default function CartItemInfo({
     </div>
   );
 }
+
+export const CartItemInfoSkeleton = () => {
+  return (
+    <div className="cart-list__container__scroll-inner__cart-item__details">
+      <div className="link">
+        <Skeleton className="skeleton img" />
+      </div>
+      <div className="flex-col">
+        <div className="link">
+          <Skeleton className="skeleton title" />
+        </div>
+      </div>
+    </div>
+  );
+};
