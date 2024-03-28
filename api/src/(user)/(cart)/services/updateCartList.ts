@@ -16,6 +16,7 @@ export const handleUpdateCartList = async (
     "amount",
     "price",
     "unit",
+    "actionType",
   ];
   const requiredFields = ["bookId", "amount", "actionType"];
 

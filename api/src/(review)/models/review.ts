@@ -10,7 +10,7 @@ export interface IReview extends Document {
   rating: ReviewRatingType;
   keyword: ReviewKeywords;
   desc: string;
-  liked: number;
+  liked: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -50,8 +50,8 @@ const reviewSchema = new Schema(
       require: true,
     },
     liked: {
-      type: Number,
-      default: 0,
+      type: [String],
+      default: [],
     },
   },
   {

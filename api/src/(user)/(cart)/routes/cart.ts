@@ -5,8 +5,11 @@ import {
   postCartItem,
   updateCartList,
 } from "../controllers/cart";
+import { getCartItemLength } from "../services/getCartItemLength";
 
 const router = express.Router();
+
+router.route("/docs").get(getCartItemLength);
 
 router
   .route("/:userId")

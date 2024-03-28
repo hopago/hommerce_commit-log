@@ -9,6 +9,7 @@ import {
   postReview,
   updateReview,
 } from "../controllers/review";
+import { likeReview } from "../services/likeReview";
 
 const router = express.Router();
 
@@ -26,6 +27,8 @@ router.route("/user/:userId").get(getReviewByUserId);
 router.route("/book/:bookId").get(getReviews);
 
 router.route("/").delete(deleteReviewById);
+
+router.route("/:reviewId").patch(likeReview);
 
 // router.route("/:reviewId/likes").patch(likeReview);
 
