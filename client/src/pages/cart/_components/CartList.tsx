@@ -6,24 +6,22 @@ type CartListProps = {
 
 export default function CartList({ books }: CartListProps) {
   return (
-    <>
-      <div className="divider" />
-      <div className="cart-list">
-        <ul className="cart-list__scroll-inner">
+    <div className="cart-list">
+      <div className="cart-list__container">
+        <ul className="cart-list__container__scroll-inner">
           {Array.isArray(books) &&
             books.length > 0 &&
             books.map((book) => <CartItem key={book.bookId} book={book} />)}
         </ul>
       </div>
-    </>
+    </div>
   );
 }
 
 export const CartListSkeleton = () => (
-  <>
-    <div className="divider" />
-    <div className="cart-list">
+  <div className="cart-list">
+    <div className="cart-list__container">
       <ul></ul>
     </div>
-  </>
+  </div>
 );

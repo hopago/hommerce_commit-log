@@ -5,6 +5,7 @@ import {
   SelectedCartProductState,
   selectedCartProductState,
 } from "../../../recoil/cart/product-to-pay";
+import { cn } from "../../../lib/utils";
 
 type SelectOneCartItemProps = {
   bookId: string;
@@ -23,8 +24,7 @@ export default function SelectOneCartItem({
     selectedCartProductState
   );
 
-  console.log(bookId, amount, price);
-  console.log(selectedCartItem);
+  const isActive = selectedCartItem.some((item) => item.bookId === bookId);
 
   const onClick = () => {
     const findIndex = selectedCartItem.findIndex(
@@ -53,7 +53,11 @@ export default function SelectOneCartItem({
   };
 
   return (
-    <button type="button" className="select-one" onClick={onClick}>
+    <button
+      type="button"
+      className={cn("select-one", isActive && "active")}
+      onClick={onClick}
+    >
       <div className="icon">
         <MdCheck />
       </div>

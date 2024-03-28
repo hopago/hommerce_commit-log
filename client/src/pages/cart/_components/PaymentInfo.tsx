@@ -12,7 +12,7 @@ export default function PaymentInfo() {
   return (
     <div className="payment-info">
       <div className="payment-info__wrap">
-        <div className="price-info__wrap__item">
+        <div className="payment-info__wrap__item">
           <div className="text-wrap">
             <span className="heading">상품 금액</span>
             <div className="price-number">
@@ -20,6 +20,8 @@ export default function PaymentInfo() {
               <span className="unit">원</span>
             </div>
           </div>
+        </div>
+        <div className="payment-info__wrap__item">
           <div className="text-wrap">
             <span className="heading">상품 할인</span>
             <div className="price-number">
@@ -33,7 +35,7 @@ export default function PaymentInfo() {
           </div>
         </div>
         <div className="divider" />
-        <div className="price-info__wrap__item">
+        <div className="payment-info__wrap__item">
           <div className="text-wrap">
             <span className="heading bold">결제 예정 금액</span>
             <div className="price-number">
@@ -46,7 +48,7 @@ export default function PaymentInfo() {
         </div>
         <ReuseButton
           style="purple"
-          size="md"
+          size="lg"
           text={`주문하기 (${cartData?.books.length ?? 0})`}
         />
       </div>
