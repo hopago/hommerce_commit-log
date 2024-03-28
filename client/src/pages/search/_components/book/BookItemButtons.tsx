@@ -1,5 +1,5 @@
 import FavorButton from "../FavorButton";
-import ReuseButton from "../../../../_components/ReuseButton";
+import ReuseButton from "../../../../_components/common/ReuseButton";
 
 import { UIType } from "../../hooks/use-select-ui";
 import { useQuery } from "@tanstack/react-query";

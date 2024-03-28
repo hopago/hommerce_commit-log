@@ -6,7 +6,7 @@ import AuthorDetails from "./AuthorDetails";
 import ReferrerAuthors, {
   ReferrerAuthorsLoadingComponent,
 } from "../ReferrerAuthors";
-import Spinner from "../../../../../_components/Spinner";
+import Spinner from "../../../../../_components/common/Spinner";
 import NoContent from "../../../../../_components/NoContent";
 
 import { useQuery } from "@tanstack/react-query";

@@ -14,7 +14,7 @@ import Preview from "../Preview";
 import PrevIcon from "../../../_components/PrevIcon";
 import NextIcon from "../../../_components/NextIcon";
 import NoContent from "../../../../_components/NoContent";
-import Spinner from "../../../../_components/Spinner";
+import Spinner from "../../../../_components/common/Spinner";
 
 export default function TodayPick() {
   const { lang, category } = useParams<{

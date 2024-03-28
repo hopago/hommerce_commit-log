@@ -1,4 +1,4 @@
-import AmountButton from "../../../_components/AmountButton";
+import AmountButton from "../../../_components/common/AmountButton";
 
 import { useControlAmount } from "../hooks/use-control-amount";
 

@@ -19,6 +19,9 @@
 // search page
 @import 'search-page';
 
+// myroom page
+@import 'myroom';
+
 // login page
 @import 'login';
 
@@ -191,6 +194,18 @@ textarea::placeholder {
     &:hover {
         box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px -3px;
     }
+}
+
+.common-badge {
+    display: inline-block;
+    vertical-align: top;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: 6px;
+    border-radius: 1rem;
+    font-weight: bold;
+    color: #fff;
+    font-size: 14px;
 }
 
 // ico

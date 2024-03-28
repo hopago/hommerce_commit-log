@@ -187,7 +187,11 @@
                             line-height: 19px;
                             white-space: normal;
                             word-break: break-all;
-                            font-weight: 500;
+                            font-weight: bold;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
                         }
 
                         .skeleton-badge-wrap {

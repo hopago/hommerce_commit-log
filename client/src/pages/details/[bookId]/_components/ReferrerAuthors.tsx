@@ -15,7 +15,7 @@ import { daysToMs } from "../../../../lib/react-query/utils";
 import { useHandleError } from "../../../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../../../api/constants/errorDetails";
 
-import Spinner from "../../../../_components/Spinner";
+import Spinner from "../../../../_components/common/Spinner";
 
 type ReferrerAuthorsProps = {
   authorJob: AuthorType;

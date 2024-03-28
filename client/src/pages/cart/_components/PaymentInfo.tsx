@@ -4,7 +4,7 @@ import {
   selectedCartProductState,
 } from "../../../recoil/cart/product-to-pay";
 
-import ReuseButton from "../../../_components/ReuseButton";
+import ReuseButton from "../../../_components/common/ReuseButton";
 
 export default function PaymentInfo() {
   const priceInfo = useRecoilValue(productPriceInfoState);

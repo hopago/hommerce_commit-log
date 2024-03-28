@@ -1,7 +1,7 @@
-import minus from "../assets/ico_minus.png";
-import plus from "../assets/ico_plus.png";
+import minus from "../../assets/ico_minus.png";
+import plus from "../../assets/ico_plus.png";
 
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 
 type AmountButtonProps = {
   increaseAmount: () => void;

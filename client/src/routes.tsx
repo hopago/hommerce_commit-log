@@ -10,6 +10,7 @@ import SearchIndex from "./pages/search";
 import SigninFailureIndex from "./pages/join/failure";
 import CartIndex from "./pages/cart";
 import BookCategoryIndex from "./pages/category/[lang]/[category]";
+import MyRoomIndex from "./pages/myroom";
 
 export const routes = [
   {
@@ -35,6 +36,10 @@ export const routes = [
         path: "/category/:lang/:category",
         element: <BookCategoryIndex />,
         index: true,
+      },
+      {
+        path: "/myroom",
+        element: <MyRoomIndex />,
       },
     ],
   },

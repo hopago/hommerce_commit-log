@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import verified from "../../../assets/img_verified.png";
 
-import ReuseButton from "../../../_components/ReuseButton";
+import ReuseButton from "../../../_components/common/ReuseButton";
 import Logo from "../../_components/Logo";
 import ShortcutFooter from "../../../_components/ShortcutFooter";
 

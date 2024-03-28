@@ -26,7 +26,7 @@ import { ERROR_DETAILS } from "../../../api/constants/errorDetails";
 import { increaseView } from "./services/increaseView";
 
 import { cn } from "../../../lib/utils";
-import Spinner from "../../../_components/Spinner";
+import Spinner from "../../../_components/common/Spinner";
 
 import { useObserver } from "./hooks/use-observer";
 import { useRecordSeenBook } from "./hooks/use-record-seen-book";

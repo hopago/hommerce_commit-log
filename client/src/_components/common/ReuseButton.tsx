@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 
 type PurchaseButtonText = "장바구니" | "바로구매";
 

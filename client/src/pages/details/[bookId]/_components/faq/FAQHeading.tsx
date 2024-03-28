@@ -1,4 +1,4 @@
-import ReuseButton from "../../../../../_components/ReuseButton";
+import ReuseButton from "../../../../../_components/common/ReuseButton";
 import comment from "../../../../../assets/ico_comment_white.png";
 
 export default function FAQHeading() {

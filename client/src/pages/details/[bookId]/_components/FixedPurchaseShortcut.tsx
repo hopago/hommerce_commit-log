@@ -19,8 +19,8 @@ import { enhancedImageModal } from "../../../../recoil/modal/enhanced-image";
 import { postReviewModal } from "../../../../recoil/modal/post-review";
 
 import FavorButton from "../../../search/_components/FavorButton";
-import AmountButton from "../../../../_components/AmountButton";
-import ReuseButton from "../../../../_components/ReuseButton";
+import AmountButton from "../../../../_components/common/AmountButton";
+import ReuseButton from "../../../../_components/common/ReuseButton";
 
 import { useNavigate } from "react-router-dom";
 

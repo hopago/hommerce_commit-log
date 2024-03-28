@@ -24,5 +24,6 @@ export const QueryKeys = {
   RECOMMEND_BOOK: "recommendBooks",
   TODAY_BEST: "todayBest",
   TODAY_PICK: "todayPick",
+  USER: "user",
   USER_PICKS: "userPicks",
 };

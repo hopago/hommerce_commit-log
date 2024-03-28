@@ -9,7 +9,7 @@ import { useFormInputs } from "./hooks/use-form-inputs";
 
 import BookPreview from "./_components/BookPreview";
 import SelectKeyword from "./_components/SelectKeyword";
-import ReuseButton from "../../../../../../../_components/ReuseButton";
+import ReuseButton from "../../../../../../../_components/common/ReuseButton";
 import SetDescArea from "./_components/SetDescArea";
 
 import { MutationProps, usePostReview } from "./services/use-post-review";

@@ -4,6 +4,7 @@ import { patchReviewReply } from "../../pages/details/[bookId]/_components/revie
 import { postReviewReply } from "../../pages/details/[bookId]/_components/review/services/postReviewReply";
 import { deleteReviewReply } from "../../pages/details/[bookId]/services/deleteReviewReply";
 import { updateReview } from "../../pages/details/[bookId]/services/updateReview";
+import { updateUser } from "../../pages/myroom/@modal/userEdit/services/updateUser";
 import { patchFavorItem } from "../../pages/search/services/patchFavorItem";
 import { updateCart } from "../../services/updateCart";
 
@@ -36,6 +37,11 @@ type PostReviewReplyProps = {
   username: string;
   reviewId: string;
   desc: string;
+};
+
+type UpdateUserProps = {
+  imageUrl?: string;
+  username: string;
 };
 
 export const MutateFns = {
@@ -86,4 +92,6 @@ export const MutateFns = {
     desc,
   }: UpdateReviewProps) =>
     updateReview({ userId, bookId, rating, keyword, desc }),
+  UPDATE_USER: ({ username, imageUrl }: UpdateUserProps) =>
+    updateUser({ username, imageUrl }),
 };

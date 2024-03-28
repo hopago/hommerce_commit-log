@@ -23,7 +23,7 @@ export const useUpdateCart = ({
   amount,
 }: UseUpdateCartProps) => {
   const queryClient = getQueryClient();
-  const { mutate, isPending, isError, error } = useMutation<
+  const { mutateAsync, isPending, isError, error } = useMutation<
     ICart | undefined,
     ServerError | Error,
     UseUpdateCartOptionalParams
@@ -63,7 +63,7 @@ export const useUpdateCart = ({
     actionType?: "add" | "remove",
     amount?: number
   ) => {
-    mutate({ book, userId, actionType, amount });
+    mutateAsync({ book, userId, actionType, amount });
   };
 
   useHandleError({

@@ -1,0 +1,71 @@
+.my-page {
+
+    &__wrap {
+        display: flex;
+
+        aside {
+            flex: 1;
+            min-width: calc(200px - 1.5rem);
+            margin-right: 1.5rem;
+
+            .user-profile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 3px;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                background-color: rgba(56, 59, 124, .9);
+
+                &.loading {
+                    background-color: white;
+                }
+
+                .user-image {
+                    width: 84px;
+                    height: 84px;
+                    border-radius: 50%;
+                }
+
+                .user-profile__info {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    .username {
+                        color: #fefefe;
+                        font-weight: bold;
+                        font-size: 20px;
+                    }
+                }
+
+                .skeleton.img {
+                    width: 84px;
+                    height: 84px;
+                    border-radius: 50%;
+                }
+
+                .skeleton-gap {
+                    margin-top: 0.25rem;
+                    border-radius: 0.5rem;
+                }
+
+                .skeleton.username {
+                    width: 60px;
+                    height: 17px;
+                }
+
+                .skeleton.badge {
+                    width: 42px;
+                    height: 24px;
+                    border-radius: 1rem;
+                }
+            }
+        }
+    }
+
+    section {
+        flex: 5;
+    }
+}

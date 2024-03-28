@@ -10,7 +10,7 @@ import { getKeyword } from "../../utils/get-keyword";
 import { cn } from "../../../../lib/utils";
 
 import BookItem from "./BookItem";
-import Spinner from "../../../../_components/Spinner";
+import Spinner from "../../../../_components/common/Spinner";
 
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../lib/react-query/query-key";

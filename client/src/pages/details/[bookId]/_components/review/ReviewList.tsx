@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 import ReviewItem from "./ReviewItem";
-import Spinner from "../../../../../_components/Spinner";
+import Spinner from "../../../../../_components/common/Spinner";
 
 type ReviewsListProps = {
   reviews: IReview[];

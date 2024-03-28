@@ -15,6 +15,7 @@ import { getBook } from "../../pages/details/[bookId]/services/getBook";
 import { getBookDetails } from "../../pages/details/[bookId]/services/getBookDetails";
 import { getReviewDocsLength } from "../../pages/details/[bookId]/services/getReviewDocsLength";
 import { getReviewsByBookId } from "../../pages/details/[bookId]/services/getReviewsByBookId";
+import { getUser } from "../../pages/myroom/services/getUser";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
@@ -122,6 +123,7 @@ export const QueryFns = {
     userId,
   }: GetFavorSubscriptionIsSubscribedProps) =>
     getIsSubscribed({ bookId, userId }),
+  GET_USER: (userId: string) => getUser(userId),
   GET_USER_REVIEW_BY_BOOK_ID: ({
     bookId,
     userId,

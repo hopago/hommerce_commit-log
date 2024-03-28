@@ -7,7 +7,7 @@ import { useReviewReplyMutation } from "./hooks/use-review-reply-mutation";
 
 import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
 
-import ReuseButton from "../../../../../_components/ReuseButton";
+import ReuseButton from "../../../../../_components/common/ReuseButton";
 import Textarea from "../../../../../_components/Textarea";
 
 type ReviewReplyFormProps = {
