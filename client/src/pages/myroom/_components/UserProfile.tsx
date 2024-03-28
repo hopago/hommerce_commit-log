@@ -14,6 +14,10 @@ import { useRecoilState } from "recoil";
 import { editUserModal } from "../../../recoil/modal/edit-user";
 import { useModal } from "../../hooks/use-modal";
 
+import { useState } from "react";
+
+import { MdEdit } from "react-icons/md";
+
 export default function UserProfile() {
   const { user } = useUser();
   const { data, isLoading, isSuccess, isError, error } = useQuery({
@@ -27,13 +31,18 @@ export default function UserProfile() {
   useHandleError({ isError, error, fieldName: "회원 정보" });
 
   const [show, setShow] = useRecoilState(editUserModal);
+  const [hoverShow, setHoverShow] = useState(false);
 
   useModal({ show, setShow });
 
   if (isLoading) return <UserProfileSkeleton />;
 
   return (
-    <div className={cn("user-profile", isLoading && "loading")}>
+    <div
+      className={cn("user-profile", isLoading && "loading")}
+      onMouseEnter={() => setHoverShow(true)}
+      onMouseLeave={() => setHoverShow(false)}
+    >
       <img src={user?.imageUrl} alt="user-image" className="user-image" />
       <div className="user-profile__info">
         <span className="username">{user?.username}님</span>
@@ -50,6 +59,14 @@ export default function UserProfile() {
           />
         )}
       </div>
+      {hoverShow && (
+        <div className="hover-menu" onClick={() => setShow(true)}>
+          <div className="hover-menu__wrap">
+            <MdEdit size={24} className="icon" color="#fff" />
+            <span>프로필 수정</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

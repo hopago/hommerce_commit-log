@@ -15,7 +15,8 @@
                 gap: 3px;
                 padding: 1rem;
                 border-radius: 0.5rem;
-                background-color: rgba(56, 59, 124, .9);
+                background-color: #676BAD;
+                position: relative;
 
                 &.loading {
                     background-color: white;
@@ -38,6 +39,46 @@
                         font-weight: bold;
                         font-size: 20px;
                     }
+                }
+
+                .hover-menu {
+                    position: absolute;
+                    opacity: 0;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,.5);
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+                    transition: opacity 0.3s ease;
+
+                    &__wrap {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        color: #fff;
+
+                        .icon {
+                            position: absolute;
+                            top: 0.5rem;
+                            right: 0.5rem;
+                        }
+
+                        span {
+                            font-size: 16px;
+                            font-weight: bold;
+                            line-height: 17px;
+                            letter-spacing: -0.01em;
+                        }
+                    }
+                }
+
+                .hover-menu:hover {
+                    opacity: 1;
                 }
 
                 .skeleton.img {

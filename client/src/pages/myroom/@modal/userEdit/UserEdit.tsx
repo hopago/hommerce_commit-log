@@ -9,6 +9,10 @@ import ReuseButton from "../../../../_components/common/ReuseButton";
 
 import { FaCamera } from "react-icons/fa";
 
+import { useSetRecoilState } from "recoil";
+import { editUserModal } from "../../../../recoil/modal/edit-user";
+import { MdClose } from "react-icons/md";
+
 export default function UserEdit() {
   const { user: clerkUser } = useUser();
   const queryClient = getQueryClient();
@@ -24,6 +28,8 @@ export default function UserEdit() {
     handleChangeUsername,
     localUsername,
   } = useUpdateUser({ username: dbUser?.username! });
+
+  const setEditShow = useSetRecoilState(editUserModal);
 
   if (dbUser && clerkUser) {
     return (
@@ -66,6 +72,9 @@ export default function UserEdit() {
             </div>
           </div>
         </div>
+        <button onClick={() => setEditShow(false)}>
+          <MdClose size={24} />
+        </button>
       </div>
     );
   }
