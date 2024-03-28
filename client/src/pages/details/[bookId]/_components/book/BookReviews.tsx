@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 
 import { useSession } from "@clerk/clerk-react";
 
@@ -38,7 +38,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
       setShow((prev) => !prev);
     };
 
-    const { data, isSuccess, error, isError } = useQuery({
+    const { data, isSuccess, error, isError, isFetching, refetch } = useQuery({
       queryKey: [QueryKeys.REVIEW_LENGTH, bookId],
       queryFn: () => QueryFns.GET_REVIEW_LENGTH(bookId!),
       staleTime: daysToMs(1),
@@ -47,6 +47,26 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
     });
 
     useModal({ show, setShow });
+
+    useEffect(() => {
+      let timeoutId: NodeJS.Timeout | null = null;
+
+      if (isFetching) {
+        timeoutId = setTimeout(() => {
+          refetch();
+        }, 1000);
+      } else {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      }
+
+      return () => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      };
+    }, [isFetching]);
 
     useHandleError({ error, isError });
 

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { MdArrowRight } from "react-icons/md";
 
 import AuthorDetails from "./AuthorDetails";
@@ -14,18 +16,43 @@ import { daysToMs } from "../../../../../lib/react-query/utils";
 import { useHandleError } from "../../../../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
 
+import { useParams } from "react-router-dom";
+
 type AuthorInfoProps = {
   authorName: string;
 };
 
 export default function AuthorInfo({ authorName }: AuthorInfoProps) {
-  const { data, isSuccess, isLoading, isError, error } = useQuery({
-    queryKey: [QueryKeys.AUTHOR],
-    queryFn: () => QueryFns.GET_AUTHOR(authorName),
-    staleTime: daysToMs(14),
-    gcTime: daysToMs(17),
-    enabled: !!authorName,
-  });
+  const { bookId } = useParams();
+
+  const { data, isSuccess, isLoading, isError, error, isFetching, refetch } =
+    useQuery({
+      queryKey: [QueryKeys.AUTHOR, bookId],
+      queryFn: () => QueryFns.GET_AUTHOR(authorName),
+      staleTime: daysToMs(14),
+      gcTime: daysToMs(17),
+      enabled: !!authorName && !!bookId,
+    });
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    if (isFetching) {
+      timeoutId = setTimeout(() => {
+        refetch();
+      }, 1000);
+    } else {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isFetching]);
 
   useHandleError({ isError, error, errorDetails: ERROR_DETAILS.GET_AUTHOR });
 

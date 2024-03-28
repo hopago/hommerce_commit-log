@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { MdArrowRight } from "react-icons/md";
 
 import RefAuthor from "./RefAuthor";
@@ -22,19 +24,40 @@ type ReferrerAuthorsProps = {
 export default function ReferrerAuthors({ authorJob }: ReferrerAuthorsProps) {
   const { bookId } = useParams();
 
-  const { data, isLoading, isError, error, isSuccess } = useQuery({
-    queryKey: [QueryKeys.AUTHORS_BOOK_REF, bookId],
-    queryFn: () => QueryFns.FIND_REFERRER_CATEGORY_BEST_AUTHORS({ bookId }),
-    staleTime: daysToMs(7),
-    gcTime: daysToMs(9),
-    enabled: !!bookId,
-  });
+  const { data, isLoading, isError, error, isSuccess, isFetching, refetch } =
+    useQuery({
+      queryKey: [QueryKeys.AUTHORS_BOOK_REF, bookId],
+      queryFn: () => QueryFns.FIND_REFERRER_CATEGORY_BEST_AUTHORS({ bookId }),
+      staleTime: daysToMs(7),
+      gcTime: daysToMs(9),
+      enabled: !!bookId,
+    });
 
   const navigate = useNavigate();
 
   const onClick = () => {
     navigate(`/author/best/${authorJob}`);
   };
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    if (isFetching) {
+      timeoutId = setTimeout(() => {
+        refetch();
+      }, 1000);
+    } else {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isFetching]);
 
   useHandleError({
     isError,

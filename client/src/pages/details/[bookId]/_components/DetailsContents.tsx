@@ -20,7 +20,7 @@ type DetailsContentsProps = {
 
 const DetailsContents = forwardRef<HTMLDivElement, DetailsContentsProps>(
   ({ bookId, category, lang, setReObserve }, ref) => {
-    const { data, isError, isSuccess, error } = useQuery({
+    const { data, isError, isSuccess, error, isFetching, refetch } = useQuery({
       queryKey: [QueryKeys.BOOK_DETAILS, bookId],
       queryFn: () => QueryFns.GET_BOOK_DETAILS(bookId!),
       staleTime: daysToMs(14),
@@ -33,6 +33,26 @@ const DetailsContents = forwardRef<HTMLDivElement, DetailsContentsProps>(
       error,
       errorDetails: ERROR_DETAILS.GET_BOOK_DETAILS,
     });
+
+    useEffect(() => {
+      let timeoutId: NodeJS.Timeout | null = null;
+  
+      if (isFetching) {
+        timeoutId = setTimeout(() => {
+          refetch();
+        }, 1000);
+      } else {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      }
+
+      return () => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      }
+    }, [isFetching]);
 
     useEffect(() => {
       setReObserve(true);
