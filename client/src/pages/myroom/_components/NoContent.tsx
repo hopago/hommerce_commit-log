@@ -12,7 +12,7 @@ import { getQueryClient } from "../../../lib/react-query/getQueryClient";
 
 import { useHandleError } from "../../hooks/use-handle-error";
 
-import Button from "../../../_components/common/BUtton";
+import Button from "../../../_components/common/Button";
 
 type NoContentProps = {
   text?: string;
@@ -78,7 +78,7 @@ export function NoContent({
   return (
     <div className="table-no-content">
       <div className="table-no-content__wrap">
-        <span className="no-content">{text}</span>
+        <span className="no-content-text">{text}</span>
         <Button
           type="button"
           text={buttonText}

@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import Button from "../../../../_components/common/BUtton";
+import Button from "../../../../_components/common/Button";
 import Input from "../../../../_components/common/Input";
 import { pointSortState } from "../../../../recoil/pagination/search/sort/sort";
 import { pointSearchTermState } from "../../../../recoil/pagination/search/keyword/searchTerm";
@@ -55,13 +55,13 @@ export default function FilterPointLogs() {
 
   return (
     <div className="filter">
-      <h1 className="filterTitle">검색 옵션 설정</h1>
-      <form className="filterOptions" onSubmit={handleSubmit}>
+      <h1 className="filter-title">검색 옵션 설정</h1>
+      <form className="filter-options" onSubmit={handleSubmit}>
         <SelectList
           selectList={filterOptions}
           currSelect={filter}
           handleItemClick={setFilter}
-          className="filterReview"
+          className="point-log"
           show={show}
           setShow={setShow}
           handleShow={toggleShow}
@@ -71,9 +71,9 @@ export default function FilterPointLogs() {
           value={searchTerm}
           placeholder="검색어를 입력해주세요."
           onChange={handleSearch}
-          className="filterReview"
+          className="point-log"
         />
-        <Button type="button" text="초기화" />
+        <Button type="submit" text="검색하기" />
       </form>
     </div>
   );

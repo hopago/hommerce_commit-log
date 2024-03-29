@@ -60,7 +60,7 @@ export default function PointLogsTable() {
       }),
     staleTime: daysToMs(7),
     gcTime: daysToMs(9),
-    enabled,
+    enabled: enabled && Boolean(user),
   });
 
   useEffect(() => {

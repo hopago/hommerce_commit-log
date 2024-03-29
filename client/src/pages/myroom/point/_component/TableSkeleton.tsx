@@ -12,11 +12,11 @@ export const DataTableSkeleton = () => (
 
 export const FilterItemsSkeleton = () => (
   <div className="data-table-filter-skeleton">
-    <Skeleton className="skeleton titleSkeleton" />
+    <Skeleton className="skeleton title" />
     <div className="data-table-filter-skeleton__options">
-      <Skeleton className="skeleton selectSkeleton" />
-      <Skeleton className="skeleton inputSkeleton" />
-      <Skeleton className="skeleton buttonSkeleton" />
+      <Skeleton className="skeleton select" />
+      <Skeleton className="skeleton input" />
+      <Skeleton className="skeleton button" />
     </div>
   </div>
 );
@@ -29,16 +29,16 @@ export const TableSkeleton = () => (
         <thead>
           <tr>
             <td>
-              <Skeleton className="skeleton tdSkeleton" />
+              <Skeleton className="skeleton td" />
             </td>
             <td>
-              <Skeleton className="skeleton tdSkeleton" />
+              <Skeleton className="skeleton td" />
             </td>
             <td>
-              <Skeleton className="skeleton tdSkeleton" />
+              <Skeleton className="skeleton td" />
             </td>
             <td>
-              <Skeleton className="skeleton tdSkeleton" />
+              <Skeleton className="skeleton td" />
             </td>
           </tr>
         </thead>
@@ -57,7 +57,7 @@ export const TableSkeleton = () => (
 export const SortDataButtonSkeleton = () => (
   <div className="data-table-sort-button-skeleton">
     <Skeleton className="skeleton title" />
-    <Skeleton className="skeleton selectSkeleton" />
+    <Skeleton className="skeleton select" />
   </div>
 );
 
@@ -66,13 +66,13 @@ export const TableRowSkeleton = () => {
     <tr>
       <ReviewSelectCheckBoxSkeleton />
       <td>
-        <Skeleton className="skeleton tdSkeleton" />
+        <Skeleton className="skeleton td" />
       </td>
       <td>
-        <Skeleton className="skeleton tdSkeleton" />
+        <Skeleton className="skeleton td" />
       </td>
       <td>
-        <Skeleton className="skeleton tdSkeleton" />
+        <Skeleton className="skeleton td" />
       </td>
       <ReviewActionsSkeleton />
     </tr>
@@ -82,7 +82,7 @@ export const TableRowSkeleton = () => {
 export const ReviewSelectCheckBoxSkeleton = () => {
   return (
     <td>
-      <Skeleton className="skeleton tdButtonSkeleton" />
+      <Skeleton className="skeleton td" />
     </td>
   );
 };
@@ -90,7 +90,7 @@ export const ReviewSelectCheckBoxSkeleton = () => {
 export const ReviewActionsSkeleton = () => {
   return (
     <td>
-      <Skeleton className="skeleton tdIconSkeleton" />
+      <Skeleton className="skeleton td-icon" />
     </td>
   );
 };

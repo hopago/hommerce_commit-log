@@ -55,7 +55,7 @@ export default function SelectList({
     <div className={cn("select", className && className)}>
       <button
         type="button"
-        className="select-wrap"
+        className="select__wrap"
         ref={selectListRef}
         onClick={handleShow}
         style={{ backgroundColor: `${backgroundColor}` }}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { useRecoilState } from "recoil";
-import { booksState } from "../../../recoil/book/books";
+import { imageSlideBookState } from "../../../recoil/book/books";
 
 type UseInfinityFetchingProps = {
   data: MonthlyPicksResponse | undefined;
@@ -22,7 +22,7 @@ export const useInfinityFetching = ({
 }: UseInfinityFetchingProps) => {
   const [prevDisabled, setPrevDisabled] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(false);
-  const [books, setBooks] = useRecoilState(booksState);
+  const [books, setBooks] = useRecoilState(imageSlideBookState);
 
   useEffect(() => {
     if (isSuccess && data && "bestBooks" in data) {
