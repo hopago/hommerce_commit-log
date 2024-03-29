@@ -15,7 +15,14 @@ type ReviewSelectAllCheckBoxProps = {
 export default function ReviewSelectAllCheckBox({
   ids,
 }: ReviewSelectAllCheckBoxProps) {
-  const { isSelectedAll, setTotalLength, toggleSelectAll } = useSelectReview();
+  const {
+    ids: stateIds,
+    isSelectedAll,
+    totalLength,
+    setIsSelectedAll,
+    setTotalLength,
+    toggleSelectAll,
+  } = useSelectReview();
 
   const onClick = () => {
     toggleSelectAll(ids);
@@ -23,7 +30,15 @@ export default function ReviewSelectAllCheckBox({
 
   useEffect(() => {
     setTotalLength(ids.length);
-  }, [ids.length]);
+  }, [ids]);
+
+  useEffect(() => {
+    if (stateIds.length === totalLength) {
+      setIsSelectedAll(true);
+    } else {
+      setIsSelectedAll(false);
+    }
+  }, [stateIds, totalLength]);
 
   return (
     <td>

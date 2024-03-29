@@ -8,6 +8,7 @@ interface CreatorUseSelectReview {
   setTotalLength: (length: number) => void;
   toggleId: (userId: string) => void;
   toggleSelectAll: (userIds: string[]) => void;
+  setIsSelectedAll: (value: boolean) => void;
   resetState: () => void;
 }
 
@@ -57,6 +58,11 @@ export const useSelectReview = create<CreatorUseSelectReview>((set) => ({
 
         return { ...state, ids: newIds, currSelected: newIds.length };
       }
+    });
+  },
+  setIsSelectedAll: (value: boolean) => {
+    set({
+      isSelectedAll: value,
     });
   },
   resetState: () =>

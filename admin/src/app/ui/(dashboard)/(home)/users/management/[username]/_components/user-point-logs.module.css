@@ -1,4 +1,4 @@
-.pointLogs {
+.pointsLogs {
     width: 100%;
     margin: 1rem 0px;
     display: flex;
@@ -37,6 +37,7 @@
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.01em;
+    margin-bottom: 1rem;
 }
 
 .userPointTexts span {

@@ -356,6 +356,7 @@ const API_CONSTANTS: Record<ApiOperationIds, ApiInfo> = {
         desc: "서버 오류",
       },
     ],
+    hasImg: true,
   },
   getAuthor: {
     params: {

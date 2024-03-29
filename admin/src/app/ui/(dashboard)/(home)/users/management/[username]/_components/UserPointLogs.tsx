@@ -74,9 +74,9 @@ export default function UserPointLogs({ userId }: UserPointLogsProps) {
 
   if (isLoading) return <DataTableSkeleton />;
 
-  if (!data?.pointLogs?.length)
+  if (isSuccess && !data?.pointsLogs?.length)
     return (
-      <div className={styles.pointLogs}>
+      <div className={styles.pointsLogs}>
         <NoContent
           text="포인트 기록이 아직 없네요."
           refetch={refetch}
@@ -88,18 +88,18 @@ export default function UserPointLogs({ userId }: UserPointLogsProps) {
       </div>
     );
 
-  if (data?.pointLogs.length) {
+  if (isSuccess && data?.pointsLogs.length) {
     return (
-      <div className={styles.pointLogs}>
+      <div className={styles.pointsLogs}>
         <h1>포인트 기록</h1>
         <UserPoint userId={userId} />
         <FilterPointLogs />
         <PointLogTable
-          pointLogs={data.pointLogs as PointLogs}
+          pointLogs={data.pointsLogs as PointLogs}
           isLoading={isLoading}
           userId={userId}
         />
-        <PaginateControl pageTotal={data?.pagination.totalPoints!} />
+        <PaginateControl pageTotal={data?.pagination.totalPages!} />
       </div>
     );
   }
