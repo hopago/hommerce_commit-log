@@ -46,7 +46,7 @@ export default function ReviewLogsTable() {
     refetch,
     isRefetching,
     isRefetchError,
-  } = useQuery<PaginatedReviewResponse>({
+  } = useQuery<PaginatedReviewResponse | undefined>({
     queryKey: [QueryKeys.USER_REVIEW, user?.id],
     queryFn: () =>
       QueryFns.GET_USER_REVIEW({
@@ -58,7 +58,7 @@ export default function ReviewLogsTable() {
       }),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
-    enabled: enabled && Boolean(user),
+    enabled: enabled && Boolean(user?.id),
   });
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function ReviewLogsTable() {
 
   if (isLoading) return <DataTableSkeleton />;
 
-  if (!data?.reviews?.length)
+  if (isSuccess && !data?.reviews?.length)
     return (
       <NoContent
         queryKey={[QueryKeys.USER_REVIEW, user?.id]}
@@ -94,7 +94,7 @@ export default function ReviewLogsTable() {
       />
     );
 
-  if (data?.reviews?.length) {
+  if (isSuccess && data?.reviews?.length) {
     return (
       <div ref={scrollRef}>
         <FilterReviewLogs />

@@ -1,6 +1,8 @@
 import React from "react";
 
 import { TableRowSkeleton } from "../../point/_component/TableSkeleton";
+import ReviewSelectCheckBox from "./ReviewSelectCheckBox";
+import ReviewActions from "./ReviewActionsButton";
 
 type ReviewRowProps = {
   review: ReviewLog;
@@ -19,7 +21,7 @@ export default function ReviewRow({
 
   return (
     <tr>
-      <ReviewSelectedCheckBox id={review._id} />
+      <ReviewSelectCheckBox id={review._id} />
       <td>{review._id}</td>
       <td>{review.bookTitle}</td>
       <td>{review.desc}</td>

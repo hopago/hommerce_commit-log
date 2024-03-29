@@ -20,7 +20,12 @@ type NoContentProps = {
     options?: RefetchOptions | undefined
   ) => Promise<
     QueryObserverResult<
-      PaginatedReviewResponse | PointLogsResponse | BookData | IBook[] | Error
+      | PaginatedReviewResponse
+      | PointLogsResponse
+      | BookData
+      | IBook[]
+      | Error
+      | undefined
     >
   >;
   error: Error | null;

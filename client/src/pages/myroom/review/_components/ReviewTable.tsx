@@ -5,6 +5,8 @@ import { totalReviewIdsState } from "../../../../recoil/pagination/select-item/s
 
 import ReviewControlPanel from "./ReviewControlPanel";
 import ReviewSelectAllCheckBox from "./ReviewSelectAllCheckBox";
+import { ReviewRowAsync } from "./ReviewTableRow";
+import { TableRowSkeleton } from "../../point/_component/TableSkeleton";
 
 type ReviewLogTableProps = {
   reviews: ReviewLogs;
@@ -24,7 +26,7 @@ export default function ReviewLogTable({
 
   useEffect(() => {
     setTotalReviewIds(ids);
-  }, [ids]);
+  }, [ids.length]);
 
   return (
     <div className="point-log-table review">
@@ -33,7 +35,9 @@ export default function ReviewLogTable({
         <table>
           <thead>
             <tr>
-              <ReviewSelectAllCheckBox ids={ids} />
+              <td>
+                <ReviewSelectAllCheckBox ids={ids} />
+              </td>
               <td>리뷰 ID</td>
               <td>책 제목</td>
               <td>리뷰 내용</td>

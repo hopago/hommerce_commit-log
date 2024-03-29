@@ -10,6 +10,6 @@ export const pointFilterState = atom<PointFilterOption>({
 });
 
 export const reviewFilterState = atom<ReviewFilterOption>({
-  key: "paginationPointFilterState",
+  key: "paginationReviewFilterState",
   default: "검색 옵션",
 });

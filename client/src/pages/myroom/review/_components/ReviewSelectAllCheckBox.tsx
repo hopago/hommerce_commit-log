@@ -36,10 +36,10 @@ export default function ReviewSelectAllCheckBox({
     } else {
       setIsSelectedAll(false);
     }
-  }, [selectedIds, totalLength]);
+  }, [selectedIds.length, totalLength]);
 
   return (
-    <td>
+    <>
       <Button
         type="button"
         icon={<FaCheck />}
@@ -47,6 +47,6 @@ export default function ReviewSelectAllCheckBox({
         className="select-all"
         active={isSelectedAll}
       />
-    </td>
+    </>
   );
 }

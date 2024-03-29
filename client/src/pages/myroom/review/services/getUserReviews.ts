@@ -26,7 +26,11 @@ export const getUserReviews = ({
   pageNum,
   userId,
   sort = "최신순",
-}: GetUserReviews): Promise<PaginatedReviewResponse> => {
+}: GetUserReviews):
+  | Promise<PaginatedReviewResponse | undefined>
+  | undefined => {
+  if (!userId) return;
+
   let path: string = `/review/user/${userId}`;
 
   const sortQueryString = createQueryString({ sort });
@@ -49,7 +53,7 @@ export const getUserReviews = ({
   const pageNumQueryString = `pageNum=${pageNum}`;
   path += `&${pageNumQueryString}`;
 
-  return restFetcher<PaginatedReviewResponse>({
+  return restFetcher<PaginatedReviewResponse | undefined>({
     method: "GET",
     path,
   });

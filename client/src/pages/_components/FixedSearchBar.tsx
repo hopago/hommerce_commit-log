@@ -14,6 +14,7 @@ import Logo from "./Logo";
 
 import { cn } from "../../lib/utils";
 import CartButton from "./cart/CartButton";
+import { editUserModal } from "../../recoil/modal/edit-user";
 
 type FixedSearchBarProps = {
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -29,6 +30,7 @@ export default function FixedSearchBar({
   const [show, setShow] = useRecoilState(GNBModalState);
   const isImageModalShow = useRecoilValue(enhancedImageModal);
   const isPostModalShow = useRecoilValue(postReviewModal);
+  const isEditUserModalShow = useRecoilValue(editUserModal);
 
   const toggleModal = () => {
     setShow((prev) => !prev);
@@ -38,7 +40,7 @@ export default function FixedSearchBar({
     <div
       className={cn(
         "fixed-search-section",
-        (isImageModalShow || isPostModalShow) && "none"
+        (isImageModalShow || isPostModalShow || isEditUserModalShow) && "none"
       )}
     >
       <div className="fixed-search-section__wrapper">
