@@ -28,4 +28,5 @@ export const QueryKeys = {
   USER: "user",
   USER_POINT_LOG: "userPointLogs",
   USER_PICKS: "userPicks",
+  USER_REVIEW: "userReviews",
 };

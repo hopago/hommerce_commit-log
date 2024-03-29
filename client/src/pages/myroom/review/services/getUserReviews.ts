@@ -1,34 +1,33 @@
 import { restFetcher } from "../../../../fetcher/restFetcher";
 import { createQueryString } from "../../../../fetcher/utils";
+import { ReviewFilterOption } from "../../../../recoil/pagination/search/filter/filter";
 
-export type GetUserPointLogProps = {
-  userId: string;
-  filter?: PointFilterOption;
+export type GetUserReviews = {
+  filter?: ReviewFilterOption;
   searchTerm?: string;
   pageNum: number;
+  userId: string;
   sort: "최신순" | "오래된순";
 };
 
-export type PointFilterOption = "검색 옵션" | "지급 내용" | "지급량";
-
-const translateQueryValueToEn = (filter: PointFilterOption) => {
+const translateQueryValueToEn = (filter: ReviewFilterOption) => {
   const filterMap = {
     "검색 옵션": null,
-    "지급 내용": "desc",
-    지급량: "bookTitle",
+    "리뷰 내용": "desc",
+    "책 제목": "bookTitle",
   };
 
   return filterMap[filter] || null;
 };
 
-export const getUserPointLog = ({
-  userId,
+export const getUserReviews = ({
   filter,
   searchTerm,
   pageNum,
+  userId,
   sort = "최신순",
-}: GetUserPointLogProps) => {
-  let path = `/point/log/${userId}`;
+}: GetUserReviews): Promise<PaginatedReviewResponse> => {
+  let path: string = `/review/user/${userId}`;
 
   const sortQueryString = createQueryString({ sort });
 
@@ -41,6 +40,7 @@ export const getUserPointLog = ({
       const keywordQueryString = createQueryString({ keyword: searchTerm });
       path += `&${keywordQueryString}`;
     }
+
     path += `&${sortQueryString}`;
   } else {
     path += `?${sortQueryString}`;
@@ -49,7 +49,7 @@ export const getUserPointLog = ({
   const pageNumQueryString = `pageNum=${pageNum}`;
   path += `&${pageNumQueryString}`;
 
-  return restFetcher<PointLogsResponse>({
+  return restFetcher<PaginatedReviewResponse>({
     method: "GET",
     path,
   });

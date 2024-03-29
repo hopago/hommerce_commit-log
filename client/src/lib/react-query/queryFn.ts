@@ -15,6 +15,14 @@ import { getBook } from "../../pages/details/[bookId]/services/getBook";
 import { getBookDetails } from "../../pages/details/[bookId]/services/getBookDetails";
 import { getReviewDocsLength } from "../../pages/details/[bookId]/services/getReviewDocsLength";
 import { getReviewsByBookId } from "../../pages/details/[bookId]/services/getReviewsByBookId";
+import {
+  GetUserPointLogProps,
+  getUserPointLog,
+} from "../../pages/myroom/point/services/getUserPointLog";
+import {
+  GetUserReviews,
+  getUserReviews,
+} from "../../pages/myroom/review/services/getUserReviews";
 import { getUser } from "../../pages/myroom/services/getUser";
 import { getUserPoint } from "../../pages/myroom/services/getUserPoint";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
@@ -126,6 +134,22 @@ export const QueryFns = {
   }: GetFavorSubscriptionIsSubscribedProps) =>
     getIsSubscribed({ bookId, userId }),
   GET_USER: (userId: string) => getUser(userId),
+  GET_USER_POINT_LOG: ({
+    userId,
+    filter,
+    searchTerm,
+    pageNum,
+    sort,
+  }: GetUserPointLogProps) =>
+    getUserPointLog({ userId, filter, searchTerm, pageNum, sort }),
+  GET_USER_REVIEW: ({
+    filter,
+    searchTerm,
+    pageNum,
+    userId,
+    sort,
+  }: GetUserReviews) =>
+    getUserReviews({ filter, searchTerm, pageNum, userId, sort }),
   GET_USER_REVIEW_BY_BOOK_ID: ({
     bookId,
     userId,

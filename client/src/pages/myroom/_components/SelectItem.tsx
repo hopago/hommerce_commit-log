@@ -1,12 +1,22 @@
 import { forwardRef } from "react";
 
-import { PointFilterOption } from "../point/services/getUserPointLog";
-
 import { cn } from "../../../lib/utils";
 
+import { PointFilterOption } from "../point/services/getUserPointLog";
+import { ReviewFilterOption } from "../../../recoil/pagination/search/filter/filter";
+import { ReviewSortOption } from "../review/_components/SortReview";
+
 type SelectItemProps = {
-  selectList: PointFilterOption[] | BookSubCategoryList;
-  currSelect: PointFilterOption | BookSubCategory;
+  selectList:
+    | PointFilterOption[]
+    | BookSubCategoryList
+    | ReviewFilterOption[]
+    | ReviewSortOption[];
+  currSelect:
+    | PointFilterOption
+    | BookSubCategory
+    | ReviewFilterOption
+    | ReviewSortOption;
   handleItemClick: (param: any) => void;
   className?: string;
 };

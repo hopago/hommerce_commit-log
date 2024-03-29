@@ -10,10 +10,7 @@ import { currentPageState } from "../../../../recoil/pagination/pageNum/paginate
 import { getQueryClient } from "../../../../lib/react-query/getQueryClient";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
-import {
-  PointFilterOption,
-  getUserPointLog,
-} from "../services/getUserPointLog";
+import { PointFilterOption } from "../services/getUserPointLog";
 import { daysToMs } from "../../../../lib/react-query/utils";
 
 import { useEffect } from "react";
@@ -27,6 +24,7 @@ import UserPoint from "./UserPoint";
 import FilterPointLogs from "./FilterPointLogs";
 import PointLogTable from "./PointLogTable";
 import PaginateControl from "../../../details/[bookId]/_components/PaginateControl";
+import { QueryFns } from "../../../../lib/react-query/queryFn";
 
 export default function PointLogsTable() {
   const { user } = useUser();
@@ -51,7 +49,7 @@ export default function PointLogsTable() {
   } = useQuery<PointLogsResponse>({
     queryKey: [QueryKeys.USER_POINT_LOG, currentPage],
     queryFn: () =>
-      getUserPointLog({
+      QueryFns.GET_USER_POINT_LOG({
         pageNum: currentPage,
         filter,
         searchTerm,

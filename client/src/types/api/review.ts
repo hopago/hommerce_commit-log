@@ -38,3 +38,13 @@ interface PaginatedReviewResponse {
     hasNextPage: boolean;
   };
 }
+
+type ReviewLog = {
+  _id: string;
+  bookTitle: string;
+  desc: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type ReviewLogs = ReviewLog[];

@@ -24,7 +24,7 @@ export default function UserPoint({ userId }: UserPointProps) {
   return (
     <div className="user-point">
       <div className="user-point__wrap">
-        <FaUser size={34} className="user-icon" />
+        <FaUser size={34} className="user-icon" color="#777777" />
         <div className="user-point-text">
           <h1>통합 포인트</h1>
           <span>{Number(data) ?? 0}&nbsp;P</span>

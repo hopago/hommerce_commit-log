@@ -1,16 +1,23 @@
 import { useEffect, useRef } from "react";
 
-import { PointFilterOption } from "../point/_component/FilterPointLogs";
 import SelectItem from "./SelectItem";
 
 import { cn } from "../../../lib/utils";
 
 import { MdArrowDropDown } from "react-icons/md";
 
+import { PointFilterOption } from "../point/_component/FilterPointLogs";
+import { ReviewFilterOption } from "../../../recoil/pagination/search/filter/filter";
+import { ReviewSortOption } from "../review/_components/SortReview";
+
 // 사용시 타입 추가
 type SelectListProps = {
-  selectList: PointFilterOption[];
-  currSelect: PointFilterOption | BookSubCategory;
+  selectList: PointFilterOption[] | ReviewFilterOption[] | ReviewSortOption[];
+  currSelect:
+    | PointFilterOption
+    | BookSubCategory
+    | ReviewFilterOption
+    | ReviewSortOption;
   handleItemClick: (param: any) => void;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
