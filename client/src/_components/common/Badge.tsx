@@ -25,19 +25,18 @@ export default function Badge({
   justifyContent,
   color,
 }: BadgeProps) {
-  const styles =
-    {
-      backgroundColor,
-      padding,
-      width,
-      height,
-      border,
-      borderRadius,
-      display,
-      alignItems,
-      justifyContent,
-      color,
-    } ?? {};
+  const styles = {
+    backgroundColor,
+    padding,
+    width,
+    height,
+    border,
+    borderRadius,
+    display,
+    alignItems,
+    justifyContent,
+    color,
+  };
 
   return (
     <div className="common-badge" style={styles}>

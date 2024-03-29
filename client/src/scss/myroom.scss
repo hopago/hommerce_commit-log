@@ -290,6 +290,111 @@
                     }
                 }
             }
+
+            .my-wish-list {
+                width: 100%;
+
+                h1 {
+                    font-size: 20px;
+                    line-height: 30px;
+                    letter-spacing: -0.01em;
+                    margin-bottom: 1rem;
+                }
+
+                .skeleton.h1 {
+                    width: 120px;
+                    height: 24px;
+                    margin-bottom: 1rem;
+                }
+
+                &__content {
+                    width: 31%;
+                    height: 200px;
+                    margin-right: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgb(34,193,195);
+                    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(76,138,167,1) 100%);
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+
+                    img {
+                        width: 80px;
+                        height: 100px;
+                        margin-right: 0.5rem;
+                        object-fit: contain;
+                    }
+
+                    .skeleton.img {
+                        width: 80px;
+                        height: 100px;
+                        border-radius: 0.5rem;
+                        margin-right: 0.5rem;
+                    }
+
+                    .col {
+
+                        h1 {
+                            font-size: 19px;
+                            line-height: 24px;
+                            letter-spacing: -0.01em;
+                            font-weight: 500;
+                            color: #fff;
+                            font-weight: bold;
+                        }
+
+                        .skeleton.title {
+                            width: 84px;
+                            height: 24px;
+                            margin-bottom: 1rem;
+                        }
+
+                        .skeleton.span {
+                            width: 48px;
+                            height: 24px;
+                        }
+
+                        .span-wrap {
+                            width: 36px;
+                            height: 36px;
+                            background-color: white;
+                            border-radius: 50%;
+                            border: 1px solid rgba(0, 0, 0, 0.12);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 15px;
+
+                            span {
+                                color: #4dac27;
+                                font-weight: bold;
+                                letter-spacing: -0.01em;
+                                line-height: 16px;
+                            }
+
+                            .plus {
+                                display: inline-block;
+                                width: max-content;
+                                height: max-content;
+                                padding-bottom: 0.25rem;
+                            }
+                        } 
+
+                        &.no-content {
+                            padding: 1rem 1.5rem;
+                            cursor: default;
+
+                            span {
+                                font-size: 13px;
+                                line-height: 19px;
+                                letter-spacing: -0.01em;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

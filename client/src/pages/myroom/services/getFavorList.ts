@@ -4,7 +4,7 @@ export const getFavorList = async (userId: string) => {
   if (!userId) return;
 
   try {
-    const favorList = await restFetcher<IFavor>({
+    const favorList = await restFetcher<FavorItem[]>({
       path: `/favor/${userId}`,
       method: "GET",
     });
