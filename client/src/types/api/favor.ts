@@ -9,3 +9,8 @@ type FavorList = {
   userId: string;
   books: FavorItem[];
 };
+
+interface IFavor extends Document {
+  userId: string;
+  books: FavorItem[];
+}

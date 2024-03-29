@@ -1,5 +1,3 @@
-import { useUser } from "@clerk/clerk-react";
-
 import { reviewSortState } from "../../../../recoil/pagination/search/sort/sort";
 import {
   ReviewFilterOption,
@@ -26,9 +24,7 @@ import FilterReviewLogs from "./FilterReviewLogs";
 import PaginateControl from "../../../details/[bookId]/_components/PaginateControl";
 import ReviewTable from "./ReviewTable";
 
-export default function ReviewLogsTable() {
-  const { user } = useUser();
-
+export default function ReviewLogsTable({ userId }: { userId: string }) {
   const sort = useRecoilValue(reviewSortState);
   const filter = useRecoilValue<ReviewFilterOption>(reviewFilterState);
   const searchTerm = useRecoilValue(reviewSearchTermState);
@@ -47,18 +43,18 @@ export default function ReviewLogsTable() {
     isRefetching,
     isRefetchError,
   } = useQuery<PaginatedReviewResponse | undefined>({
-    queryKey: [QueryKeys.USER_REVIEW, user?.id],
+    queryKey: [QueryKeys.USER_REVIEW, userId],
     queryFn: () =>
       QueryFns.GET_USER_REVIEW({
         pageNum: currentPage,
         filter,
         searchTerm,
-        userId: user?.id!,
+        userId,
         sort,
       }),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
-    enabled: enabled && Boolean(user?.id),
+    enabled: enabled && Boolean(userId),
   });
 
   useEffect(() => {
@@ -85,7 +81,7 @@ export default function ReviewLogsTable() {
   if (isSuccess && !data?.reviews?.length)
     return (
       <NoContent
-        queryKey={[QueryKeys.USER_REVIEW, user?.id]}
+        queryKey={[QueryKeys.USER_REVIEW, userId]}
         refetch={refetch}
         error={error}
         isRefetching={isRefetching}
@@ -100,7 +96,7 @@ export default function ReviewLogsTable() {
         <h1>리뷰 활동내역</h1>
         <FilterReviewLogs />
         <ReviewTable
-          userId={user?.id!}
+          userId={userId}
           isLoading={isLoading}
           reviews={data.reviews as ReviewLogs}
           dataLength={data?.pagination.totalReviews!}

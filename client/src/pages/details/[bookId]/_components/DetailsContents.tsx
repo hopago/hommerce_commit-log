@@ -40,7 +40,7 @@ const DetailsContents = forwardRef<HTMLDivElement, DetailsContentsProps>(
       if (isFetching) {
         timeoutId = setTimeout(() => {
           refetch();
-        }, 1000);
+        }, 3000);
       } else {
         if (timeoutId) {
           clearTimeout(timeoutId);

@@ -1,5 +1,3 @@
-import { useUser } from "@clerk/clerk-react";
-
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../lib/react-query/query-key";
 import { QueryFns } from "../../../lib/react-query/queryFn";
@@ -10,14 +8,13 @@ import pointIcon from "../../../assets/ico_p.png";
 
 import { Skeleton } from "@nextui-org/skeleton";
 
-export default function CurrentPoint() {
-  const { user } = useUser();
+export default function CurrentPoint({ userId }: { userId: string }) {
   const { data, isLoading, error, isError } = useQuery({
-    queryKey: [QueryKeys.POINT, user?.id],
-    queryFn: () => QueryFns.GET_USER_POINT(user?.id!),
+    queryKey: [QueryKeys.POINT, userId],
+    queryFn: () => QueryFns.GET_USER_POINT(userId!),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
-    enabled: !!user,
+    enabled: !!userId,
   });
 
   useHandleError({ error, isError, fieldName: "포인트" });

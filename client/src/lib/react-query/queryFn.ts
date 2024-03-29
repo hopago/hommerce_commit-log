@@ -23,6 +23,7 @@ import {
   GetUserReviews,
   getUserReviews,
 } from "../../pages/myroom/review/services/getUserReviews";
+import { getFavorList } from "../../pages/myroom/services/getFavorList";
 import { getUser } from "../../pages/myroom/services/getUser";
 import { getUserPoint } from "../../pages/myroom/services/getUserPoint";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
@@ -125,6 +126,7 @@ export const QueryFns = {
   GET_REVIEW_TOTAL_BY_BOOK_ID: ({ bookId }: ReviewTotalProps) =>
     getReviewTotalByBookId({ bookId }),
   GET_REVIEW_LENGTH: (bookId: string) => getReviewDocsLength(bookId),
+  GET_FAVOR_LIST: (userId: string) => getFavorList(userId),
   GET_FAVOR_SUBSCRIPTION_LENGTH: ({
     bookId,
   }: GetFavorSubscriptionLengthProps) => getSubscriptionLength({ bookId }),

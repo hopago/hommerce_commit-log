@@ -45,7 +45,7 @@ export default function ReferrerAuthors({ authorJob }: ReferrerAuthorsProps) {
     if (isFetching) {
       timeoutId = setTimeout(() => {
         refetch();
-      }, 1000);
+      }, 3000);
     } else {
       if (timeoutId) {
         clearTimeout(timeoutId);

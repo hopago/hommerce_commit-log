@@ -1,5 +1,3 @@
-import { useUser } from "@clerk/clerk-react";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import { pointSortState } from "../../../../recoil/pagination/search/sort/sort";
 import { pointFilterState } from "../../../../recoil/pagination/search/filter/filter";
@@ -26,9 +24,7 @@ import PointLogTable from "./PointLogTable";
 import PaginateControl from "../../../details/[bookId]/_components/PaginateControl";
 import { QueryFns } from "../../../../lib/react-query/queryFn";
 
-export default function PointLogsTable() {
-  const { user } = useUser();
-
+export default function PointLogsTable({ userId }: { userId: string }) {
   const sort = useRecoilValue(pointSortState);
   const filter = useRecoilValue<PointFilterOption>(pointFilterState);
   const searchTerm = useRecoilValue(pointSearchTermState);
@@ -53,12 +49,12 @@ export default function PointLogsTable() {
         pageNum: currentPage,
         filter,
         searchTerm,
-        userId: user?.id!,
+        userId,
         sort,
       }),
     staleTime: daysToMs(7),
     gcTime: daysToMs(9),
-    enabled: enabled && Boolean(user),
+    enabled: enabled && !!userId,
   });
 
   useEffect(() => {
@@ -91,7 +87,7 @@ export default function PointLogsTable() {
           error={error}
           isRefetching={isRefetching}
           isRefetchError={isRefetchError}
-          queryKey={[QueryKeys.USER_POINT_LOG, user?.id!]}
+          queryKey={[QueryKeys.USER_POINT_LOG, userId]}
           fieldName="포인트 기록"
         />
       </div>
@@ -101,7 +97,7 @@ export default function PointLogsTable() {
     return (
       <div className="point-logs" ref={scrollRef}>
         <h1>포인트 기록</h1>
-        <UserPoint userId={user?.id!} />
+        <UserPoint userId={userId} />
         <FilterPointLogs />
         <PointLogTable
           pointLogs={data.pointsLogs as PointLogs}

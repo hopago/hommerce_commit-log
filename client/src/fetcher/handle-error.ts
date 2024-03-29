@@ -47,6 +47,8 @@ export function handleError({ error, errorDetails }: HandleErrorProps) {
 
     if (detail) {
       return ` ${detail.message}`;
+    } else if (error.status === 404) {
+      return ` 데이터를 준비 중 입니다. 서버 메시지: ${error.message} `;
     } else {
       return ` 서버 에러가 발생하였습니다. (에러 코드: ${error.status})`;
     }

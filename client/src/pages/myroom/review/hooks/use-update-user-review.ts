@@ -63,12 +63,12 @@ export const useDeleteUserReview = ({
       );
 
       // TODO: README
-      bookIds.map((bookId) => {
+      bookIds.forEach((bookId) => {
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.REVIEW_TOTAL, bookId],
         });
       });
-      bookIds.map((bookId) => {
+      bookIds.forEach((bookId) => {
         queryClient.setQueryData(
           [QueryKeys.REVIEW_LENGTH, bookId],
           (prevLength: { docsLength: number }) => {
@@ -86,7 +86,7 @@ export const useDeleteUserReview = ({
           }
         );
       });
-      bookIds.map((bookId) => {
+      bookIds.forEach((bookId) => {
         queryClient.setQueryData(
           [QueryKeys.REVIEWS, bookId],
           (prevReviews: PaginatedReviewResponse) => {

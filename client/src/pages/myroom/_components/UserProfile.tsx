@@ -1,4 +1,5 @@
 import { useUser } from "@clerk/clerk-react";
+
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../lib/react-query/query-key";
 import { getUser } from "../services/getUser";
@@ -14,19 +15,40 @@ import { useRecoilState } from "recoil";
 import { editUserModal } from "../../../recoil/modal/edit-user";
 import { useModal } from "../../hooks/use-modal";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MdEdit } from "react-icons/md";
 
-export default function UserProfile() {
+export default function UserProfile({ userId }: { userId: string }) {
   const { user } = useUser();
-  const { data, isLoading, isSuccess, isError, error } = useQuery({
-    queryKey: [QueryKeys.USER, user?.id],
-    queryFn: () => getUser(user?.id!),
-    staleTime: daysToMs(1),
-    gcTime: daysToMs(3),
-    enabled: !!user,
-  });
+  const { data, isLoading, isFetching, refetch, isSuccess, isError, error } =
+    useQuery({
+      queryKey: [QueryKeys.USER, userId],
+      queryFn: () => getUser(userId),
+      staleTime: daysToMs(1),
+      gcTime: daysToMs(3),
+      enabled: !!userId,
+    });
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    if (isFetching) {
+      timeoutId = setTimeout(() => {
+        refetch();
+      }, 3000);
+    } else {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isFetching]);
 
   useHandleError({ isError, error, fieldName: "회원 정보" });
 
@@ -39,7 +61,7 @@ export default function UserProfile() {
 
   return (
     <div
-      className={cn("user-profile", isLoading && "loading")}
+      className={cn("user-profile", (isLoading || isFetching) && "loading")}
       onMouseEnter={() => setHoverShow(true)}
       onMouseLeave={() => setHoverShow(false)}
     >

@@ -54,7 +54,7 @@ const BookReviews = forwardRef<HTMLDivElement, BookReviewProps>(
       if (isFetching) {
         timeoutId = setTimeout(() => {
           refetch();
-        }, 1000);
+        }, 3000);
       } else {
         if (timeoutId) {
           clearTimeout(timeoutId);
