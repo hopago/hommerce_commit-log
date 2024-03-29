@@ -43,11 +43,8 @@ export const TableSkeleton = () => (
           </tr>
         </thead>
         <TableRowSkeleton />
-        <div style={{ marginBottom: "48px" }} />
         <TableRowSkeleton />
-        <div style={{ marginBottom: "48px" }} />
         <TableRowSkeleton />
-        <div style={{ marginBottom: "48px" }} />
         <TableRowSkeleton />
       </table>
     </div>

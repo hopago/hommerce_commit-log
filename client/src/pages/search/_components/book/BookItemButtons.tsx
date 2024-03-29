@@ -1,5 +1,5 @@
 import FavorButton from "../FavorButton";
-import ReuseButton from "../../../../_components/common/ReuseButton";
+import CommonButton from "../../../../_components/common/CommonButton";
 
 import { UIType } from "../../hooks/use-select-ui";
 import { useQuery } from "@tanstack/react-query";
@@ -74,13 +74,13 @@ export default function BookItemButtons({
       />
       {display === "flex" && (
         <>
-          <ReuseButton
+          <CommonButton
             text="장바구니"
             size="md"
             style="default"
             onClick={handleAddCart}
           />
-          <ReuseButton text="바로구매" size="md" style="purple" />
+          <CommonButton text="바로구매" size="md" style="purple" />
         </>
       )}
     </div>

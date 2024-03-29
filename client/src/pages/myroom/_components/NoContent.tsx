@@ -66,7 +66,7 @@ export function NoContent({
   useHandleError({ error, isError: isRefetchError, fieldName });
 
   const buttonIcon = isRefetching ? (
-    <FaSpinner className="spinner-icon" />
+    <FaSpinner className="spinner-icon" color="#fff" size={21} />
   ) : null;
   const buttonText = isRefetching
     ? null

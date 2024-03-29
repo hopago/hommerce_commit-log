@@ -7,7 +7,7 @@ import { useReviewReplyMutation } from "./hooks/use-review-reply-mutation";
 
 import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
 
-import ReuseButton from "../../../../../_components/common/ReuseButton";
+import CommonButton from "../../../../../_components/common/CommonButton";
 import Textarea from "../../../../../_components/Textarea";
 
 type ReviewReplyFormProps = {
@@ -83,14 +83,14 @@ export default function ReviewReplyForm({
           onChange={onChange}
         />
         <div className="btn-wrap">
-          <ReuseButton
+          <CommonButton
             type="button"
             size="sm"
             text="취소"
             style="default"
             onClick={handleClose}
           />
-          <ReuseButton
+          <CommonButton
             type="submit"
             size="sm"
             text="등록"

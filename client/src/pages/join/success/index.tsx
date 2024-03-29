@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import verified from "../../../assets/img_verified.png";
 
-import ReuseButton from "../../../_components/common/ReuseButton";
+import CommonButton from "../../../_components/common/CommonButton";
 import Logo from "../../_components/Logo";
 import ShortcutFooter from "../../../_components/ShortcutFooter";
 
@@ -36,7 +36,7 @@ export default function SigninSuccessIndex() {
             </div>
             <div className="right">
               <span>회원 가입에 성공했습니다.</span>
-              <ReuseButton
+              <CommonButton
                 text="홈으로 이동"
                 style="default"
                 size="md"

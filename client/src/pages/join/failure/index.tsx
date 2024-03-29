@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import error from "../../../assets/img_internal-error.png";
 
-import ReuseButton from "../../../_components/common/ReuseButton";
+import CommonButton from "../../../_components/common/CommonButton";
 import Logo from "../../_components/Logo";
 import ShortcutFooter from "../../../_components/ShortcutFooter";
 
@@ -43,13 +43,13 @@ export default function SignoutFailureIndex() {
             <div className={cn("right", "failure")}>
               <span>회원 가입에 실패했습니다.</span>
               <p>일시적 서버 오류이니 잠시 후 다시 시도해주세요.</p>
-              <ReuseButton
+              <CommonButton
                 text="홈으로 이동"
                 style="default"
                 size="md"
                 onClick={navigateToHome}
               />
-              <ReuseButton
+              <CommonButton
                 text="다시 시도"
                 style="default"
                 size="md"

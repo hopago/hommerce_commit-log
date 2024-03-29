@@ -5,7 +5,7 @@ import { IUser } from "../../../../types/api/user";
 
 import { useUpdateUser } from "./hooks/use-update-user";
 
-import ReuseButton from "../../../../_components/common/ReuseButton";
+import CommonButton from "../../../../_components/common/CommonButton";
 
 import { FaCamera } from "react-icons/fa";
 
@@ -66,7 +66,7 @@ export default function UserEdit() {
                 onChange={onChangeUsername}
               />
               <div className="btn-wrap">
-                <ReuseButton
+                <CommonButton
                   type="button"
                   text="저장"
                   style="purple"

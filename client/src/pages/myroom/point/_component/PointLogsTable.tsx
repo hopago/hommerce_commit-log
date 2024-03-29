@@ -41,9 +41,9 @@ export default function PointLogsTable() {
 
   const {
     data,
+    isLoading,
     error,
     isError,
-    isLoading,
     isSuccess,
     refetch,
     isRefetching,

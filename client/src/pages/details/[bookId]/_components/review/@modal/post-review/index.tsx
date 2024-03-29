@@ -9,7 +9,7 @@ import { useFormInputs } from "./hooks/use-form-inputs";
 
 import BookPreview from "./_components/BookPreview";
 import SelectKeyword from "./_components/SelectKeyword";
-import ReuseButton from "../../../../../../../_components/common/ReuseButton";
+import CommonButton from "../../../../../../../_components/common/CommonButton";
 import SetDescArea from "./_components/SetDescArea";
 
 import { MutationProps, usePostReview } from "./services/use-post-review";
@@ -129,7 +129,7 @@ export default function PostReview({ setShow, hasNoReview }: PostReviewProps) {
             <SetDescArea onChange={handleChangeDesc} desc={desc} />
           </div>
           <div className="submit-button">
-            <ReuseButton
+            <CommonButton
               type="submit"
               text="등록"
               size="lg"

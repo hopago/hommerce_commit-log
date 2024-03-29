@@ -1,4 +1,4 @@
-import ReuseButton from "../../../../../_components/common/ReuseButton";
+import CommonButton from "../../../../../_components/common/CommonButton";
 import comment from "../../../../../assets/ico_comment_white.png";
 
 export default function FAQHeading() {
@@ -8,8 +8,8 @@ export default function FAQHeading() {
         <h1>교환/반품/품절 안내</h1>
       </div>
       <div className="btns-wrap">
-        <ReuseButton style="default" size="md" text="반품/교환 신청" />
-        <ReuseButton style="purple" size="md" text="1:1문의" icon={comment} />
+        <CommonButton style="default" size="md" text="반품/교환 신청" />
+        <CommonButton style="purple" size="md" text="1:1문의" icon={comment} />
       </div>
     </div>
   );

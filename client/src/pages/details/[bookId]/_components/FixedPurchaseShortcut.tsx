@@ -20,7 +20,7 @@ import { postReviewModal } from "../../../../recoil/modal/post-review";
 
 import FavorButton from "../../../search/_components/FavorButton";
 import AmountButton from "../../../../_components/common/AmountButton";
-import ReuseButton from "../../../../_components/common/ReuseButton";
+import CommonButton from "../../../../_components/common/CommonButton";
 
 import { useNavigate } from "react-router-dom";
 
@@ -135,13 +135,13 @@ export default function FixedPurchaseShortcut({
               userId={user?.id!}
               isSubscribed={isSubscribed}
             />
-            <ReuseButton
+            <CommonButton
               text="장바구니"
               size="lg"
               style="default"
               onClick={handleAddCart}
             />
-            <ReuseButton text="바로구매" size="lg" style="purple" />
+            <CommonButton text="바로구매" size="lg" style="purple" />
           </div>
         </div>
       </div>

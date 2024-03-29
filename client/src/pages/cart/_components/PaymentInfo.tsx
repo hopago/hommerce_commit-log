@@ -4,7 +4,7 @@ import {
   selectedCartProductState,
 } from "../../../recoil/cart/product-to-pay";
 
-import ReuseButton from "../../../_components/common/ReuseButton";
+import CommonButton from "../../../_components/common/CommonButton";
 
 export default function PaymentInfo() {
   const priceInfo = useRecoilValue(productPriceInfoState);
@@ -47,7 +47,7 @@ export default function PaymentInfo() {
             </div>
           </div>
         </div>
-        <ReuseButton
+        <CommonButton
           style="purple"
           size="lg"
           text={`주문하기 (${selected.length ?? 0})`}
