@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { booksState } from "../../recoil/books";
+import { imageSlideBookState } from "../../recoil/book/books";
 
 import NextBookItem, { NextBookItemSkeleton } from "./NextBookItem";
 
@@ -22,7 +22,7 @@ export default function NextBooks({
   setNextDisabled,
   currIndex,
 }: NextBooksProps) {
-  const [books, setBooks] = useRecoilState(booksState);
+  const [books, setBooks] = useRecoilState(imageSlideBookState);
 
   const { data, isSuccess, isError, error, isLoading } = useQuery({
     queryKey: [QueryKeys.MONTHLY_PICKS_PREFETCH, pageNum],

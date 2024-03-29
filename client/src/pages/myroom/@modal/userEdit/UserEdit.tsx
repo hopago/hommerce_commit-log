@@ -26,7 +26,7 @@ export default function UserEdit() {
     isPending,
     onChangeFile,
     onChangeUsername,
-    handleChangeUsername,
+    handleUpdateUsername,
     localUsername,
   } = useUpdateUser({ username: dbUser?.username! });
 
@@ -71,7 +71,7 @@ export default function UserEdit() {
                   text="저장"
                   style="purple"
                   size="md"
-                  onClick={handleChangeUsername as any}
+                  onClick={handleUpdateUsername as any}
                   disabled={isPending}
                 />
               </div>

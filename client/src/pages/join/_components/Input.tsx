@@ -1,6 +1,6 @@
 type InputProps = {
   type: "password" | "text" | "email";
-  name:
+  name?:
     | "email"
     | "username"
     | "lastName"

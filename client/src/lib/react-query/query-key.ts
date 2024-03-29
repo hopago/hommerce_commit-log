@@ -13,6 +13,7 @@ export const QueryKeys = {
   FAVOR_SUBSCRIPTION: "favorSubscription",
   MONTHLY_PICKS: "monthlyPicks",
   MONTHLY_PICKS_PREFETCH: "monThlyPicksPrefetch",
+  POINT: "point",
   NEW_BOOKS: "newBooks",
   REVIEW_REPLY: "reviewReply",
   REVIEW_TOTAL: "reviewTotal",
@@ -25,5 +26,6 @@ export const QueryKeys = {
   TODAY_BEST: "todayBest",
   TODAY_PICK: "todayPick",
   USER: "user",
+  USER_POINT_LOG: "userPointLogs",
   USER_PICKS: "userPicks",
 };

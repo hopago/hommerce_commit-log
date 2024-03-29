@@ -92,7 +92,7 @@ export const useUpdateUser = ({ username }: UseUpdateUserProps) => {
     }
   };
 
-  const handleChangeUsername = async () => {
+  const handleUpdateUsername = async () => {
     const updatedUser = await mutateAsync({ username: localUsername });
     if (updatedUser) {
       await clerk.user?.update({
@@ -120,6 +120,6 @@ export const useUpdateUser = ({ username }: UseUpdateUserProps) => {
     localUsername,
     onChangeFile,
     onChangeUsername,
-    handleChangeUsername,
+    handleUpdateUsername,
   };
 };

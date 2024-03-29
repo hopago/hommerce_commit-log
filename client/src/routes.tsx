@@ -11,6 +11,7 @@ import SigninFailureIndex from "./pages/join/failure";
 import CartIndex from "./pages/cart";
 import BookCategoryIndex from "./pages/category/[lang]/[category]";
 import MyRoomIndex from "./pages/myroom";
+import MyRoomPointLogIndex from "./pages/myroom/point";
 
 export const routes = [
   {
@@ -40,7 +41,13 @@ export const routes = [
       {
         path: "/myroom",
         element: <MyRoomIndex />,
+        index: true,
       },
+      {
+        path: "/myroom/point",
+        element: <MyRoomPointLogIndex />,
+        index: true,
+      }
     ],
   },
   {

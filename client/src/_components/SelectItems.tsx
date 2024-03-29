@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import { cn } from "../lib/utils";
 
-import { ReviewSortOptions } from "../recoil/review-select";
+import { ReviewSortOptions } from "../recoil/review/review-select";
 
 type SelectItemsProps = {
   type: "review" | "search";

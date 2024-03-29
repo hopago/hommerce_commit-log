@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { reviewTabState } from "../../../../../recoil/review/review-tab";
 import { reviewSortOptionsState } from "../../../../../recoil/review/review-select";
-import { currentPageState } from "../../../../../recoil/paginate";
+import { currentPageState } from "../../../../../recoil/pagination/pageNum/paginate";
 import { isAlreadyPostReview } from "../../../../../recoil/edit-user-review";
 import { detailsPageEnabled } from "../../../../../recoil/api/details-page-review-enabled";
 

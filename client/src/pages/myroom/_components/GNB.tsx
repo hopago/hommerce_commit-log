@@ -2,6 +2,15 @@ import { Link } from "react-router-dom";
 
 const GNBList = [
   {
+    listHeader: "포인트",
+    listItems: [
+      {
+        text: "포인트 지급 내역",
+        href: "/myroom/point",
+      },
+    ],
+  },
+  {
     listHeader: "위시리스트",
     listItems: [
       {

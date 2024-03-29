@@ -16,6 +16,7 @@ import { getBookDetails } from "../../pages/details/[bookId]/services/getBookDet
 import { getReviewDocsLength } from "../../pages/details/[bookId]/services/getReviewDocsLength";
 import { getReviewsByBookId } from "../../pages/details/[bookId]/services/getReviewsByBookId";
 import { getUser } from "../../pages/myroom/services/getUser";
+import { getUserPoint } from "../../pages/myroom/services/getUserPoint";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
@@ -106,6 +107,7 @@ export const QueryFns = {
     getResultsTotal({ filter, searchTerm: keyword }),
   GET_CART: (userId: string) => getCart(userId),
   GET_CART_ITEM_LENGTH: (userId: string) => getCartLength(userId),
+  GET_USER_POINT: (userId: string) => getUserPoint(userId),
   GET_REVIEWS_BY_BOOK_ID: ({
     bookId,
     pageNum,

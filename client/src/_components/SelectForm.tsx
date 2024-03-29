@@ -4,7 +4,7 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 
 import SelectItems from "./SelectItems";
 
-import { ReviewSortOptions } from "../recoil/review-select";
+import { ReviewSortOptions } from "../recoil/review/review-select";
 
 type SelectFromProps = {
   direction: "top" | "bottom";

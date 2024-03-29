@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { useRecoilState } from "recoil";
-import { booksState } from "../../../recoil/books";
+import { booksState } from "../../../recoil/book/books";
 
 type UseInfinityFetchingProps = {
   data: MonthlyPicksResponse | undefined;

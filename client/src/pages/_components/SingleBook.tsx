@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
-import { selectedCurrentBook } from "../../recoil/books";
+import { selectedCurrentBook } from "../../recoil/book/books";
 
 import { Skeleton } from "@nextui-org/skeleton";
 import { cn } from "../../lib/utils";

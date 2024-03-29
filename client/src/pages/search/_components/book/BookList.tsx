@@ -2,7 +2,7 @@ import { UIType } from "../../hooks/use-select-ui";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { searchSortState } from "../../../../recoil/search/search-page-sort";
-import { currentPageState } from "../../../../recoil/paginate";
+import { currentPageState } from "../../../../recoil/pagination/pageNum/paginate";
 import { searchPageEnabled } from "../../../../recoil/api/search-page-enabled";
 import { searchFilterState } from "../../../../recoil/search/search-filter";
 
