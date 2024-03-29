@@ -32,7 +32,7 @@ const SortReview = ({
         setShow={setShow}
         handleShow={toggleShow}
         className="review-sort"
-        backgroundColor="#414B5D"
+        backgroundColor="#676BAD"
       />
     </div>
   );

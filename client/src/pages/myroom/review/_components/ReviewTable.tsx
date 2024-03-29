@@ -22,6 +22,7 @@ export default function ReviewLogTable({
   userId,
 }: ReviewLogTableProps) {
   const ids = reviews.map((review) => review._id);
+  const bookIds = reviews.map((review) => review.bookId);
   const setTotalReviewIds = useSetRecoilState(totalReviewIdsState);
 
   useEffect(() => {
@@ -31,7 +32,11 @@ export default function ReviewLogTable({
   return (
     <div className="point-log-table review">
       <div className="point-log-table__wrap review">
-        <ReviewControlPanel dataLength={dataLength} userId={userId} />
+        <ReviewControlPanel
+          dataLength={dataLength}
+          userId={userId}
+          bookIds={bookIds}
+        />
         <table>
           <thead>
             <tr>

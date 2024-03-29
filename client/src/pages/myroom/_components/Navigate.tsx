@@ -16,6 +16,7 @@ export function Navigate({ path, text }: { path: string; text: string }) {
       onClick={onClick}
       ariaLabel="상세 보기"
       className="review-action"
+      border="none"
     />
   );
 }

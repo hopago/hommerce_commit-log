@@ -13,9 +13,14 @@ import { Navigate } from "../../_components/Navigate";
 type ReviewActionsProps = {
   id: string;
   userId: string;
+  bookId: string;
 };
 
-export default function ReviewActions({ id, userId }: ReviewActionsProps) {
+export default function ReviewActions({
+  id,
+  userId,
+  bookId,
+}: ReviewActionsProps) {
   const containerRef = useRef<HTMLTableDataCellElement>(null);
 
   const { show, toggleClick } = useToggle(containerRef);
@@ -23,13 +28,22 @@ export default function ReviewActions({ id, userId }: ReviewActionsProps) {
   return (
     <td className="review-actions" ref={containerRef}>
       {!show ? (
-        <MdMoreVert onClick={toggleClick} className="more-vert" size={21} />
+        <MdMoreVert
+          onClick={toggleClick}
+          className="more-vert"
+          size={21}
+          style={{ cursor: "pointer" }}
+        />
       ) : (
-        <MdClose onClick={toggleClick} className="close" />
+        <MdClose
+          onClick={toggleClick}
+          className="close"
+          style={{ cursor: "pointer" }}
+        />
       )}
       {show && (
         <div className="review-actions-buttons">
-          <Navigate path={`/reviews/${id}`} text="상세보기" />
+          <Navigate path={`/details/${bookId}`} text="상세보기" />
           <Delete userId={userId} id={id} />
         </div>
       )}
@@ -51,8 +65,9 @@ function Delete({ id, userId }: { id: string; userId: string }) {
       onClick={onClick}
       ariaLabel="리뷰 삭제"
       className="review-action"
-      backgroundColor="#BF444A"
+      backgroundColor="rgb(232, 66, 47)"
       disabled={isPending}
+      border="none"
     />
   );
 }

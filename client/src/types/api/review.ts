@@ -42,6 +42,7 @@ interface PaginatedReviewResponse {
 type ReviewLog = {
   _id: string;
   bookTitle: string;
+  bookId: string;
   desc: string;
   createdAt: Date;
   updatedAt: Date;

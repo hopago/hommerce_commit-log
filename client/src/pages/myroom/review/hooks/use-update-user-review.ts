@@ -12,7 +12,13 @@ import { ServerError } from "../../../../fetcher/error";
 import { MutateFns } from "../../../../lib/react-query/mutateFn";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
 
-export const useDeleteUserReview = ({ userId }: { userId: string }) => {
+export const useDeleteUserReview = ({
+  userId,
+  bookIds,
+}: {
+  userId: string;
+  bookIds: string[];
+}) => {
   const queryClient = getQueryClient();
 
   const filter = useRecoilValue(reviewFilterState);
@@ -55,6 +61,52 @@ export const useDeleteUserReview = ({ userId }: { userId: string }) => {
         [QueryKeys.USER_REVIEW, filter, searchTerm],
         filteredReviews
       );
+
+      // TODO: README
+      bookIds.map((bookId) => {
+        queryClient.invalidateQueries({
+          queryKey: [QueryKeys.REVIEW_TOTAL, bookId],
+        });
+      });
+      bookIds.map((bookId) => {
+        queryClient.setQueryData(
+          [QueryKeys.REVIEW_LENGTH, bookId],
+          (prevLength: { docsLength: number }) => {
+            if (prevLength) {
+              const { docsLength } = prevLength;
+
+              if (docsLength > 0 && typeof docsLength === "number") {
+                return {
+                  docsLength: prevLength.docsLength - 1,
+                };
+              } else {
+                return prevLength;
+              }
+            }
+          }
+        );
+      });
+      bookIds.map((bookId) => {
+        queryClient.setQueryData(
+          [QueryKeys.REVIEWS, bookId],
+          (prevReviews: PaginatedReviewResponse) => {
+            if (prevReviews) {
+              const { reviews } = prevReviews;
+              const filteredReviews = reviews.filter(
+                (review) => !idsArray.includes(review._id)
+              );
+              return {
+                ...prevReviews,
+                reviews: filteredReviews,
+              };
+            }
+          }
+        );
+      });
+      queryClient.removeQueries({
+        queryKey: [QueryKeys.REVIEW, userId],
+      });
+
       toast.success("리뷰 삭제를 성공적으로 마쳤어요.");
     },
     onError: (err) => {

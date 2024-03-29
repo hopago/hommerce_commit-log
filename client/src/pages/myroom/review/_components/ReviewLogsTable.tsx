@@ -96,7 +96,8 @@ export default function ReviewLogsTable() {
 
   if (isSuccess && data?.reviews?.length) {
     return (
-      <div ref={scrollRef}>
+      <div ref={scrollRef} className="point-logs review">
+        <h1>리뷰 활동내역</h1>
         <FilterReviewLogs />
         <ReviewTable
           userId={user?.id!}

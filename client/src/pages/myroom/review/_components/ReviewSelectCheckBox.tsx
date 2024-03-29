@@ -11,13 +11,13 @@ type ReviewSelectCheckBoxProps = {
 export default function ReviewSelectCheckBox({
   id,
 }: ReviewSelectCheckBoxProps) {
-  const { selectedIds, toggleId } = useSelectReview();
+  const { selectedIds, toggleId, isSelectedAll } = useSelectReview();
 
   const onClick = () => {
     toggleId(id);
   };
 
-  const isActive = selectedIds?.includes(id);
+  const isActive = selectedIds?.includes(id) || isSelectedAll;
 
   return (
     <td>

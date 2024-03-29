@@ -59,7 +59,6 @@ export default function FilterReviewLogs() {
 
   return (
     <div className="filter">
-      <h1 className="filter-title">검색 옵션 설정</h1>
       <form className="filter-options" onSubmit={handleSubmit}>
         <SelectList
           selectList={filterOptions}

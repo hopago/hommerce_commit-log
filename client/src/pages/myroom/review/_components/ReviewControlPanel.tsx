@@ -11,16 +11,18 @@ import { useDeleteUserReview } from "../hooks/use-update-user-review";
 
 export type SortOption = "최신순" | "오래된순";
 
-type DeleteReviewProps = { ids: string[]; userId: string };
+type DeleteReviewProps = { ids: string[]; userId: string; bookIds: string[] };
 
 type ReviewControlPanelProps = {
   dataLength: number;
   userId: string;
+  bookIds: string[];
 };
 
 export default function ReviewControlPanel({
   dataLength,
   userId,
+  bookIds,
 }: ReviewControlPanelProps) {
   const [sortState, setSortState] = useRecoilState(reviewSortState);
   const [filterState, setFilterState] = useRecoilState(reviewFilterState);
@@ -52,7 +54,7 @@ export default function ReviewControlPanel({
   const { selectedIds } = useSelectReview();
 
   const renderPanel = selectedIds.length ? (
-    <DeleteReview ids={selectedIds} userId={userId} />
+    <DeleteReview ids={selectedIds} userId={userId} bookIds={bookIds} />
   ) : (
     <SortReview
       dataLength={dataLength}
@@ -67,11 +69,15 @@ export default function ReviewControlPanel({
   return renderPanel;
 }
 
-const DeleteReview = ({ ids, userId }: DeleteReviewProps) => {
-  const { mutate, isPending } = useDeleteUserReview({ userId });
+const DeleteReview = ({ ids, userId, bookIds }: DeleteReviewProps) => {
+  const { mutate, isPending } = useDeleteUserReview({ userId, bookIds });
 
   const onClick = () => {
-    mutate(ids);
+    const isConfirmed = confirm("정말 모든 리뷰를 삭제하시겠어요?");
+
+    if (isConfirmed) {
+      mutate(ids);
+    }
   };
 
   return (
@@ -80,7 +86,8 @@ const DeleteReview = ({ ids, userId }: DeleteReviewProps) => {
       <Button
         type="button"
         text="일괄삭제"
-        backgroundColor="#BF444A"
+        backgroundColor="#E8422F"
+        border="none"
         onClick={onClick}
         disabled={isPending}
       />
