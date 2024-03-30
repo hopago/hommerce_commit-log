@@ -4,17 +4,31 @@ import { FilterQuery } from "mongoose";
 import { HttpException } from "../../middleware/error/utils";
 import { PAGE_SIZE } from "../../constants/page";
 
-type FilterType = "통합검색" | "제목" | "저자";
+type FilterType = "통합검색" | "제목" | "저자" | "title" | "author";
+
+type SortType = "최신순" | "정확도순" | "조회순" | "오래된순";
 
 type QueryField = {
   filter?: FilterType;
   keyword?: string;
   pageNum?: number;
-  sort: "최신순" | "오래된순";
+  sort: SortType;
 };
 
-const getSortCondition: any = (sort: "최신순" | "오래된순") => {
-  return sort === "최신순" ? { createdAt: -1 } : { createdAt: 1 };
+const getSortCondition: any = (sort: SortType) => {
+  switch (sort) {
+    case "최신순":
+      return { createdAt: -1 };
+    case "정확도순":
+      // TODO: SORT
+      return { createdAt: 1 };
+    case "조회순":
+      return { views: -1 };
+    case "오래된순":
+      return { createdAt: 1 };
+    default:
+      return { createdAt: -1 };
+  }
 };
 
 export const handleGetBooksBySearchTerm = async (
@@ -23,19 +37,23 @@ export const handleGetBooksBySearchTerm = async (
 ) => {
   let query: FilterQuery<IBook> = {};
 
-  if (keyword && keyword.trim() !== "" && keyword !== "undefined") {
-    if (filter === "통합검색") {
-      query = {
-        $or: [
-          { title: { $regex: new RegExp(keyword, "i") } },
-          { author: { $regex: new RegExp(keyword, "i") } },
-          { publisher: { $regex: new RegExp(keyword, "i") } },
-        ],
-      };
-    } else if (filter === "제목") {
-      query = { title: { $regex: new RegExp(keyword, "i") } };
-    } else if (filter === "저자") {
-      query = { author: { $regex: new RegExp(keyword, "i") } };
+  if (keyword?.trim() && keyword !== "undefined") {
+    const regex = new RegExp(keyword, "i");
+
+    const filterOptions: Record<FilterType, string[]> = {
+      통합검색: ["title", "author", "publisher"],
+      제목: ["title"],
+      title: ["title"],
+      저자: ["author"],
+      author: ["author"],
+    };
+
+    const searchFields = filterOptions[filter] || filterOptions["통합검색"];
+
+    if (searchFields.length > 1) {
+      query.$or = searchFields.map((field) => ({ [field]: { $regex: regex } }));
+    } else {
+      query[searchFields[0]] = { $regex: regex };
     }
   }
 

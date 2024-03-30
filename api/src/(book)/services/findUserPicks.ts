@@ -21,8 +21,9 @@ export const findUserPicks = async (
 ) => {
   try {
     const userData: IUserData | null = await UserData.findOne({
-      userId: req.query.userId,
+      userId: new RegExp(`^${req.query.userId}$`, "i"),
     });
+    console.log(userData);
 
     if (userData) {
       const preferredCategories = Object.keys(userData.category) as Array<
@@ -36,7 +37,9 @@ export const findUserPicks = async (
       return recommendedBooks;
     } else {
       if (!userData) {
-        return await findRandomPicks(next);
+        const randomPicks = await findRandomPicks(next);
+
+        return randomPicks;
       }
     }
   } catch (err) {

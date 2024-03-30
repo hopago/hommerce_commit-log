@@ -17,7 +17,9 @@ export const getFavorList = async (
 
     const favorList = await handleGetFavorList({ userId }, next);
 
-    return res.status(200).json(favorList);
+    if (favorList) {
+      return res.status(200).json(favorList);
+    }
   } catch (err) {
     next(err);
   }
@@ -34,7 +36,9 @@ export const postFavorList = async (
 
     const newFavorList = await handlePostFavorList(req, next);
 
-    return res.status(201).json(newFavorList);
+    if (newFavorList) {
+      return res.status(201).json(newFavorList);
+    }
   } catch (err) {
     next(err);
   }
@@ -51,7 +55,9 @@ export const updateFavorItem = async (
 
     const updatedFavorList = await handleUpdateFavorItem(req, next);
 
-    return res.status(201).json(updatedFavorList);
+    if (updatedFavorList) {
+      return res.status(201).json(updatedFavorList);
+    }
   } catch (err) {
     next(err);
   }
@@ -74,7 +80,9 @@ export const deleteFavorItem = async (
       next
     );
 
-    return res.status(201).json(deletedFavorList);
+    if (deletedFavorList) {
+      return res.status(201).json({ deletedFavorId: deletedFavorList._id });
+    }
   } catch (err) {
     next(err);
   }

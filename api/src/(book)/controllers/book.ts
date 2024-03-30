@@ -14,6 +14,8 @@ import mongoose from "mongoose";
 
 type FilterType = "통합검색" | "제목" | "저자";
 
+type SortType = "최신순" | "정확도순" | "조회순" | "오래된순";
+
 type PaginatedResponse = {
   pagination?:
     | {
@@ -31,9 +33,7 @@ export const getBooks = async (
 ) => {
   const filter = req.query.filter as FilterType | undefined;
   const keyword = req.query.keyword as string;
-  const sort = decodeURIComponent(req.query.sort as string) as
-    | "최신순"
-    | "오래된순";
+  const sort = decodeURIComponent(req.query.sort as string) as SortType;
   const pageNum = req.query.pageNum as number | undefined;
 
   try {

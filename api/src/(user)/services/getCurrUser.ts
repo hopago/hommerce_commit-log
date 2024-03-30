@@ -11,7 +11,7 @@ export const handleGetCurrUser = async (
 
   try {
     const currUser: any = await User.findOne({
-      id: userId,
+      id: { $regex: new RegExp(`^${userId}$`, "i") },
     });
     if (!currUser) throw new HttpException(404, "User not found.");
 
