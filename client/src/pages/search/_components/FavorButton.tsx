@@ -28,6 +28,10 @@ type FavorButtonProps = {
   imgHeight?: number;
 };
 
+type GetSubscriptionLengthResponse = {
+  docsLength: number;
+};
+
 export default function FavorButton({
   favorLength,
   bookId,
@@ -57,10 +61,24 @@ export default function FavorButton({
           img,
         },
       }),
-    onSuccess: () => {
-      queryClient.setQueryData(
+    onSuccess: (response: FavorList | undefined) => {
+      queryClient.setQueryData<FavorItem[]>(
+        [QueryKeys.USER_FAVOR_LIST, userId],
+        response?.books
+      );
+
+      queryClient.setQueryData<GetSubscriptionLengthResponse>(
         [QueryKeys.FAVOR_LENGTH, bookId],
-        favorLength ? favorLength + 1 : 1
+        (prev: GetSubscriptionLengthResponse | undefined) => {
+          if (prev) {
+            return {
+              ...prev,
+              docsLength: prev.docsLength + 1,
+            };
+          } else {
+            return prev;
+          }
+        }
       );
       queryClient.setQueryData(
         [QueryKeys.FAVOR_SUBSCRIPTION, bookId],

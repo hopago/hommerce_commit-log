@@ -11,13 +11,13 @@ export default function SearchResults({
   isLoading,
 }: SearchResultsProps) {
   return (
-    <>
+    <div className="search-results">
       <ul>
         {results?.books.map((book) => (
           <ResultItem key={book._id} book={book} />
         ))}
       </ul>
       <PaginateControl pageTotal={results?.pagination.totalPages ?? 0} />
-    </>
+    </div>
   );
 }

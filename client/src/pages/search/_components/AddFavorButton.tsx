@@ -3,6 +3,7 @@ import Button from "../../../_components/Button";
 import heart from "../../../assets/ico_heart.png";
 
 export default function AddFavorButton() {
+  // TODO: Search Favor many
   const onFavorClick = () => {};
 
   return (

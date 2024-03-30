@@ -74,7 +74,9 @@ export default function SearchBooks() {
         handleShow={toggleSortShow}
         totalBooks={searchResults?.pagination.totalBooks}
       />
-      <SearchResults isLoading={isLoading} results={searchResults} />
+      {searchResults && (
+        <SearchResults isLoading={isLoading} results={searchResults} />
+      )}
     </div>
   );
 }

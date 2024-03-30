@@ -13,14 +13,16 @@ export default function SearchWishListModalIndex() {
   return (
     <div className="search-wish-list">
       <div className="bg-fill" />
-      <div className="search-wish-list__wrap">
-        <div className="search-wish-list__wrap__header">
-          <h1>도서 검색</h1>
-          <button onClick={onClose}>
-            <MdClose />
-          </button>
+      <div className="search-wish-list__contents">
+        <div className="search-wish-list__contents__wrap">
+          <div className="search-wish-list__contents__wrap__header">
+            <h1>도서 검색</h1>
+            <button className="close-btn" type="button" onClick={onClose}>
+              <MdClose size={24} />
+            </button>
+          </div>
+          <SearchBooks />
         </div>
-        <SearchBooks />
       </div>
     </div>
   );

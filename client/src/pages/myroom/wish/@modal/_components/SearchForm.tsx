@@ -48,7 +48,7 @@ export default function SearchForm({
           placeholder="검색어를 입력해주세요."
           onChange={handleChange}
         />
-        <Button type="submit" icon={<MdSearch className="search-icon" />} />
+        <Button type="submit" icon={<MdSearch size={21} className="search-icon" />} />
       </form>
     </div>
   );

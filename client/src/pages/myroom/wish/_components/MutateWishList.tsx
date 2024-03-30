@@ -10,8 +10,10 @@ import { useDeleteFavor } from "../hooks/use-delete-favor";
 import { postError } from "../../../services/postError";
 import { toast } from "sonner";
 
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { searchWishList } from "../../../../recoil/modal/search-book";
+
+import { useModal } from "../../../hooks/use-modal";
 
 type MutateWishListProps = {
   totalIds: string[];
@@ -23,7 +25,7 @@ export default function MutateWishList({
   bookIds,
 }: MutateWishListProps) {
   const { user } = useUser();
-  const setSearchWishListModalShow = useSetRecoilState(searchWishList);
+  const [show, setShow] = useRecoilState(searchWishList);
 
   const { mutateAsync, isPending } = useDeleteFavor({
     bookIds,
@@ -43,7 +45,9 @@ export default function MutateWishList({
     }
   };
 
-  const showSearchModal = () => setSearchWishListModalShow(true);
+  useModal({ show, setShow });
+
+  const showSearchModal = () => setShow(true);
 
   return (
     <div className="mutate-wish-list-wrap">
