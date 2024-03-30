@@ -16,6 +16,7 @@ type SearchFormProps = {
   handleShow: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputValue: string;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export default function SearchForm({
@@ -27,10 +28,11 @@ export default function SearchForm({
   handleShow,
   handleChange,
   inputValue,
+  handleSubmit,
 }: SearchFormProps) {
   return (
     <div className="search-form-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <SelectList
           selectList={selectList}
           currSelect={currSelect}
@@ -48,7 +50,10 @@ export default function SearchForm({
           placeholder="검색어를 입력해주세요."
           onChange={handleChange}
         />
-        <Button type="submit" icon={<MdSearch size={21} className="search-icon" />} />
+        <Button
+          type="submit"
+          icon={<MdSearch size={21} className="search-icon" />}
+        />
       </form>
     </div>
   );

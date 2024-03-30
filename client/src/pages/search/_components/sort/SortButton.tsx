@@ -9,15 +9,10 @@ import { searchPageEnabled } from "../../../../recoil/api/search-page-enabled";
 import { useSelectMenu } from "../../../hooks/use-select-menu";
 
 import { MdArrowDropDown } from "react-icons/md";
+
 import { BookSortOption } from "../../../myroom/wish/hooks/use-search-form";
 
-const items: SearchSortList = [
-  "인기순",
-  "최신순",
-  "낮은가격순",
-  "높은가격순",
-  "리뷰평점순",
-];
+const items: BookSortOption[] = ["최신순", "정확도순", "조회순", "오래된순"];
 
 export default function SortButton() {
   const setEnabled = useSetRecoilState(searchPageEnabled);

@@ -51,6 +51,7 @@ export default function SearchBooks() {
     setFilter,
     sort,
     handleSort,
+    handleSubmit,
   } = useFilter<BookFilterOption, BookSortOption>(props);
 
   return (
@@ -64,6 +65,7 @@ export default function SearchBooks() {
         handleShow={toggleShow}
         handleChange={handleChange}
         inputValue={searchTerm}
+        handleSubmit={handleSubmit}
       />
       <SearchSort
         selectList={bookSortOptions}
@@ -74,9 +76,7 @@ export default function SearchBooks() {
         handleShow={toggleSortShow}
         totalBooks={searchResults?.pagination.totalBooks}
       />
-      {searchResults && (
-        <SearchResults isLoading={isLoading} results={searchResults} />
-      )}
+      <SearchResults isLoading={isLoading} results={searchResults} />
     </div>
   );
 }

@@ -27,7 +27,6 @@ import { useEffect } from "react";
 import noResults from "../../assets/img_no-results.png";
 
 import { getQueryClient } from "../../lib/react-query/getQueryClient";
-import { searchPageSortState } from "../../recoil/pagination/search/sort/sort";
 
 export default function SearchIndex() {
   const queryClient = getQueryClient();
@@ -36,10 +35,8 @@ export default function SearchIndex() {
 
   useModalDisplayState();
 
-  // TODO: SORT
   const { onSubmit, onChange, searchTerm } = useSearchForm();
   const filter = useRecoilValue<SearchType>(searchFilterState);
-  const sort = useRecoilValue(searchPageSortState);
   const [shouldRefetch, setShouldRefetch] = useRecoilState(searchPageEnabled);
 
   const { data, isLoading, isSuccess, isError, error, refetch } = useQuery({

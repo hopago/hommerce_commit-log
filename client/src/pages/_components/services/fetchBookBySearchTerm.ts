@@ -27,7 +27,7 @@ export const fetchBookBySearchTerm = async ({
   if (filter) {
     const filterEn = translateQueryValueToEn(filter);
     if (filterEn) {
-      queryParams.filterEn = filter;
+      queryParams.filter = filterEn;
     }
   }
 
