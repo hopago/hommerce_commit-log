@@ -2,12 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../lib/react-query/query-key";
 import { QueryFns } from "../../../lib/react-query/queryFn";
 import { daysToMs } from "../../../lib/react-query/utils";
+
 import { toast } from "sonner";
+
 import { useHandleError } from "../../hooks/use-handle-error";
+
 import { Skeleton } from "@nextui-org/skeleton";
 
+import { Link } from "react-router-dom";
+
 export default function MyWishListCard({ userId }: { userId: string }) {
-  const { data, isSuccess, error, isError } = useQuery({
+  const { data, isSuccess, isLoading, error, isError } = useQuery({
     queryKey: [QueryKeys.USER_FAVOR_LIST, userId],
     queryFn: () => QueryFns.GET_FAVOR_LIST(userId!),
     staleTime: daysToMs(1),
@@ -16,8 +21,6 @@ export default function MyWishListCard({ userId }: { userId: string }) {
   });
 
   useHandleError({ error, isError, fieldName: "위시리스트" });
-
-  const isLoading = true;
 
   if (isLoading) return <MyWishListCardLoadingComponent />;
 
@@ -43,7 +46,7 @@ export default function MyWishListCard({ userId }: { userId: string }) {
       return (
         <div className="my-wish-list">
           <h1>서재 목록</h1>
-          <div className="my-wish-list__content">
+          <Link to="/myroom/wish" className="my-wish-list__content link">
             <img
               src={data[data.length - 1].img}
               alt={data[data.length - 1].title}
@@ -55,7 +58,7 @@ export default function MyWishListCard({ userId }: { userId: string }) {
                 <span>{data.length}</span>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       );
     }

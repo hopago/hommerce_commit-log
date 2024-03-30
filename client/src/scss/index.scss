@@ -28,6 +28,9 @@
 // myroom/review
 @import 'review-logs';
 
+// myroom/wish
+@import "wish";
+
 // login page
 @import 'login';
 
@@ -347,6 +350,36 @@ textarea::placeholder {
     &.active {
         background-color: #5055b1;
         color: #fff;
+    }
+}
+
+.select-one {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: transparent;
+    border: none;
+    margin-right: 1rem;
+
+    .icon {
+        border: 1px solid rgba(0, 0, 0, 0.18);
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        transition: all 0.15s ease;
+        border-radius: 50%;
+
+        &.active {
+            border: 1px solid transparent;
+            background-color: $font-purple;
+            color: #FFF;
+        }
     }
 }
 

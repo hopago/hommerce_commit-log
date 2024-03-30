@@ -13,6 +13,7 @@ import BookCategoryIndex from "./pages/category/[lang]/[category]";
 import MyRoomIndex from "./pages/myroom";
 import MyRoomPointLogIndex from "./pages/myroom/point";
 import MyRoomReview from "./pages/myroom/review";
+import MyRoomWishListIndex from "./pages/myroom/wish";
 
 export const routes = [
   {
@@ -53,6 +54,10 @@ export const routes = [
         path: "/myroom/review",
         element: <MyRoomReview />,
         index: true,
+      },
+      {
+        path: "/myroom/wish",
+        element: <MyRoomWishListIndex />,
       },
     ],
   },

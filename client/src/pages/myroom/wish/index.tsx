@@ -1,17 +1,17 @@
-import GNB from "./_components/GNB";
-import MyPointLogsCard from "./_components/MyPointLogsCard";
-import MyWishListCard from "./_components/MyWishListCard";
-import UserProfile from "./_components/UserProfile";
-
 import { useRecoilValue } from "recoil";
-import { editUserModal } from "../../recoil/modal/edit-user";
-import UserEdit from "./@modal/userEdit/UserEdit";
-import { SearchSection } from "../_components";
+import { editUserModal } from "../../../recoil/modal/edit-user";
 
 import { useUser } from "@clerk/clerk-react";
+
 import { toast } from "sonner";
 
-export default function MyRoomIndex() {
+import { SearchSection } from "../../_components";
+import UserProfile from "../_components/UserProfile";
+import GNB from "../_components/GNB";
+import UserEdit from "../@modal/userEdit/UserEdit";
+import WishListContainer from "./_components/WishListContainer";
+
+export default function MyRoomWishListIndex() {
   const editShow = useRecoilValue(editUserModal);
 
   const { user } = useUser();
@@ -21,7 +21,6 @@ export default function MyRoomIndex() {
       "유저 정보를 불러오던 중 문제가 생겼어요.\n새로고침 이후 이용가능 합니다."
     );
   }
-
   if (user) {
     return (
       <>
@@ -33,8 +32,7 @@ export default function MyRoomIndex() {
               <GNB />
             </aside>
             <section>
-              <MyPointLogsCard userId={user.id!} />
-              <MyWishListCard userId={user.id!} />
+              <WishListContainer />
             </section>
           </div>
           {editShow && <UserEdit />}

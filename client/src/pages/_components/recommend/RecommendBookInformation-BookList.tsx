@@ -15,7 +15,7 @@ export default function RecommendBookInformationBookList() {
   const { user } = useUser();
 
   const { data, isSuccess, isError, error, isLoading } = useQuery({
-    queryKey: [QueryKeys.USER_PICKS],
+    queryKey: [QueryKeys.USER_PICKS, user?.id],
     queryFn: () => QueryFns.FETCH_USER_PICKS(user?.id),
     staleTime: daysToMs(7),
     gcTime: daysToMs(9),

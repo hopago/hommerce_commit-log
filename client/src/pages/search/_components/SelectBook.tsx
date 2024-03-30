@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { selectedBookState } from "../../../recoil/selected-book";
 
-import { MdCheck } from "react-icons/md";
-
-import { cn } from "../../../lib/utils";
+import CheckButton from "../../../_components/common/CheckButton";
 
 type SelectBookProps = {
   book: IBook;
@@ -33,13 +31,11 @@ export default function SelectBook({ book }: SelectBookProps) {
   }, [selectedBooks.length, book._id]);
 
   return (
-    <button
-      className={cn("select-button", isSelected && "active")}
+    <CheckButton
+      isActive={isSelected}
       onClick={handleSelectBook}
-    >
-      <span className="ico-wrap">
-        <MdCheck className="icon" />
-      </span>
-    </button>
+      margin={0}
+      padding={0}
+    />
   );
 }

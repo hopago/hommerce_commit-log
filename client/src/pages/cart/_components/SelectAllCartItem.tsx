@@ -1,5 +1,3 @@
-import { MdCheck } from "react-icons/md";
-
 import { useUser } from "@clerk/clerk-react";
 
 import { useRecoilState } from "recoil";
@@ -8,9 +6,9 @@ import {
   selectedCartProductState,
 } from "../../../recoil/cart/product-to-pay";
 
-import { cn } from "../../../lib/utils";
-
 import { getCartData } from "../utils/getCartData";
+
+import CheckButton from "../../../_components/common/CheckButton";
 
 export default function SelectAllCartItem() {
   const { user } = useUser();
@@ -36,22 +34,14 @@ export default function SelectAllCartItem() {
     }
   };
 
+  const isActive = selectedBooks?.length === cartData?.books?.length;
+  const buttonDisabled = !cartData || !user;
+
   return (
-    <button
-      type="button"
-      className="select-all"
+    <CheckButton
+      isActive={isActive}
       onClick={onClick}
-      disabled={!cartData || !user}
-    >
-      <div
-        className={cn(
-          "icon",
-          selectedBooks?.length === cartData?.books?.length && "active"
-        )}
-      >
-        <MdCheck />
-      </div>
-      <span>전체</span>
-    </button>
+      disabled={buttonDisabled}
+    />
   );
 }

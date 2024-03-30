@@ -6,11 +6,11 @@ import { createQueryString } from "../../../fetcher/utils";
 import { BEST_BOOKS_QUERY } from "../constants/best-books-query";
 
 export const fetchUserPicks = async (userId?: string | null | undefined) => {
-  const fetchTypeQuery = createQueryString({
+  let queryString = createQueryString({
     type: BEST_BOOKS_QUERY.USER_PICKS,
   });
 
-  let path = `/book/best?${fetchTypeQuery}`;
+  let path = `/book/best?${queryString}`;
 
   if (userId) {
     const userQuery = createQueryString({ userId });

@@ -1,11 +1,10 @@
-import { MdCheck } from "react-icons/md";
-
 import { useRecoilState } from "recoil";
 import {
   SelectedCartProductState,
   selectedCartProductState,
 } from "../../../recoil/cart/product-to-pay";
-import { cn } from "../../../lib/utils";
+
+import CheckButton from "../../../_components/common/CheckButton";
 
 type SelectOneCartItemProps = {
   bookId: string;
@@ -52,15 +51,5 @@ export default function SelectOneCartItem({
     setSelectedCartItem(updatedCartList);
   };
 
-  return (
-    <button
-      type="button"
-      className={cn("select-one", isActive && "active")}
-      onClick={onClick}
-    >
-      <div className="icon">
-        <MdCheck />
-      </div>
-    </button>
-  );
+  return <CheckButton isActive={isActive} onClick={onClick} />;
 }
