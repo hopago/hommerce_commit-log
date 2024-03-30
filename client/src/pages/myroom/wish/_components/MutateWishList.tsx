@@ -10,22 +10,22 @@ import { useDeleteFavor } from "../hooks/use-delete-favor";
 import { postError } from "../../../services/postError";
 import { toast } from "sonner";
 
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { searchWishList } from "../../../../recoil/modal/search-book";
+import { selectedMyRoomWishListState } from "../../../../recoil/myroom/selected-item";
 
 import { useModal } from "../../../hooks/use-modal";
 
 type MutateWishListProps = {
-  totalIds: string[];
   bookIds: string[];
 };
 
-export default function MutateWishList({
-  totalIds,
-  bookIds,
-}: MutateWishListProps) {
+export default function MutateWishList({ bookIds }: MutateWishListProps) {
   const { user } = useUser();
   const [show, setShow] = useRecoilState(searchWishList);
+
+  const selectedItems = useRecoilValue(selectedMyRoomWishListState);
+  const ids = selectedItems.map((item) => item.bookId);
 
   const { mutateAsync, isPending } = useDeleteFavor({
     bookIds,
@@ -33,11 +33,16 @@ export default function MutateWishList({
   });
 
   const onClick = async () => {
-    const isConfirmed = confirm("정말 모든 위시리스틀 삭제하시겠어요?");
+    if (!ids || !ids.length) {
+      toast.info("도서 선택 후 다시 시도해주세요.");
+      return;
+    }
+
+    const isConfirmed = confirm("정말 선택된 모든 위시리스틀 삭제하시겠어요?");
 
     if (isConfirmed) {
       try {
-        await mutateAsync({ userId: user?.id!, ids: totalIds });
+        await mutateAsync({ userId: user?.id!, ids });
         toast.success("모든 위시리스트가 성공적으로 삭제 됐습니다.");
       } catch (err) {
         postError(err);

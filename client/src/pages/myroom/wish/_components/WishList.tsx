@@ -3,6 +3,7 @@ import { selectedMyRoomWishListState } from "../../../../recoil/myroom/selected-
 
 import CheckButton from "../../../../_components/common/CheckButton";
 import WishItemActions from "./WishItemActions";
+
 import { Link } from "react-router-dom";
 
 type WishListProps = {
@@ -15,15 +16,34 @@ export default function WishList({ favorList }: WishListProps) {
   );
 
   const handleSelectItem = (item: FavorItem) => {
-    setSelectedItems([...selectedItems, item]);
+    setSelectedItems((prevSelectedItems) => {
+      const isExist = prevSelectedItems.some(
+        (prev) => prev.bookId === item.bookId
+      );
+
+      if (isExist) {
+        return prevSelectedItems.filter((prev) => prev.bookId !== item.bookId);
+      } else {
+        return [...prevSelectedItems, item];
+      }
+    });
   };
+
+  const setIsActive = (bookId: string) => {
+    return selectedItems.some((item) => item.bookId === bookId);
+  };
+
+  const reversedFavorList = [...favorList].reverse();
 
   return (
     <div className="prod-list">
       <ul>
-        {favorList.map((item) => (
+        {reversedFavorList.map((item) => (
           <li key={item.bookId}>
-            <CheckButton onClick={handleSelectItem} />
+            <CheckButton
+              onClick={() => handleSelectItem(item)}
+              isActive={setIsActive(item.bookId)}
+            />
             <Link to={`/details/${item.bookId}`} className="link">
               <img src={item.img} alt={item.title} />
             </Link>

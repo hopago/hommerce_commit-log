@@ -18,6 +18,9 @@ export default function SelectAll({ favorList }: SelectAllProps) {
 
   const isActive = selectedItems.length === favorList.length;
 
+  console.log(favorList.length);
+  console.log(selectedItems.length);
+
   return (
     <div className="select-all-wrap">
       <CheckButton onClick={onClick} isActive={isActive} />

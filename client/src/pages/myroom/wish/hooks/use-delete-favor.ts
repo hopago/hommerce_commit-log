@@ -20,7 +20,7 @@ export const useDeleteFavor = ({
   const { mutateAsync, isPending } = useMutation<
     | (
         | {
-            deletedFavorId: string;
+            deletedItemId: string;
           }
         | undefined
       )[]
@@ -36,7 +36,19 @@ export const useDeleteFavor = ({
 
         queryClient.setQueryData<FavorItem[]>(
           [QueryKeys.USER_FAVOR_LIST, userId],
-          []
+          (prevData: FavorItem[] | undefined) => {
+            if (prevData) {
+              const deletedIds = response
+                .map((resItem) => resItem?.deletedItemId)
+                .filter((id) => id !== undefined) as string[];
+
+              const filteredPrevData = prevData.filter(
+                (data) => !deletedIds.includes(data.bookId)
+              );
+              return filteredPrevData;
+            }
+            return prevData;
+          }
         );
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.FAVOR_SUBSCRIPTION],

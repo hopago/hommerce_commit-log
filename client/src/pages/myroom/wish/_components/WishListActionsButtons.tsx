@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { myRoomWishListTotalIds } from "../../../../recoil/myroom/selected-item";
 
 import MutateWishList from "./MutateWishList";
@@ -13,8 +13,8 @@ type WishListActionsButtonsProps = {
 export default function WishListActionsButtons({
   favorList,
 }: WishListActionsButtonsProps) {
-  const [totalIds, setTotalIds] = useRecoilState(myRoomWishListTotalIds);
-  const bookIds = favorList.map(item => item.bookId);
+  const setTotalIds = useSetRecoilState(myRoomWishListTotalIds);
+  const bookIds = favorList.map((item) => item.bookId);
 
   useEffect(() => {
     setTotalIds(favorList.map((list) => list.bookId));
@@ -24,7 +24,7 @@ export default function WishListActionsButtons({
     <div className="wish-list-container__actions">
       <div className="wish-list-container__actions__wrap">
         <SelectAll favorList={favorList} />
-        <MutateWishList totalIds={totalIds} bookIds={bookIds} />
+        <MutateWishList bookIds={bookIds} />
       </div>
     </div>
   );

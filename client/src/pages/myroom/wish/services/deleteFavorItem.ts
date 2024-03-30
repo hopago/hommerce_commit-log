@@ -8,7 +8,7 @@ export const deleteFavorItem = async (userId: string, bookId: string) => {
   const queryString = createQueryString({ bookId });
 
   try {
-    const response = await restFetcher<{ deletedFavorId: string }>({
+    const response = await restFetcher<{ deletedItemId: string }>({
       path: `/favor/${userId}?${queryString}`,
       method: "DELETE",
     });
