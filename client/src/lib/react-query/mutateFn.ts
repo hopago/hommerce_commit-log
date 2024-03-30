@@ -6,6 +6,7 @@ import { deleteReviewReply } from "../../pages/details/[bookId]/services/deleteR
 import { updateReview } from "../../pages/details/[bookId]/services/updateReview";
 import { updateUser } from "../../pages/myroom/@modal/userEdit/services/updateUser";
 import { deleteReviewByIds } from "../../pages/myroom/review/services/deleteReviewByIds";
+import { deleteFavorItemsByBookIds } from "../../pages/myroom/wish/services/deleteFavorItemsByBookIds";
 import { patchFavorItem } from "../../pages/search/services/patchFavorItem";
 import { updateCart } from "../../services/updateCart";
 
@@ -46,6 +47,8 @@ type UpdateUserProps = {
 };
 
 export const MutateFns = {
+  DELETE_FAVOR_ITEM_BY_IDS: (userId: string, ids: string[]) =>
+    deleteFavorItemsByBookIds(userId, ids),
   DELETE_REVIEW: ({ reviewId, userId }: DeleteReviewProps) =>
     deleteReview({ reviewId, userId }),
   DELETE_REVIEW_REPLY: ({ reviewId, userId }: DeleteReviewReplyProps) =>

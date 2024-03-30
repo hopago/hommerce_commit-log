@@ -21,6 +21,7 @@ export default function MyRoomWishListIndex() {
       "유저 정보를 불러오던 중 문제가 생겼어요.\n새로고침 이후 이용가능 합니다."
     );
   }
+  
   if (user) {
     return (
       <>
@@ -32,7 +33,7 @@ export default function MyRoomWishListIndex() {
               <GNB />
             </aside>
             <section>
-              <WishListContainer />
+              <WishListContainer userId={user.id} />
             </section>
           </div>
           {editShow && <UserEdit />}

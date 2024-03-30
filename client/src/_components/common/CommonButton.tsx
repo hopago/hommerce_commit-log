@@ -10,7 +10,7 @@ type ReuseButtonProps = {
   text?: PurchaseButtonText | FAQText | string;
   size: "sm" | "md" | "lg";
   icon?: JSX.Element | string;
-  onClick?: () => void | (() => Promise<void>);
+  onClick?: () => void | any;
   disabled?: boolean;
 };
 
