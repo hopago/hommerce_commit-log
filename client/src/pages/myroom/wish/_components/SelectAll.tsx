@@ -8,19 +8,20 @@ type SelectAllProps = {
 };
 
 export default function SelectAll({ favorList }: SelectAllProps) {
-  const [selectedIds, setSelectedIds] = useRecoilState(
+  const [selectedItems, setSelectedItems] = useRecoilState(
     selectedMyRoomWishListState
   );
 
   const onClick = () => {
-    setSelectedIds(favorList);
+    setSelectedItems(favorList);
   };
 
-  const isActive = selectedIds.length === favorList.length;
+  const isActive = selectedItems.length === favorList.length;
 
   return (
     <div className="select-all-wrap">
       <CheckButton onClick={onClick} isActive={isActive} />
+      <span>전체 선택</span>
     </div>
   );
 }

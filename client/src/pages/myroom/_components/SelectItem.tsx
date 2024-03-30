@@ -5,18 +5,26 @@ import { cn } from "../../../lib/utils";
 import { PointFilterOption } from "../point/services/getUserPointLog";
 import { ReviewFilterOption } from "../../../recoil/pagination/search/filter/filter";
 import { ReviewSortOption } from "../review/_components/SortReview";
+import {
+  BookFilterOption,
+  BookSortOption,
+} from "../wish/hooks/use-search-form";
 
 type SelectItemProps = {
   selectList:
     | PointFilterOption[]
     | BookSubCategoryList
     | ReviewFilterOption[]
-    | ReviewSortOption[];
+    | ReviewSortOption[]
+    | BookFilterOption[]
+    | BookSortOption[];
   currSelect:
     | PointFilterOption
     | BookSubCategory
     | ReviewFilterOption
-    | ReviewSortOption;
+    | ReviewSortOption
+    | BookFilterOption
+    | BookSortOption;
   handleItemClick: (param: any) => void;
   className?: string;
 };

@@ -9,15 +9,26 @@ import { MdArrowDropDown } from "react-icons/md";
 import { PointFilterOption } from "../point/_component/FilterPointLogs";
 import { ReviewFilterOption } from "../../../recoil/pagination/search/filter/filter";
 import { ReviewSortOption } from "../review/_components/SortReview";
+import {
+  BookFilterOption,
+  BookSortOption,
+} from "../wish/hooks/use-search-form";
 
 // 사용시 타입 추가
 type SelectListProps = {
-  selectList: PointFilterOption[] | ReviewFilterOption[] | ReviewSortOption[];
+  selectList:
+    | PointFilterOption[]
+    | ReviewFilterOption[]
+    | ReviewSortOption[]
+    | BookFilterOption[]
+    | BookSortOption[];
   currSelect:
     | PointFilterOption
     | BookSubCategory
     | ReviewFilterOption
-    | ReviewSortOption;
+    | ReviewSortOption
+    | BookFilterOption
+    | BookSortOption;
   handleItemClick: (param: any) => void;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;

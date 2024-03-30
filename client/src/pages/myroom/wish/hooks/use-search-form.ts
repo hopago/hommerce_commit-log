@@ -50,7 +50,7 @@ export const useDebouncedSearchFormWithFilter = ({
     setSearchTerm,
     handleChange,
     isLoading,
-    searchResults: searchResults?.books,
+    searchResults,
     error,
   };
 };

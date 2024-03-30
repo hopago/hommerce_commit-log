@@ -1,4 +1,4 @@
-import { MdPlusOne } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 
 import Button from "../../../../_components/common/Button";
@@ -49,16 +49,17 @@ export default function MutateWishList({
     <div className="mutate-wish-list-wrap">
       <Button
         text="도서 추가"
-        icon={<MdPlusOne />}
+        icon={<MdAdd size={18} />}
         type="button"
         onClick={showSearchModal}
+        className="wish-list"
       />
       <ReuseButton
         style="default"
         text="삭제"
-        icon={<FaTrash />}
+        icon={<FaTrash color="#444" />}
         type="button"
-        size="sm"
+        size="md"
         onClick={onClick}
         disabled={isPending}
       />

@@ -10,6 +10,7 @@ import { searchPageSortState } from "../../../../../recoil/pagination/search/sor
 import { wishFilterState } from "../../../../../recoil/pagination/search/filter/filter";
 import { myRoomSearchEnabledState } from "../../../../../recoil/pagination/enabled/enabled";
 import { currentPageState } from "../../../../../recoil/pagination/pageNum/paginate";
+
 import { bookFilterOptions } from "../../../../constants/filter";
 import { bookSortOptions } from "../../../../constants/sort";
 
@@ -71,8 +72,9 @@ export default function SearchBooks() {
         show={sortShow}
         setShow={setSortShow}
         handleShow={toggleSortShow}
+        totalBooks={searchResults?.pagination.totalBooks}
       />
-      <SearchResults isLoading={isLoading} books={searchResults} />
+      <SearchResults isLoading={isLoading} results={searchResults} />
     </div>
   );
 }
