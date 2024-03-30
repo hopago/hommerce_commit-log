@@ -55,7 +55,7 @@ export default function FilterReviewLogs() {
     searchTerm,
     handleSearch,
     handleSubmit,
-  } = useFilter<ReviewFilterOption>(props);
+  } = useFilter<ReviewFilterOption, "최신순" | "오래된순">(props);
 
   return (
     <div className="filter">
@@ -71,7 +71,7 @@ export default function FilterReviewLogs() {
         />
         <Input
           type="text"
-          value={searchTerm}
+          value={searchTerm!}
           placeholder="검색어를 입력해주세요."
           onChange={handleSearch}
           className="point-log"

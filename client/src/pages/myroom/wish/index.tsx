@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { editUserModal } from "../../../recoil/modal/edit-user";
+import { searchWishList } from "../../../recoil/modal/search-book";
 
 import { useUser } from "@clerk/clerk-react";
 
@@ -10,9 +11,11 @@ import UserProfile from "../_components/UserProfile";
 import GNB from "../_components/GNB";
 import UserEdit from "../@modal/userEdit/UserEdit";
 import WishListContainer from "./_components/WishListContainer";
+import SearchWishListModalIndex from "./@modal";
 
 export default function MyRoomWishListIndex() {
   const editShow = useRecoilValue(editUserModal);
+  const searchShow = useRecoilValue(searchWishList);
 
   const { user } = useUser();
 
@@ -21,7 +24,7 @@ export default function MyRoomWishListIndex() {
       "유저 정보를 불러오던 중 문제가 생겼어요.\n새로고침 이후 이용가능 합니다."
     );
   }
-  
+
   if (user) {
     return (
       <>
@@ -37,6 +40,7 @@ export default function MyRoomWishListIndex() {
             </section>
           </div>
           {editShow && <UserEdit />}
+          {searchShow && <SearchWishListModalIndex />}
         </main>
       </>
     );

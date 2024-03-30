@@ -10,7 +10,13 @@ type GetSubscriptionLengthResponse = {
   docsLength: number;
 };
 
-export const useDeleteFavor = ({ bookIds }: { bookIds: string[] }) => {
+export const useDeleteFavor = ({
+  bookIds,
+  userId,
+}: {
+  bookIds: string[];
+  userId: string;
+}) => {
   const { mutateAsync, isPending } = useMutation<
     | (
         | {
@@ -28,6 +34,10 @@ export const useDeleteFavor = ({ bookIds }: { bookIds: string[] }) => {
       if (response && Array.isArray(response)) {
         const queryClient = getQueryClient();
 
+        queryClient.setQueryData<FavorItem[]>(
+          [QueryKeys.USER_FAVOR_LIST, userId],
+          []
+        );
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.FAVOR_SUBSCRIPTION],
         });

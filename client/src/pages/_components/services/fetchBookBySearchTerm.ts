@@ -5,11 +5,13 @@ import {
   translateQueryValueToEn,
 } from "../../../fetcher/utils";
 
+import { BookSortOption } from "../../myroom/wish/hooks/use-search-form";
+
 type FetchBookBySearchTermParams = {
   filter?: SearchType;
   searchTerm?: string;
   pageNum?: number;
-  sort?: SearchSort;
+  sort?: SearchSort | BookSortOption;
 };
 
 export const fetchBookBySearchTerm = async ({

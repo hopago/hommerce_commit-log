@@ -26,6 +26,7 @@ import {
 import { getFavorList } from "../../pages/myroom/services/getFavorList";
 import { getUser } from "../../pages/myroom/services/getUser";
 import { getUserPoint } from "../../pages/myroom/services/getUserPoint";
+import { BookSortOption } from "../../pages/myroom/wish/hooks/use-search-form";
 import { getIsSubscribed } from "../../pages/search/services/getIsSubscribed";
 import { getResultsTotal } from "../../pages/search/services/getResultsTotal";
 import { getReviewTotalByBookId } from "../../pages/search/services/getReviewTotalByBookId";
@@ -49,7 +50,7 @@ type BookSearchResultsProps = {
   filter?: SearchType;
   searchTerm?: string;
   pageNum?: number;
-  sort?: SearchSort;
+  sort?: SearchSort | BookSortOption;
 };
 
 type BookSearchResultsLengthProps = {

@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 import { cn } from "../lib/utils";
 
 import { ReviewSortOptions } from "../recoil/review/review-select";
+import { BookSortOption } from "../pages/myroom/wish/hooks/use-search-form";
 
 type SelectItemsProps = {
   type: "review" | "search";
@@ -10,8 +11,8 @@ type SelectItemsProps = {
   direction: "top" | "bottom";
   className?: string;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  onReviewSortOptionClick?: (text: ReviewSortOptions) => void;
-  onSearchSortOptionClick?: (option: SearchSort) => void;
+  onReviewSortOptionClick?: (text: ReviewSortOptions | BookSortOption) => void;
+  onSearchSortOptionClick?: (option: any) => void;
 };
 
 const SelectItems = forwardRef<HTMLDivElement, SelectItemsProps>(
@@ -37,15 +38,14 @@ const SelectItems = forwardRef<HTMLDivElement, SelectItemsProps>(
     };
 
     const handleSearchSortOptionClick = (item: unknown) => {
-      const validItem: SearchSort[] = [
-        "인기순",
+      const validItem: BookSortOption[] = [
         "최신순",
-        "낮은가격순",
-        "높은가격순",
-        "리뷰평점순",
+        "정확도순",
+        "오래된순",
+        "조회순",
       ];
 
-      if (validItem.includes(item as SearchSort)) {
+      if (validItem.includes(item as BookSortOption)) {
         onSearchSortOptionClick && onSearchSortOptionClick(item as SearchSort);
       }
     };

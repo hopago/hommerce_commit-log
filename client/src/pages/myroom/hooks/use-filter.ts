@@ -4,19 +4,19 @@ import { SetterOrUpdater } from "recoil";
 
 import { toast } from "sonner";
 
-interface UseFilterProps<T> {
-  sortState: "최신순" | "오래된순";
+interface UseFilterProps<T, S> {
+  sortState: S;
   filterState: T;
-  searchTermState: string;
+  searchTermState?: string;
   enabledState: boolean;
-  setSortState: SetterOrUpdater<"최신순" | "오래된순">;
+  setSortState: SetterOrUpdater<S>;
   setFilterState: SetterOrUpdater<T>;
-  setSearchTermState: SetterOrUpdater<string>;
+  setSearchTermState?: SetterOrUpdater<string>;
   setEnabledState: SetterOrUpdater<boolean>;
-  resetSearchState: () => void;
+  resetSearchState?: () => void;
 }
 
-export function useFilter<T>(props: UseFilterProps<T>) {
+export function useFilter<T, S>(props: UseFilterProps<T, S>) {
   const {
     filterState: filter,
     setFilterState: setFilter,
@@ -29,28 +29,30 @@ export function useFilter<T>(props: UseFilterProps<T>) {
   } = props;
 
   const [show, setShow] = useState(false);
+  const [sortShow, setSortShow] = useState(false);
 
   const toggleShow = useCallback(() => setShow((prev) => !prev), []);
+  const toggleSortShow = useCallback(() => setSortShow((prev) => !prev), []);
 
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm && setSearchTerm(e.target.value);
   }, []);
 
-  const handleSort = useCallback((sort: "최신순" | "오래된순") => {
+  const handleSort = useCallback((sort: S) => {
     setSort(sort);
     setEnabled(true);
     setShow(false);
   }, []);
 
   const handleReset = useCallback(() => {
-    resetSearchState();
+    resetSearchState && resetSearchState();
     setShow(false);
   }, [resetSearchState]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (filter && searchTerm.trim() === "") {
+    if (filter && searchTerm?.trim() === "") {
       toast.message("검색어를 입력해주세요.");
     }
 
@@ -69,7 +71,11 @@ export function useFilter<T>(props: UseFilterProps<T>) {
     show,
     setShow,
     toggleShow,
+    sortShow,
+    setSortShow,
+    toggleSortShow,
     sort,
+    setSort,
     handleSort,
     handleSearch,
     handleReset,

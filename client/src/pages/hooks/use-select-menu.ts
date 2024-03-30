@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { BookSortOption } from "../myroom/wish/hooks/use-search-form";
 
 type UseSelectRefProps = {
   selectRef: React.RefObject<HTMLDivElement | HTMLButtonElement>;
   selectListRef: React.RefObject<HTMLDivElement | HTMLButtonElement>;
-  select: SearchType | SearchSort;
+  select: SearchType | SearchSort | BookSortOption;
 };
 
 export const useSelectMenu = ({

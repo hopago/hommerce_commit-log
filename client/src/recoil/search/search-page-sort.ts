@@ -1,6 +1,8 @@
 import { atom } from "recoil";
 
-export const searchSortState = atom<SearchSort>({
+import { BookSortOption } from "../../pages/myroom/wish/hooks/use-search-form";
+
+export const searchSortState = atom<BookSortOption>({
   key: "searchSortState",
-  default: "인기순",
+  default: "정확도순",
 });

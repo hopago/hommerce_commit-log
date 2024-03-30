@@ -9,6 +9,7 @@ import { searchPageEnabled } from "../../../../recoil/api/search-page-enabled";
 import { useSelectMenu } from "../../../hooks/use-select-menu";
 
 import { MdArrowDropDown } from "react-icons/md";
+import { BookSortOption } from "../../../myroom/wish/hooks/use-search-form";
 
 const items: SearchSortList = [
   "인기순",
@@ -38,7 +39,7 @@ export default function SortButton() {
     setShow((prev) => !prev);
   };
 
-  const onSearchSortOptionClick = (item: SearchSort) => {
+  const onSearchSortOptionClick = (item: BookSortOption) => {
     setSort(item);
     setEnabled(true);
   };

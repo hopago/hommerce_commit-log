@@ -7,8 +7,11 @@ import ReuseButton from "../../../../_components/common/CommonButton";
 import { useUser } from "@clerk/clerk-react";
 
 import { useDeleteFavor } from "../hooks/use-delete-favor";
-import { toast } from "sonner";
 import { postError } from "../../../services/postError";
+import { toast } from "sonner";
+
+import { useSetRecoilState } from "recoil";
+import { searchWishList } from "../../../../recoil/modal/search-book";
 
 type MutateWishListProps = {
   totalIds: string[];
@@ -20,8 +23,12 @@ export default function MutateWishList({
   bookIds,
 }: MutateWishListProps) {
   const { user } = useUser();
+  const setSearchWishListModalShow = useSetRecoilState(searchWishList);
 
-  const { mutateAsync, isPending } = useDeleteFavor({ bookIds });
+  const { mutateAsync, isPending } = useDeleteFavor({
+    bookIds,
+    userId: user?.id!,
+  });
 
   const onClick = async () => {
     const isConfirmed = confirm("정말 모든 위시리스틀 삭제하시겠어요?");
@@ -36,9 +43,16 @@ export default function MutateWishList({
     }
   };
 
+  const showSearchModal = () => setSearchWishListModalShow(true);
+
   return (
     <div className="mutate-wish-list-wrap">
-      <Button text="도서 추가" icon={<MdPlusOne />} type="button" />
+      <Button
+        text="도서 추가"
+        icon={<MdPlusOne />}
+        type="button"
+        onClick={showSearchModal}
+      />
       <ReuseButton
         style="default"
         text="삭제"

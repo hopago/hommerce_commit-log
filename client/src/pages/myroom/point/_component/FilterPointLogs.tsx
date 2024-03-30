@@ -51,7 +51,7 @@ export default function FilterPointLogs() {
     searchTerm,
     handleSearch,
     handleSubmit,
-  } = useFilter<PointFilterOption>(props);
+  } = useFilter<PointFilterOption, "최신순" | "오래된순">(props);
 
   return (
     <div className="filter">
@@ -68,7 +68,7 @@ export default function FilterPointLogs() {
         />
         <Input
           type="text"
-          value={searchTerm}
+          value={searchTerm!}
           placeholder="검색어를 입력해주세요."
           onChange={handleSearch}
           className="point-log"
