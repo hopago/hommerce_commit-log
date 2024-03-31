@@ -3,9 +3,9 @@ export interface IUser {
   id: string;
   username: string;
   imageUrl: string;
-  email: string; // req.body
-  grade: UserGrade; // default 일반회원
-  status: UserStatus; // default 활성화, 한달 접속 X -> 휴면 -> 이메일 인증
+  email: string;
+  grade: UserGrade;
+  status: UserStatus;
   createdAt: Date;
   updatedAt: Date;
 }

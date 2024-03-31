@@ -43,19 +43,12 @@ export const useUserPointLogMutation = () => {
     HttpError | Error | unknown,
     { pointId: string; userId: string; amount?: number; desc?: string }
   >({
-    mutationKey: [QueryKeys.USER_POINT_LOG],
+    mutationKey: [QueryKeys.USER_POINT_LOG, currentPage],
     mutationFn: ({ pointId, userId, amount, desc }) =>
       updatePointLog({ pointId, userId, amount, desc }),
     onSuccess: (mutatedLogs) => {
       queryClient.setQueryData(
-        [
-          QueryKeys.USER_POINT_LOG,
-          mutatedLogs.userId,
-          sort,
-          filter,
-          searchTerm,
-          currentPage,
-        ],
+        [QueryKeys.USER_POINT_LOG, currentPage],
         mutatedLogs
       );
       toast.success("포인트 변경을 성공적으로 마쳤어요.");

@@ -19,6 +19,7 @@ import { fetchUserPointLog } from "../services/fetchUserPointLog";
 import { DataTableSkeleton } from "../../../../books/_components/BooksSearchResults";
 
 import { useEffect } from "react";
+import { useScrollRef } from "../../../../hooks/use-scroll-ref";
 
 type UserPointLogsProps = {
   userId: string;
@@ -58,11 +59,11 @@ export default function UserPointLogs({ userId }: UserPointLogsProps) {
   useEffect(() => {
     if (enabled) {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.BOOK, currentPage],
+        queryKey: [QueryKeys.USER_POINT_LOG, currentPage],
       });
       refetch();
     }
-  }, [enabled, searchTerm, sort]);
+  }, [enabled, sort]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -71,6 +72,8 @@ export default function UserPointLogs({ userId }: UserPointLogsProps) {
   }, [isSuccess]);
 
   useHandleError({ error, isError, fieldName: "포인트" });
+
+  const { scrollRef } = useScrollRef({ currentPage });
 
   if (isLoading) return <DataTableSkeleton />;
 
@@ -84,13 +87,14 @@ export default function UserPointLogs({ userId }: UserPointLogsProps) {
           isRefetching={isRefetching}
           isRefetchError={isRefetchError}
           queryKey={[QueryKeys.USER_POINT_LOG, userId]}
+          fieldName="포인트 기록"
         />
       </div>
     );
 
   if (isSuccess && data?.pointsLogs.length) {
     return (
-      <div className={styles.pointsLogs}>
+      <div className={styles.pointsLogs} ref={scrollRef}>
         <h1>포인트 기록</h1>
         <UserPoint userId={userId} />
         <FilterPointLogs />

@@ -11,7 +11,6 @@ export default function SearchResults({ searchResults }: SearchResultsProps) {
   const renderItem = (item: TSearchResult) => {
     if (Array.isArray(item)) {
       const [key, value] = item;
-      console.log(key, value);
       return (
         <li key={key} className={styles.searchItem} onClick={value}>
           <button className={BUTTON_CLASS.STYLE_NONE}>

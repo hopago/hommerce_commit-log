@@ -16,14 +16,14 @@ export type PointFilterOption =
   | "지급 내용"
   | "지급량";
 
-export default function FilterPointLogs() {
-  const filterOptions: PointFilterOption[] = [
-    "검색 옵션",
-    "포인트 아이디",
-    "지급 내용",
-    "지급량",
-  ];
+const filterOptions: PointFilterOption[] = [
+  "검색 옵션",
+  "포인트 아이디",
+  "지급 내용",
+  "지급량",
+];
 
+export default function FilterPointLogs() {
   const props = creatorFilterPoints();
 
   const {

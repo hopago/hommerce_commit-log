@@ -56,7 +56,6 @@ export default function Button({
   let btnIcon = icon;
 
   if ((icon || text) && display === "none") {
-    console.log("text & display-none props coexisted, is it intended?");
     return null;
   }
 

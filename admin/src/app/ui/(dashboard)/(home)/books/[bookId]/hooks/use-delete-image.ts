@@ -26,7 +26,6 @@ export const useDeleteImage = ({
       err instanceof UploadThingError
         ? `이미지를 삭제 하던 중 에러가 발생했어요.\n${err.code}: ${err.message}`
         : "이미지를 삭제 하던 중 에러가 발생했어요.";
-    console.log(errorMessage);
     toast.error(errorMessage);
   };
 
@@ -48,7 +47,6 @@ export const useDeleteImage = ({
     try {
       await processDelete(imageUrl);
     } catch (err) {
-      console.log(err);
       displayError(err);
       setIsPending(false);
       return;

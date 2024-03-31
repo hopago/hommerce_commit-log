@@ -22,8 +22,6 @@ type UserSessionLogsProps = {
   userId: string;
 };
 
-// 유료 플랜 구독시 세션 추가
-
 export default function UserSessionLogs({ userId }: UserSessionLogsProps) {
   const { data, isLoading, isSuccess, isError, error } = useQuery<Date>({
     queryKey: [QueryKeys.USER_SESSION, userId],

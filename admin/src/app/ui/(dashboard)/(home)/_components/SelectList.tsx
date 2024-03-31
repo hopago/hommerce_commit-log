@@ -17,8 +17,6 @@ import { SortOption } from "../users/management/[username]/_components/ReviewCon
 import { PointFilterOption } from "../users/management/[username]/_components/FilterPointLogs";
 import { BookFilterOption } from "../books/_components/FilterBooks";
 
-// 사용시 타입 추가
-
 type SelectListProps = {
   selectList:
     | LogTabList[]

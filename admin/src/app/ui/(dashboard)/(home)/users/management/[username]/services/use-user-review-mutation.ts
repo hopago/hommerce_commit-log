@@ -22,7 +22,7 @@ export const useUserReviewMutation = ({ userId }: { userId: string }) => {
   const { currentPage } = useCreatorPagination();
 
   const { mutate, isPending } = useMutation<
-    string | string[],
+    string[],
     HttpError | Error | unknown,
     string | string[]
   >({
@@ -38,19 +38,11 @@ export const useUserReviewMutation = ({ userId }: { userId: string }) => {
       const idsArray = Array.isArray(ids) ? ids : [ids];
       const prevReviews = queryClient.getQueryData<ReviewLogs>([
         QueryKeys.USER_REVIEW,
-        filter,
-        searchTerm,
+        currentPage,
       ]);
       if (!prevReviews) {
         await queryClient.invalidateQueries({
-          queryKey: [
-            QueryKeys.USER_REVIEW,
-            userId,
-            sort,
-            filter,
-            searchTerm,
-            currentPage,
-          ],
+          queryKey: [QueryKeys.USER_REVIEW, currentPage],
         });
         return;
       }
@@ -60,7 +52,7 @@ export const useUserReviewMutation = ({ userId }: { userId: string }) => {
       );
 
       queryClient.setQueryData(
-        [QueryKeys.USER_REVIEW, filter, searchTerm],
+        [QueryKeys.USER_REVIEW, currentPage],
         filteredReviews
       );
       toast.success("리뷰 삭제를 성공적으로 마쳤어요.");

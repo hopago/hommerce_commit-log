@@ -15,6 +15,7 @@ import { creatorFilterReviews } from "@/app/store/use-filter";
 import { DataTableSkeleton } from "../../../../books/_components/BooksSearchResults";
 
 import { useEffect } from "react";
+import { useScrollRef } from "../../../../hooks/use-scroll-ref";
 
 export default function ReviewLogs({ userId }: { userId: string }) {
   const { filter, searchTerm, sort, enabled, setEnabled } =
@@ -50,11 +51,11 @@ export default function ReviewLogs({ userId }: { userId: string }) {
   useEffect(() => {
     if (enabled) {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.BOOK, currentPage],
+        queryKey: [QueryKeys.USER_REVIEW, currentPage],
       });
       refetch();
     }
-  }, [enabled, searchTerm, sort]);
+  }, [enabled, sort]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -64,9 +65,11 @@ export default function ReviewLogs({ userId }: { userId: string }) {
 
   useHandleError({ error, isError, fieldName: "리뷰" });
 
+  const { scrollRef } = useScrollRef({ currentPage });
+
   if (isLoading) return <DataTableSkeleton />;
 
-  if (!data?.reviews?.length)
+  if (isSuccess && !data?.reviews?.length)
     return (
       <NoContent
         queryKey={[QueryKeys.USER_REVIEW, userId]}
@@ -74,12 +77,13 @@ export default function ReviewLogs({ userId }: { userId: string }) {
         error={error}
         isRefetching={isRefetching}
         isRefetchError={isRefetchError}
+        fieldName="리뷰"
       />
     );
 
-  if (data?.reviews?.length) {
+  if (isSuccess && data?.reviews?.length) {
     return (
-      <>
+      <div ref={scrollRef}>
         <FilterReviewLogs />
         <ReviewLogTable
           userId={userId}
@@ -88,7 +92,7 @@ export default function ReviewLogs({ userId }: { userId: string }) {
           dataLength={data?.pagination.totalReviews!}
         />
         <PaginateControl pageTotal={data?.pagination.totalPages!} />
-      </>
+      </div>
     );
   }
 }

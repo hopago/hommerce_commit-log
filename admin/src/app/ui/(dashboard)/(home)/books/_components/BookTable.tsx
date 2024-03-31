@@ -5,7 +5,7 @@ import styles from "./book-search.module.css";
 import { TableRowSkeleton } from "../../users/management/[username]/_components/TableRowSkeleton";
 
 import { BookRowAsync } from "./BookRow";
-import SortReview, {
+import SortDataButton, {
   SortDataButtonSkeleton,
 } from "../../_components/SortDataButton";
 
@@ -32,7 +32,7 @@ export default function BookTable({
   return (
     <div className={styles.tableContainer}>
       <div className={styles.tableWrap}>
-        <SortReview
+        <SortDataButton
           dataLength={dataLength}
           sort={sort}
           handleSort={handleSort}

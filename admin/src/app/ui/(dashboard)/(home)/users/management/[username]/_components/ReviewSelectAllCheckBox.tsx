@@ -30,7 +30,7 @@ export default function ReviewSelectAllCheckBox({
 
   useEffect(() => {
     setTotalLength(ids.length);
-  }, [ids]);
+  }, [ids.length]);
 
   useEffect(() => {
     if (stateIds.length === totalLength) {

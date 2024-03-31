@@ -21,7 +21,6 @@ export const usePostImage = ({
   const [isPending, setIsPending] = useState(false);
 
   const displayError = (err: unknown) => {
-    console.log("calc");
     const errorMessage =
       err instanceof UploadThingError
         ? `이미지를 게시 하던 중 에러가 발생했어요.\n${err.code}: ${err.message}`

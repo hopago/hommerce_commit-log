@@ -17,7 +17,7 @@ export default function Body({ body }: BodyProps) {
   useEffect(() => {
     const debouncedSet = setTimeout(() => {
       setInputValue(inputValue);
-    }, 1000);
+    }, 1500);
 
     return () => clearTimeout(debouncedSet);
   }, [inputValue]);

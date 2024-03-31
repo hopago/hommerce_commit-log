@@ -60,7 +60,7 @@ export default function BooksSearchResults() {
       });
       refetch();
     }
-  }, [enabled, searchTerm, sort]);
+  }, [enabled, sort]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -74,7 +74,7 @@ export default function BooksSearchResults() {
 
   if (isLoading) return <DataTableSkeleton />;
 
-  if (data && isBookData(data)) {
+  if (isSuccess && data && isBookData(data)) {
     if (!data.books.length) {
       return (
         <div className={styles.container} ref={scrollRef}>
@@ -86,13 +86,14 @@ export default function BooksSearchResults() {
               error={error}
               isRefetching={isRefetching}
               isRefetchError={isRefetchError}
+              fieldName="도서"
             />
           </div>
         </div>
       );
     }
 
-    if (data.books.length) {
+    if (isSuccess && data.books.length) {
       return (
         <div className={styles.container} ref={scrollRef}>
           <div className={styles.wrapper}>

@@ -28,6 +28,7 @@ type NoContentProps = {
   isRefetching: boolean;
   isRefetchError: boolean;
   queryKey: QueryKey;
+  fieldName: string;
 };
 
 export function NoContent({
@@ -37,6 +38,7 @@ export function NoContent({
   isRefetching,
   isRefetchError,
   queryKey,
+  fieldName = "리뷰",
 }: NoContentProps) {
   const queryClient = getQueryClient();
 
@@ -62,7 +64,7 @@ export function NoContent({
 
   const onClick = isRefetchError ? () => router.refresh() : handleRefetch();
 
-  useHandleError({ error, isError: isRefetchError, fieldName: "리뷰" });
+  useHandleError({ error, isError: isRefetchError, fieldName });
 
   const buttonIcon = isRefetching ? (
     <FaSpinner className={styles.loadingIcon} />
