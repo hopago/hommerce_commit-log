@@ -3,6 +3,7 @@ import Cart from "../models/cart";
 import { HttpException } from "../../../middleware/error/utils";
 import User from "../../model/user";
 import { handleDatabaseOperation } from "../../../utils/db-operation";
+import { ICart } from "../models/cart";
 
 export const handleGetCartList = async (req: Request, next: NextFunction) => {
   try {

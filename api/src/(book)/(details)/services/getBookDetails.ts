@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import BookDetails from "../models/detail";
 import { HttpException } from "../../../middleware/error/utils";
 
+import { IDetails } from "../models/detail";
+
 export const handleGetBookDetails = async (
   req: Request,
   next: NextFunction

@@ -1,6 +1,6 @@
 import { Schema, model, Document } from "mongoose";
 
-interface IDetails extends Document {
+export interface IDetails extends Document {
   bookId: string;
   awards: string[];
   intro: string;

@@ -3,6 +3,8 @@ import BookDetails from "../models/detail";
 import { isFieldsFullFilled } from "../../../utils/isFieldsFullFilled";
 import { HttpException } from "../../../middleware/error/utils";
 
+import { IDetails } from "../models/detail";
+
 export const handlePostBookDetails = async (
   req: Request,
   next: NextFunction

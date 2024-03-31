@@ -34,12 +34,17 @@ export const getBooks = async (
   const filter = req.query.filter as FilterType | undefined;
   const keyword = req.query.keyword as string;
   const sort = decodeURIComponent(req.query.sort as string) as SortType;
-  const pageNum = req.query.pageNum as number | undefined;
+  const pageNum = req.query.pageNum as string | undefined;
 
   try {
     const books: PaginatedResponse | undefined =
       await handleGetBooksBySearchTerm(
-        { keyword: decodeURIComponent(keyword), filter, sort, pageNum },
+        {
+          keyword: decodeURIComponent(keyword),
+          filter,
+          sort,
+          pageNum: Number(pageNum),
+        },
         next
       );
 

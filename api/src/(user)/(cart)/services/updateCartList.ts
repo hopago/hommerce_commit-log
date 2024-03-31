@@ -4,6 +4,8 @@ import { HttpException } from "../../../middleware/error/utils";
 import { validateFields } from "../../../utils/validateFields";
 import { isFieldsFullFilled } from "../../../utils/isFieldsFullFilled";
 
+import { ICart } from "../models/cart";
+
 export const handleUpdateCartList = async (
   req: Request,
   next: NextFunction

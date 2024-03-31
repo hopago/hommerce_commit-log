@@ -2,6 +2,8 @@ import { NextFunction, Request } from "express";
 import { HttpException } from "../../../middleware/error/utils";
 import Cart from "../models/cart";
 
+import { ICart } from "../models/cart";
+
 export const handleDeleteCartItem = async (
   req: Request,
   next: NextFunction

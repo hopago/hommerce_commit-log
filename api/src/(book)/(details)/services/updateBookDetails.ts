@@ -3,6 +3,8 @@ import { validateFields } from "../../../utils/validateFields";
 import BookDetails from "../models/detail";
 import { HttpException } from "../../../middleware/error/utils";
 
+import { IDetails } from "../models/detail";
+
 export const handleUpdateBookDetails = async (
   req: Request,
   next: NextFunction

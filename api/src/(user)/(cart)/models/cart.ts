@@ -1,6 +1,6 @@
 import { Schema, model, Document } from "mongoose";
 
-interface ICart extends Document {
+export interface ICart extends Document {
   userId: string;
   books: CartList;
 }

@@ -16,7 +16,7 @@ export const getUserPointLog = async (
   const sort = decodeURIComponent(req.query.sort as string) as
     | "최신순"
     | "오래된순";
-  const pageNum = req.query.pageNum as number | undefined;
+  const pageNum = req.query.pageNum as string | undefined;
 
   try {
     const { userId } = req.params;
@@ -24,7 +24,7 @@ export const getUserPointLog = async (
       throw new HttpException(400, "User Id required.");
 
     const pointLogs = await handleGetUserPointLog(
-      { filter, keyword, userId, pageNum, sort },
+      { filter, keyword, userId, pageNum: Number(pageNum), sort },
       next
     );
 
