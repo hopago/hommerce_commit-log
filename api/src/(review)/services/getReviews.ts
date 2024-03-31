@@ -2,7 +2,7 @@ import { NextFunction } from "express";
 import Review from "../models/review";
 import { HttpException } from "../../middleware/error/utils";
 
-const perPage = 10;
+const perPage = 8;
 
 type QuerySortType = "최신순" | "좋아요 순";
 
