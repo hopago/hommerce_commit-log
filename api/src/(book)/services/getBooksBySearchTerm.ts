@@ -20,7 +20,6 @@ const getSortCondition: any = (sort: SortType) => {
     case "최신순":
       return { createdAt: -1 };
     case "정확도순":
-      // TODO: SORT
       return { createdAt: 1 };
     case "조회순":
       return { views: -1 };

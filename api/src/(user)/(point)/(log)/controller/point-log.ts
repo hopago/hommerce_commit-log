@@ -20,7 +20,6 @@ export const getUserPointLog = async (
 
   try {
     const { userId } = req.params;
-    // { userId: "undefined" }로 요청이 오는 것을 확인
     if (!userId || userId === "undefined")
       throw new HttpException(400, "User Id required.");
 

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { FilterQuery } from "mongoose";
 import Book, { IBook } from "../models/book";
-import { HttpException } from "../../middleware/error/utils";
 
 type FilterType = "통합검색" | "제목" | "저자";
 
@@ -22,29 +21,28 @@ export const getDocsLength = async (
 
     if (keyword && keyword.trim() !== "" && keyword !== "undefined") {
       keyword = decodeURIComponent(keyword);
+      const regex = new RegExp(keyword, "i");
 
-      if (filter === "통합검색") {
-        query = {
-          $or: [
-            { title: { $regex: new RegExp(keyword, "i") } },
-            { author: { $regex: new RegExp(keyword, "i") } },
-            { publisher: { $regex: new RegExp(keyword, "i") } },
-          ],
-        };
-      } else if (filter === "제목") {
-        query = { title: { $regex: new RegExp(keyword, "i") } };
-      } else if (filter === "저자") {
-        query = { author: { $regex: new RegExp(keyword, "i") } };
+      const filterOptions: Record<FilterType, string[]> = {
+        통합검색: ["title", "author", "publisher"],
+        제목: ["title"],
+        저자: ["author"],
+      };
+
+      const searchFields = filterOptions[filter] || filterOptions["통합검색"];
+
+      if (searchFields.length > 1) {
+        query.$or = searchFields.map((field) => ({
+          [field]: { $regex: regex },
+        }));
+      } else {
+        query[searchFields[0]] = { $regex: regex };
       }
     }
 
     const docsLength = await Book.countDocuments(query);
 
-    if (docsLength === 0 || typeof docsLength === "number") {
-      return res.status(200).json({ docsLength });
-    } else if (docsLength === undefined) {
-      throw new HttpException(404, "Document not found.");
-    }
+    return res.status(200).json({ docsLength });
   } catch (err) {
     next(err);
   }

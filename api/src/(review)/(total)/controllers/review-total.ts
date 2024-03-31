@@ -19,7 +19,6 @@ export const getTotal = async (
 
     const total = await handleGetTotal({ bookId }, next);
 
-    // search 페이지 -> 리뷰 총 갯수 UI
     const reviewsLength = await handleGetDocsLength({ bookId }, next);
 
     if (total && typeof reviewsLength === "number") {

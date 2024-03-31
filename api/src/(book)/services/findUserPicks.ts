@@ -23,7 +23,6 @@ export const findUserPicks = async (
     const userData: IUserData | null = await UserData.findOne({
       userId: new RegExp(`^${req.query.userId}$`, "i"),
     });
-    console.log(userData);
 
     if (userData) {
       const preferredCategories = Object.keys(userData.category) as Array<

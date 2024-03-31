@@ -11,8 +11,6 @@ export const handlePostErrorLog = async (req: Request, next: NextFunction) => {
     req.url
   }\n${error}`;
 
-  console.log(logMessage);
-
   try {
     await appendFilePromisified("logs/error.log", logMessage);
 

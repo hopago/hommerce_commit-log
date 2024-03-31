@@ -3,7 +3,7 @@ import ReviewTotal from "../../(review)/(total)/models/review-total";
 import Book, { IBook } from "../models/book";
 
 interface BestBook {
-  _id: string; // bestBook _id
+  _id: string;
   averageRating: number;
   keywordCount: number;
   bookDetails: IBook;

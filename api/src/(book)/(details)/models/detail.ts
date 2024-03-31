@@ -1,7 +1,5 @@
 import { Schema, model, Document } from "mongoose";
 
-// TODO: req.body -> formData || json.stringify(data)
-
 interface IDetails extends Document {
   bookId: string;
   awards: string[];

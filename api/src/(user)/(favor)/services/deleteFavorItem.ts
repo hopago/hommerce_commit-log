@@ -22,9 +22,7 @@ export const handleDeleteFavorItem = async (
     found?.books.splice(index, 1);
 
     try {
-      await found?.save();
-
-      return found;
+      return await found?.save();
     } catch (err) {
       next(err);
     }

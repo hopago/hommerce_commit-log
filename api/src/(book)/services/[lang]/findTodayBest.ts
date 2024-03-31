@@ -1,17 +1,10 @@
-import { NextFunction, Request, Response } from "express"; // Response 타입 추가
+import { NextFunction, Request } from "express";
 import ReviewTotal from "../../../(review)/(total)/models/review-total";
 import { PipelineStage, Types } from "mongoose";
 import { HttpException } from "../../../middleware/error/utils";
-import Book, { IBook } from "../../models/book";
+import { IBook } from "../../models/book";
 import { filterLangToKor } from "../../utils/filterLangToKor";
 import { findRandomPicks } from "../findUserPicks";
-
-type BestBook = {
-  _id: Types.ObjectId;
-  averageRating: number;
-  reviewCount: number;
-  bookDetails: IBook;
-}[];
 
 type RequestLangQueryValue = "kor" | "en" | string | undefined | "undefined";
 
@@ -77,7 +70,6 @@ export const findTodayBest = async (req: Request, next: NextFunction) => {
       };
     });
 
-    // temporary
     if (!todayBest.length) {
       return await findRandomPicks(next);
     }

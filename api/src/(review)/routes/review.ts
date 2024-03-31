@@ -30,6 +30,4 @@ router.route("/").delete(deleteReviewById);
 
 router.route("/:reviewId").patch(likeReview);
 
-// router.route("/:reviewId/likes").patch(likeReview);
-
 export default router;

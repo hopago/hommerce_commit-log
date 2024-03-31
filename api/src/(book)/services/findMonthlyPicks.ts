@@ -6,7 +6,7 @@ import { PipelineStage } from "mongoose";
 type BookDetails = IBook;
 
 interface AggregatedData {
-  _id: string; // aggregationId
+  _id: string;
   averageRating: number;
   keywordCount: number;
   bookDetails: BookDetails;
@@ -78,7 +78,6 @@ export const findMonthlyPicks = async (
 
     const hasNextPage = nextPageCheck >= 4;
 
-    // temporary
     if (bestBooks.length === 0) {
       const books = await Book.find({
         createdAt: { $gte: oneMonthAgo },

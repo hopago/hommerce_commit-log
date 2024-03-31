@@ -81,7 +81,7 @@ export const deleteFavorItem = async (
     );
 
     if (deletedFavorList) {
-      return res.status(201).json({ deletedFavorId: deletedFavorList._id });
+      return res.status(201).json({ deletedItemId: bookId });
     }
   } catch (err) {
     next(err);

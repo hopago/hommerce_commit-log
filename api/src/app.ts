@@ -13,8 +13,6 @@ import { PORT } from "./config/port";
 
 import { errorHandler } from "./middleware/error/errorHandler";
 
-// a: 인사이트 제공, d: 데이터 수집 로직
-
 import userRouter from "./(user)/routes/user";
 import userDataRouter from "./(user)/routes/user-data";
 
