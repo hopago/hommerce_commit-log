@@ -60,11 +60,11 @@ export default function ReviewLogsTable({ userId }: { userId: string }) {
   useEffect(() => {
     if (enabled) {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.USER_REVIEW, currentPage],
+        queryKey: [QueryKeys.USER_REVIEW, userId],
       });
       refetch();
     }
-  }, [enabled, searchTerm, sort]);
+  }, [enabled, sort, currentPage]);
 
   useEffect(() => {
     if (isSuccess) {

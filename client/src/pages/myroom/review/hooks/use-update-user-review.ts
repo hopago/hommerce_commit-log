@@ -1,16 +1,11 @@
 import { toast } from "sonner";
 
-import { useRecoilValue } from "recoil";
-import { reviewFilterState } from "../../../../recoil/pagination/search/filter/filter";
-import { reviewSortState } from "../../../../recoil/pagination/search/sort/sort";
-import { reviewSearchTermState } from "../../../../recoil/pagination/search/keyword/searchTerm";
-import { currentPageState } from "../../../../recoil/pagination/pageNum/paginate";
-
 import { getQueryClient } from "../../../../lib/react-query/getQueryClient";
 import { useMutation } from "@tanstack/react-query";
 import { ServerError } from "../../../../fetcher/error";
 import { MutateFns } from "../../../../lib/react-query/mutateFn";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
+import { useUser } from "@clerk/clerk-react";
 
 export const useDeleteUserReview = ({
   userId,
@@ -19,12 +14,8 @@ export const useDeleteUserReview = ({
   userId: string;
   bookIds: string[];
 }) => {
+  const { user } = useUser();
   const queryClient = getQueryClient();
-
-  const filter = useRecoilValue(reviewFilterState);
-  const sort = useRecoilValue(reviewSortState);
-  const searchTerm = useRecoilValue(reviewSearchTermState);
-  const currentPage = useRecoilValue(currentPageState);
 
   const { mutate, isPending } = useMutation<
     string[],
@@ -36,19 +27,11 @@ export const useDeleteUserReview = ({
       const idsArray = Array.isArray(ids) ? ids : [ids];
       const prevReviews = queryClient.getQueryData<ReviewLogs>([
         QueryKeys.USER_REVIEW,
-        filter,
-        searchTerm,
+        user?.id,
       ]);
       if (!prevReviews) {
         await queryClient.invalidateQueries({
-          queryKey: [
-            QueryKeys.USER_REVIEW,
-            userId,
-            sort,
-            filter,
-            searchTerm,
-            currentPage,
-          ],
+          queryKey: [QueryKeys.USER_REVIEW, user?.id],
         });
         return;
       }
@@ -58,7 +41,7 @@ export const useDeleteUserReview = ({
       );
 
       queryClient.setQueryData(
-        [QueryKeys.USER_REVIEW, filter, searchTerm],
+        [QueryKeys.USER_REVIEW, user?.id],
         filteredReviews
       );
 
