@@ -20,6 +20,7 @@ export const getQueryClient = cache(() => {
 
 export const QueryKeys = {
   USER: "user",
+  USERS: "users",
   USER_SEARCH: "userSearchResults",
   USER_SESSION: "userSession",
   USER_REVIEW: "userReviews",

@@ -29,21 +29,27 @@ export const fetchBookBySearchTerm = ({
 }: FetchBookBySearchTermParams): Promise<BookData> => {
   let path = `/book`;
 
-  const sortQueryString = createQueryString({ sort });
+  const queryParams: Record<string, string> = {};
 
-  let filterQueryString: string | null = null;
-  if (filter && translateQueryValueToEn(filter)) {
-    filterQueryString = translateQueryValueToEn(filter);
-    path += `?${filterQueryString}=${filterQueryString}`;
-
-    if (searchTerm && searchTerm.trim() !== "") {
-      const keywordQueryString = createQueryString({ keyword: searchTerm });
-      path += `&${keywordQueryString}`;
+  if (filter) {
+    const filterEn = translateQueryValueToEn(filter);
+    if (filterEn) {
+      queryParams.filter = filterEn;
     }
-    path += `&${sortQueryString}`;
-  } else {
-    path += `?${sortQueryString}`;
   }
+
+  if (searchTerm && searchTerm.trim() !== "") {
+    queryParams.keyword = searchTerm.trim();
+  }
+
+  queryParams.sort = sort;
+
+  if (pageNum) {
+    queryParams.pageNum = pageNum.toString();
+  }
+
+  const queryString = createQueryString(queryParams);
+  path += `?${queryString}`;
 
   if (pageNum) {
     const pageNumQueryString = `pageNum=${pageNum}`;

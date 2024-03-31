@@ -16,13 +16,22 @@ import { cn } from "@/app/ui/lib/utils";
 import Button from "../../../../_components/Button";
 
 import { toast } from "sonner";
+import { PaginatedUserResponse } from "../../../../types/user";
 
 type NoContentProps = {
   text?: string;
   refetch: (
     options?: RefetchOptions | undefined
   ) => Promise<
-    QueryObserverResult<ReviewData | PointData | BookData | IBook[] | Error>
+    QueryObserverResult<
+      | ReviewData
+      | PointData
+      | BookData
+      | IBook[]
+      | PaginatedUserResponse
+      | undefined
+      | Error
+    >
   >;
   error: Error | null;
   isRefetching: boolean;

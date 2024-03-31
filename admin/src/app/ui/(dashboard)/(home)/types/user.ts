@@ -9,3 +9,13 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface PaginatedUserResponse {
+  users: IUser[];
+  pagination: {
+    currentPage: number;
+    totalUsers: number;
+    totalPages: number;
+    hasNextPage: boolean;
+  };
+}
