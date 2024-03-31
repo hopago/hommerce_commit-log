@@ -57,7 +57,7 @@ export default function BookList({ display }: BookListProps) {
       });
       refetch();
     }
-  }, [shouldRefetch, currPage]);
+  }, [shouldRefetch, currPage, sort]);
 
   useEffect(() => {
     if (isSuccess) {

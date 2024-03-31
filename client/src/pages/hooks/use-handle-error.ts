@@ -43,7 +43,6 @@ export const useHandleError = ({
 
     if ((isError && error) || (isRefetchError && error)) {
       if (error instanceof ServerError) {
-        console.log(error);
         toast.error(handleError({ error, errorDetails }));
       } else {
         postError(error);

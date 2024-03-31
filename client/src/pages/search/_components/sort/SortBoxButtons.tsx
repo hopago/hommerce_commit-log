@@ -1,16 +1,19 @@
 import SortButton from "./SortButton";
 import SwitchButtons from "../SwitchButtons";
-import AddFavorButton from "../AddFavorButton";
-import AddCartButton from "../AddCartButton";
+import AddFavorButton from "../AddMultipleWishList";
+import AddCartButton from "../AddMultipleCartItem";
 
 import { UIType } from "../../hooks/use-select-ui";
 
 type SortBoxButtonsProps = {
   onClick: (display: UIType) => void;
-  display: UIType
-}
+  display: UIType;
+};
 
-export default function SortBoxButtons({ onClick, display }: SortBoxButtonsProps) {
+export default function SortBoxButtons({
+  onClick,
+  display,
+}: SortBoxButtonsProps) {
   return (
     <div className="search-contents__container__sort-box__wrapper__buttons">
       {/* API */}

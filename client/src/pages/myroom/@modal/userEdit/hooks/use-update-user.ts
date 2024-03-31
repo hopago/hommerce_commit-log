@@ -47,7 +47,6 @@ export const useUpdateUser = ({ username }: UseUpdateUserProps) => {
       }
     },
     onError: (error) => {
-      console.log(error);
       if (error instanceof ServerError) {
         toast.error("유저 정보를 변경하던 중 문제가 생겼어요.");
       } else {

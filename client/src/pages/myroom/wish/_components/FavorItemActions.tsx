@@ -26,7 +26,6 @@ export default function FavorItemActions({ bookId }: FavorItemActionsProps) {
       toast.success("위시리스트를 성공적으로 삭제했어요.");
     } catch (err) {
       postError(err);
-      console.log(err);
     }
   };
 

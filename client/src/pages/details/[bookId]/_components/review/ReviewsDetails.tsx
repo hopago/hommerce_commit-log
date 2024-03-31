@@ -31,6 +31,7 @@ export default function ReviewsDetails() {
 
   const setUserPosted = useSetRecoilState(isAlreadyPostReview);
 
+  // TODO: currTab-review
   const currTab = useRecoilValue(reviewTabState);
   const sort = useRecoilValue(reviewSortOptionsState);
   const pageNum = useRecoilValue(currentPageState);
@@ -76,7 +77,7 @@ export default function ReviewsDetails() {
       });
       refetch();
     }
-  }, [shouldRefetch]);
+  }, [shouldRefetch, sort, pageNum, bookId]);
 
   useEffect(() => {
     if (isSuccess) {

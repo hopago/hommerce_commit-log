@@ -16,11 +16,7 @@ export const patchSeenBookCategory = async (
     });
   } catch (err) {
     if (err instanceof ServerError || err instanceof Error) {
-      try {
-        postError(err);
-      } catch (err) {
-        console.log(err);
-      }
+      postError(err);
     }
   }
 };
