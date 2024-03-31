@@ -102,7 +102,7 @@ export default function BooksSearchResults() {
             <BookTable
               books={data.books as IBook[]}
               isLoading={isLoading}
-              dataLength={data?.pagination.totalBooks}
+              dataLength={data?.pagination?.totalBooks ?? 0}
             />
             <PaginateControl pageTotal={data?.pagination.totalPages!} />
           </div>
