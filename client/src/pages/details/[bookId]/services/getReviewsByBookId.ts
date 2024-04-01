@@ -1,7 +1,7 @@
 import { restFetcher } from "../../../../fetcher/restFetcher";
 import { createQueryString } from "../../../../fetcher/utils";
 
-import { ReviewSortOptions } from "../../../../recoil/review-select";
+import { ReviewSortOptions } from "../../../../recoil/review/review-select";
 
 type GetReviewsByBookIdProps = {
   bookId: string;

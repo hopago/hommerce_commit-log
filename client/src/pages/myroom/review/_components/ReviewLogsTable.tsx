@@ -6,9 +6,7 @@ import {
 import { reviewSearchTermState } from "../../../../recoil/pagination/search/keyword/searchTerm";
 import { reviewEnabledState } from "../../../../recoil/pagination/enabled/enabled";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { currentPageState } from "../../../../recoil/pagination/pageNum/paginate";
 
-import { getQueryClient } from "../../../../lib/react-query/getQueryClient";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
 import { QueryFns } from "../../../../lib/react-query/queryFn";
@@ -17,6 +15,7 @@ import { daysToMs } from "../../../../lib/react-query/utils";
 import { useEffect } from "react";
 import { useHandleError } from "../../../hooks/use-handle-error";
 import { useScrollRef } from "../../../hooks/use-scroll-ref";
+import usePagination from "../../../hooks/use-pagination";
 
 import { DataTableSkeleton } from "../../point/_component/TableSkeleton";
 import { NoContent } from "../../_components/NoContent";
@@ -28,10 +27,17 @@ export default function ReviewLogsTable({ userId }: { userId: string }) {
   const sort = useRecoilValue(reviewSortState);
   const filter = useRecoilValue<ReviewFilterOption>(reviewFilterState);
   const searchTerm = useRecoilValue(reviewSearchTermState);
+  const {
+    currentPage,
+    handlePrevPage,
+    handleNextPage,
+    handleSetPage,
+    handleMoveToFirstPage,
+    handleMoveToLastPage,
+  } = usePagination();
   const [enabled, setEnabled] = useRecoilState(reviewEnabledState);
-  const currentPage = useRecoilValue(currentPageState);
 
-  const queryClient = getQueryClient();
+  const { scrollRef } = useScrollRef({ currentPage });
 
   const {
     data,
@@ -57,14 +63,16 @@ export default function ReviewLogsTable({ userId }: { userId: string }) {
     enabled: enabled && Boolean(userId),
   });
 
+  /* paginate & sort changed, force refetch */
+  useEffect(() => {
+    setEnabled(true);
+  }, [currentPage, sort]);
+
   useEffect(() => {
     if (enabled) {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKeys.USER_REVIEW, userId],
-      });
       refetch();
     }
-  }, [enabled, sort, currentPage]);
+  }, [enabled]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -73,8 +81,6 @@ export default function ReviewLogsTable({ userId }: { userId: string }) {
   }, [isSuccess]);
 
   useHandleError({ error, isError, fieldName: "리뷰" });
-
-  const { scrollRef } = useScrollRef({ currentPage });
 
   if (isLoading) return <DataTableSkeleton />;
 
@@ -101,7 +107,17 @@ export default function ReviewLogsTable({ userId }: { userId: string }) {
           reviews={data.reviews as ReviewLogs}
           dataLength={data?.pagination.totalReviews!}
         />
-        <PaginateControl pageTotal={data?.pagination.totalPages!} />
+        {data?.pagination && data?.pagination?.totalPages > 1 && (
+          <PaginateControl
+            pageTotal={data?.pagination.totalPages}
+            currentPage={currentPage}
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+            handleSetPage={handleSetPage}
+            handleMoveToFirstPage={handleMoveToFirstPage}
+            handleMoveToLastPage={handleMoveToLastPage}
+          />
+        )}
       </div>
     );
   }

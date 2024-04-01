@@ -14,7 +14,7 @@ export default function InfoTitle({
 }: InfoTitleProps) {
   let category: JSX.Element | null = null;
 
-  const [currCategory, setCurrCategory] =
+  const [currCategory, _] =
     useState<BookParentCategory>("국내도서");
 
   if (categoryArr) {

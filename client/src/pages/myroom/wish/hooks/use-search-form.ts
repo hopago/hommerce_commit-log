@@ -4,7 +4,13 @@ import { useDebouncedSearch } from "../../../hooks/use-debounced-search";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
 import { QueryFns } from "../../../../lib/react-query/queryFn";
 import { daysToMs } from "../../../../lib/react-query/utils";
+
 import { useHandleError } from "../../../hooks/use-handle-error";
+
+import { useEffect } from "react";
+
+import { useRecoilState } from "recoil";
+import { myRoomSearchEnabledState } from "../../../../recoil/pagination/enabled/enabled";
 
 export type BookFilterOption = "통합검색" | "제목" | "저자";
 
@@ -24,11 +30,14 @@ export const useDebouncedSearchFormWithFilter = ({
   const { debouncedSearchTerm, searchTerm, setSearchTerm, handleChange } =
     useDebouncedSearch();
 
+  const [enabled, setEnabled] = useRecoilState(myRoomSearchEnabledState);
+
   const {
     data: searchResults,
     error,
     isError,
     isLoading,
+    refetch,
   } = useQuery<BookData>({
     queryKey: [QueryKeys.BOOK_SEARCH, debouncedSearchTerm],
     queryFn: () =>
@@ -42,6 +51,16 @@ export const useDebouncedSearchFormWithFilter = ({
     gcTime: daysToMs(7),
     enabled: !!debouncedSearchTerm,
   });
+
+  useEffect(() => {
+    setEnabled(true);
+  }, [pageNum, sort]);
+
+  useEffect(() => {
+    if (enabled) {
+      refetch();
+    }
+  }, [enabled]);
 
   useHandleError({ error, isError, fieldName: "도서" });
 

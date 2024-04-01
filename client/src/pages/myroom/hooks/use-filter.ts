@@ -40,7 +40,6 @@ export function useFilter<T, S>(props: UseFilterProps<T, S>) {
 
   const handleSort = useCallback((sort: S) => {
     setSort(sort);
-    setEnabled(true);
     setShow(false);
   }, []);
 

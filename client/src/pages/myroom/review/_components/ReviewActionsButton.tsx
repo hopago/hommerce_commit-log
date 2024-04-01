@@ -44,15 +44,26 @@ export default function ReviewActions({
       {show && (
         <div className="review-actions-buttons">
           <Navigate path={`/details/${bookId}`} text="상세보기" />
-          <Delete userId={userId} id={id} />
+          <Delete userId={userId} id={id} bookId={bookId} />
         </div>
       )}
     </td>
   );
 }
 
-function Delete({ id, userId }: { id: string; userId: string }) {
-  const { mutate, isPending } = useDeleteUserReview({ userId });
+function Delete({
+  id,
+  userId,
+  bookId,
+}: {
+  id: string;
+  userId: string;
+  bookId: string;
+}) {
+  const { mutate, isPending } = useDeleteUserReview({
+    userId,
+    bookIds: [bookId],
+  });
 
   const onClick = () => {
     mutate(id);

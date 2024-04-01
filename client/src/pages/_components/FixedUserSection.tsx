@@ -3,7 +3,7 @@ import { HeartSvg, ProfileOutlineSvg, SearchSvg } from "./constants/Icons";
 import { useState } from "react";
 
 export default function FixedUserSection() {
-  const [active, setActive] = useState(0);
+  const [active, _] = useState(0);
 
   const items = [
     {

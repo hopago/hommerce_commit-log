@@ -6,11 +6,23 @@ import ResultItem from "./ResultItem";
 type SearchResultsProps = {
   results: BookData | undefined;
   isLoading: boolean;
+  currentPage: number;
+  handlePrevPage: () => void;
+  handleNextPage: (pageTotal: number) => void;
+  handleSetPage: (pageNum: number) => void;
+  handleMoveToFirstPage: () => void;
+  handleMoveToLastPage: (pageTotal: number) => void;
 };
 
 export default function SearchResults({
   results,
   isLoading,
+  currentPage,
+  handleMoveToFirstPage,
+  handleMoveToLastPage,
+  handleNextPage,
+  handlePrevPage,
+  handleSetPage,
 }: SearchResultsProps) {
   if (isLoading) return <SearchResultsLoadingComponent />;
 
@@ -24,7 +36,17 @@ export default function SearchResults({
           <ResultItem key={book._id} book={book} />
         ))}
       </ul>
-      <PaginateControl pageTotal={results?.pagination.totalPages ?? 0} />
+      {results?.pagination && results?.pagination?.totalPages > 1 && (
+        <PaginateControl
+          pageTotal={results?.pagination.totalPages}
+          currentPage={currentPage}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+          handleSetPage={handleSetPage}
+          handleMoveToFirstPage={handleMoveToFirstPage}
+          handleMoveToLastPage={handleMoveToLastPage}
+        />
+      )}
     </div>
   );
 }

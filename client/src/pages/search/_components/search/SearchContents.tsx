@@ -2,6 +2,7 @@ import PaginateControl from "../../../details/[bookId]/_components/PaginateContr
 
 import { getPageTotal } from "../../../details/[bookId]/utils/getPageTotal";
 
+import usePagination from "../../../hooks/use-pagination";
 import { useSelectUI } from "../../hooks/use-select-ui";
 
 import BookList from "../book/BookList";
@@ -17,12 +18,29 @@ export default function SearchContents({ docsLength }: SearchContentsProps) {
 
   const pageTotal = getPageTotal(docsLength);
 
+  const {
+    currentPage,
+    handlePrevPage,
+    handleNextPage,
+    handleSetPage,
+    handleMoveToFirstPage,
+    handleMoveToLastPage,
+  } = usePagination();
+
   return (
     <div className="search-contents__container">
       <SortBox onClick={onClick} display={display} docsLength={docsLength} />
       <FilterInfo />
-      <BookList display={display} />
-      <PaginateControl pageTotal={pageTotal} />
+      <BookList display={display} currentPage={currentPage} />
+      <PaginateControl
+        pageTotal={pageTotal}
+        currentPage={currentPage}
+        handlePrevPage={handlePrevPage}
+        handleNextPage={handleNextPage}
+        handleSetPage={handleSetPage}
+        handleMoveToFirstPage={handleMoveToFirstPage}
+        handleMoveToLastPage={handleMoveToLastPage}
+      />
     </div>
   );
 }

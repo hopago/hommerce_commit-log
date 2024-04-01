@@ -11,7 +11,7 @@ type SelectItemsProps = {
   direction: "top" | "bottom";
   className?: string;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  onReviewSortOptionClick?: (text: ReviewSortOptions | BookSortOption) => void;
+  onReviewSortOptionClick?: (text: any) => void;
   onSearchSortOptionClick?: (option: any) => void;
 };
 

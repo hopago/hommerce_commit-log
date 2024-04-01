@@ -1,20 +1,20 @@
+import { useEffect } from "react";
+
 import { useRecoilState, useRecoilValue } from "recoil";
 import { pointSortState } from "../../../../recoil/pagination/search/sort/sort";
 import { pointFilterState } from "../../../../recoil/pagination/search/filter/filter";
 import { pointSearchTermState } from "../../../../recoil/pagination/search/keyword/searchTerm";
 import { pointEnabledState } from "../../../../recoil/pagination/enabled/enabled";
-import { currentPageState } from "../../../../recoil/pagination/pageNum/paginate";
 
-import { getQueryClient } from "../../../../lib/react-query/getQueryClient";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
 import { PointFilterOption } from "../services/getUserPointLog";
 import { daysToMs } from "../../../../lib/react-query/utils";
-
-import { useEffect } from "react";
+import { QueryFns } from "../../../../lib/react-query/queryFn";
 
 import { useHandleError } from "../../../hooks/use-handle-error";
 import { useScrollRef } from "../../../hooks/use-scroll-ref";
+import usePagination from "../../../hooks/use-pagination";
 
 import { NoContent } from "../../_components/NoContent";
 import { DataTableSkeleton } from "./TableSkeleton";
@@ -22,16 +22,20 @@ import UserPoint from "./UserPoint";
 import FilterPointLogs from "./FilterPointLogs";
 import PointLogTable from "./PointLogTable";
 import PaginateControl from "../../../details/[bookId]/_components/PaginateControl";
-import { QueryFns } from "../../../../lib/react-query/queryFn";
 
 export default function PointLogsTable({ userId }: { userId: string }) {
   const sort = useRecoilValue(pointSortState);
   const filter = useRecoilValue<PointFilterOption>(pointFilterState);
   const searchTerm = useRecoilValue(pointSearchTermState);
   const [enabled, setEnabled] = useRecoilState(pointEnabledState);
-  const currentPage = useRecoilValue(currentPageState);
-
-  const queryClient = getQueryClient();
+  const {
+    currentPage,
+    handlePrevPage,
+    handleNextPage,
+    handleSetPage,
+    handleMoveToFirstPage,
+    handleMoveToLastPage,
+  } = usePagination();
 
   const {
     data,
@@ -58,19 +62,14 @@ export default function PointLogsTable({ userId }: { userId: string }) {
   });
 
   useEffect(() => {
-    if (enabled) {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKeys.USER_POINT_LOG, currentPage],
-      });
-      refetch();
-    }
-  }, [enabled, searchTerm, sort]);
+    setEnabled(true);
+  }, [currentPage, sort]);
 
   useEffect(() => {
-    if (isSuccess) {
-      setEnabled(false);
+    if (enabled) {
+      refetch();
     }
-  }, [isSuccess]);
+  }, [enabled]);
 
   useHandleError({ error, isError, fieldName: "포인트" });
 
@@ -103,7 +102,15 @@ export default function PointLogsTable({ userId }: { userId: string }) {
           pointLogs={data.pointsLogs as PointLogs}
           isLoading={isLoading}
         />
-        <PaginateControl pageTotal={data?.pagination.totalPages!} />
+        <PaginateControl
+          pageTotal={data?.pagination.totalPages}
+          currentPage={currentPage}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+          handleSetPage={handleSetPage}
+          handleMoveToFirstPage={handleMoveToFirstPage}
+          handleMoveToLastPage={handleMoveToLastPage}
+        />
       </div>
     );
   }

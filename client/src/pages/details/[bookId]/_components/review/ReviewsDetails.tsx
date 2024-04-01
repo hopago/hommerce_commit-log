@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { reviewTabState } from "../../../../../recoil/review/review-tab";
+// import { reviewTabState } from "../../../../../recoil/review/review-tab";
 import { reviewSortOptionsState } from "../../../../../recoil/review/review-select";
-import { currentPageState } from "../../../../../recoil/pagination/pageNum/paginate";
+// import { currentPageState } from "../../../../../recoil/pagination/pageNum/paginate";
 import { isAlreadyPostReview } from "../../../../../recoil/edit-user-review";
 import { detailsPageEnabled } from "../../../../../recoil/api/details-page-review-enabled";
 
@@ -19,8 +19,8 @@ import { QueryFns } from "../../../../../lib/react-query/queryFn";
 import { daysToMs } from "../../../../../lib/react-query/utils";
 import { useHandleError } from "../../../../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../../../../api/constants/errorDetails";
-import { getQueryClient } from "../../../../../lib/react-query/getQueryClient";
 
+import usePagination from "../../../../hooks/use-pagination";
 import { useScrollRef } from "../../../../hooks/use-scroll-ref";
 
 import { useUser } from "@clerk/clerk-react";
@@ -32,16 +32,22 @@ export default function ReviewsDetails() {
   const setUserPosted = useSetRecoilState(isAlreadyPostReview);
 
   // TODO: currTab-review
-  const currTab = useRecoilValue(reviewTabState);
+  // const currTab = useRecoilValue(reviewTabState);
   const sort = useRecoilValue(reviewSortOptionsState);
-  const pageNum = useRecoilValue(currentPageState);
+  const {
+    currentPage,
+    handlePrevPage,
+    handleNextPage,
+    handleSetPage,
+    handleMoveToFirstPage,
+    handleMoveToLastPage,
+  } = usePagination();
   const [shouldRefetch, setShouldRefetch] = useRecoilState(detailsPageEnabled);
 
-  const queryClient = getQueryClient();
-
   /* paginate-scroll-behavior */
-  const { scrollRef } = useScrollRef({ currentPage: pageNum });
+  const { scrollRef } = useScrollRef({ currentPage });
 
+  /* fetch data */
   const { data: userReview, isSuccess: isUserPostedSuccess } = useQuery({
     queryKey: [QueryKeys.REVIEW, user?.id],
     queryFn: () =>
@@ -57,7 +63,11 @@ export default function ReviewsDetails() {
   const { data, isLoading, isError, error, isSuccess, refetch } = useQuery({
     queryKey: [QueryKeys.REVIEWS, bookId],
     queryFn: () =>
-      QueryFns.GET_REVIEWS_BY_BOOK_ID({ bookId: bookId!, pageNum, sort }),
+      QueryFns.GET_REVIEWS_BY_BOOK_ID({
+        bookId: bookId!,
+        pageNum: currentPage,
+        sort,
+      }),
     staleTime: daysToMs(1),
     gcTime: daysToMs(3),
     enabled: shouldRefetch && !!bookId,
@@ -71,13 +81,14 @@ export default function ReviewsDetails() {
 
   /* paginate & sort changed, force refetch */
   useEffect(() => {
+    setShouldRefetch(true);
+  }, [currentPage, sort]);
+
+  useEffect(() => {
     if (shouldRefetch) {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKeys.REVIEWS, bookId],
-      });
       refetch();
     }
-  }, [shouldRefetch, sort, pageNum, bookId]);
+  }, [shouldRefetch]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -119,8 +130,16 @@ export default function ReviewsDetails() {
       <div className="details-prod-reviews__wrap__reviews-details">
         <ReviewsSortTabList />
         <ReviewList ref={scrollRef} reviews={reviewsToDisplay} />
-        {data?.pagination && data.pagination.totalPages > 1 && (
-          <PaginateControl pageTotal={data!.pagination.totalPages} />
+        {data?.pagination && data?.pagination?.totalPages > 1 && (
+          <PaginateControl
+            pageTotal={data.pagination.totalPages}
+            currentPage={currentPage}
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+            handleSetPage={handleSetPage}
+            handleMoveToFirstPage={handleMoveToFirstPage}
+            handleMoveToLastPage={handleMoveToLastPage}
+          />
         )}
       </div>
     );
@@ -132,7 +151,6 @@ function LoadingComponent() {
     <div className="details-prod-reviews__wrap__reviews-details">
       <ReviewsSortTabList />
       <ReviewListLoadingComponent />
-      <PaginateControl pageTotal={10} />
     </div>
   );
 }

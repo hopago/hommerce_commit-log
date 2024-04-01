@@ -3,11 +3,20 @@ import { MdArrowRight } from "react-icons/md";
 import { cn } from "../../../../lib/utils";
 
 type NextPageProps = {
-  onNextPage: () => void;
+  pageTotal: number;
+  onNextPage: (pageTotal: number) => void;
   disabled: boolean;
 };
 
-export default function NextPage({ onNextPage, disabled }: NextPageProps) {
+export default function NextPage({
+  pageTotal,
+  onNextPage,
+  disabled,
+}: NextPageProps) {
+  const onClick = () => {
+    onNextPage(pageTotal);
+  };
+
   return (
     <button
       type="button"
@@ -15,7 +24,7 @@ export default function NextPage({ onNextPage, disabled }: NextPageProps) {
         "reviews-pagination__arrow-btn right",
         disabled && "disabled"
       )}
-      onClick={onNextPage}
+      onClick={onClick}
       disabled={disabled}
     >
       <MdArrowRight className="icon" />

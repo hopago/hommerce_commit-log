@@ -1,13 +1,15 @@
-import { UIType } from "../../hooks/use-select-ui";
-
 import { useRecoilState, useRecoilValue } from "recoil";
 import { searchSortState } from "../../../../recoil/search/search-page-sort";
-import { currentPageState } from "../../../../recoil/pagination/pageNum/paginate";
 import { searchPageEnabled } from "../../../../recoil/api/search-page-enabled";
 import { searchFilterState } from "../../../../recoil/search/search-filter";
 
+import { useEffect } from "react";
+
 import { getKeyword } from "../../utils/get-keyword";
 import { cn } from "../../../../lib/utils";
+import { useScrollRef } from "../../../hooks/use-scroll-ref";
+import { useHandleError } from "../../../hooks/use-handle-error";
+import { UIType } from "../../hooks/use-select-ui";
 
 import BookItem from "./BookItem";
 import Spinner from "../../../../_components/common/Spinner";
@@ -15,55 +17,34 @@ import Spinner from "../../../../_components/common/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "../../../../lib/react-query/query-key";
 import { daysToMs } from "../../../../lib/react-query/utils";
-import { useEffect } from "react";
-import { getQueryClient } from "../../../../lib/react-query/getQueryClient";
-import { useScrollRef } from "../../../hooks/use-scroll-ref";
-import { useHandleError } from "../../../hooks/use-handle-error";
 import { ERROR_DETAILS } from "../../../../api/constants/errorDetails";
 import { QueryFns } from "../../../../lib/react-query/queryFn";
 
 type BookListProps = {
   display: UIType;
+  currentPage: number;
 };
 
-export default function BookList({ display }: BookListProps) {
-  const queryClient = getQueryClient();
-
+export default function BookList({ display, currentPage }: BookListProps) {
   const filter = useRecoilValue(searchFilterState);
   const keyword = getKeyword();
   const sort = useRecoilValue(searchSortState);
-  const currPage = useRecoilValue(currentPageState);
   const [shouldRefetch, setShouldRefetch] = useRecoilState(searchPageEnabled);
 
   const { data, error, isSuccess, isLoading, isError, refetch } =
     useQuery<BookData>({
-      queryKey: [QueryKeys.BOOK_SEARCH, currPage],
+      queryKey: [QueryKeys.BOOK_SEARCH, currentPage],
       queryFn: () =>
         QueryFns.GET_BOOK_SEARCH_RESULTS({
           filter,
           searchTerm: keyword,
           sort,
-          pageNum: currPage,
+          pageNum: currentPage,
         }),
       staleTime: daysToMs(1),
       gcTime: daysToMs(3),
       enabled: shouldRefetch,
     });
-
-  useEffect(() => {
-    if (shouldRefetch) {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKeys.BOOK_SEARCH, currPage],
-      });
-      refetch();
-    }
-  }, [shouldRefetch, currPage, sort]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      setShouldRefetch(false);
-    }
-  }, [isSuccess]);
 
   useHandleError({
     error,
@@ -71,7 +52,23 @@ export default function BookList({ display }: BookListProps) {
     errorDetails: ERROR_DETAILS.BOOKS_SEARCH_RESULTS,
   });
 
-  const { scrollRef } = useScrollRef({ currentPage: currPage });
+  useEffect(() => {
+    setShouldRefetch(true);
+  }, [currentPage, sort]);
+
+  useEffect(() => {
+    if (shouldRefetch) {
+      refetch();
+    }
+  }, [shouldRefetch]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setShouldRefetch(false);
+    }
+  }, [isSuccess]);
+
+  const { scrollRef } = useScrollRef({ currentPage });
 
   if (isLoading) {
     return (

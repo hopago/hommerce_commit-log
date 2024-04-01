@@ -4,12 +4,12 @@ import {
   BookSortOption,
   useDebouncedSearchFormWithFilter,
 } from "../../hooks/use-search-form";
+import usePagination from "../../../../hooks/use-pagination";
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { searchPageSortState } from "../../../../../recoil/pagination/search/sort/sort";
 import { wishFilterState } from "../../../../../recoil/pagination/search/filter/filter";
 import { myRoomSearchEnabledState } from "../../../../../recoil/pagination/enabled/enabled";
-import { currentPageState } from "../../../../../recoil/pagination/pageNum/paginate";
 
 import { bookFilterOptions } from "../../../../constants/filter";
 import { bookSortOptions } from "../../../../constants/sort";
@@ -21,13 +21,20 @@ import SearchResults from "./SearchResults";
 export default function SearchBooks() {
   const [sortState, setSortState] = useRecoilState(searchPageSortState);
   const [filterState, setFilterState] = useRecoilState(wishFilterState);
-  const pageNum = useRecoilValue(currentPageState);
+  const {
+    currentPage,
+    handlePrevPage,
+    handleNextPage,
+    handleSetPage,
+    handleMoveToFirstPage,
+    handleMoveToLastPage,
+  } = usePagination();
   const [enabled, setEnabled] = useRecoilState(myRoomSearchEnabledState);
   const { searchTerm, handleChange, isLoading, searchResults } =
     useDebouncedSearchFormWithFilter({
       filter: filterState,
       sort: sortState,
-      pageNum,
+      pageNum: currentPage,
     });
 
   const props = {
@@ -76,7 +83,16 @@ export default function SearchBooks() {
         handleShow={toggleSortShow}
         totalBooks={searchResults?.pagination.totalBooks}
       />
-      <SearchResults isLoading={isLoading} results={searchResults} />
+      <SearchResults
+        isLoading={isLoading}
+        results={searchResults}
+        currentPage={currentPage}
+        handlePrevPage={handlePrevPage}
+        handleNextPage={handleNextPage}
+        handleSetPage={handleSetPage}
+        handleMoveToFirstPage={handleMoveToFirstPage}
+        handleMoveToLastPage={handleMoveToLastPage}
+      />
     </div>
   );
 }

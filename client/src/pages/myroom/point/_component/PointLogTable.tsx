@@ -1,5 +1,7 @@
 import { Suspense } from "react";
-import { TableRowSkeleton } from "./TableSkeleton";
+
+import { TableSkeleton } from "./TableSkeleton";
+
 import { PointRowAsync } from "./PointTableRow";
 
 type PointLogTableProps = {
@@ -23,11 +25,8 @@ export default function PointLogTable({
             </tr>
           </thead>
           <tbody>
-            {pointLogs.map((point, i) => (
-              <Suspense
-                key={`${point._id}-${i}`}
-                fallback={<TableRowSkeleton />}
-              >
+            {pointLogs.map((point) => (
+              <Suspense key={point._id} fallback={<TableSkeleton />}>
                 <PointRowAsync point={point} isLoading={isLoading} />
               </Suspense>
             ))}

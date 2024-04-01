@@ -1,5 +1,5 @@
 type MoveToLastPageProps = {
-  handleMoveToLastPage: () => void;
+  handleMoveToLastPage: (pageTotal: number) => void;
   pageTotal: number;
 };
 
@@ -11,7 +11,7 @@ export default function MoveToLastPage({
     <button
       type="button"
       className="reviews-pagination__page-num"
-      onClick={handleMoveToLastPage}
+      onClick={() => handleMoveToLastPage(pageTotal)}
     >
       <span>{pageTotal}</span>
     </button>

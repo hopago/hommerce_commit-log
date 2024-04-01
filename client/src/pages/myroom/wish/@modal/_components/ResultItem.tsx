@@ -23,9 +23,6 @@ type GetSubscriptionLengthResponse = {
   docsLength: number;
 };
 
-// SORT 쿼리 백엔드 로직 업데이트, SEARCH PAGE에도 반영 -> 로딩 상태에 따라 WISH MODAL UI ->
-// searchTerm 로직 filterEn 확인
-
 export default function ResultItem({ book }: ResultItemProps) {
   const { user } = useUser();
 
